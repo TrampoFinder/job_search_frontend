@@ -1,5 +1,11 @@
+import { RoutesComponent } from "./routes";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <RoutesComponent />
+    </>
+  );
 }
 
 export default App;
