@@ -7,13 +7,3 @@ export const api = axios.create({
   },
   timeout: 4000,
 });
-
-// api.interceptors.request.use((config) => {
-//   const token = user_token;
-
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${user_token}`;
-//   }
-
-//   return config;
-// });
