@@ -4,7 +4,6 @@ import "./styles/index.css";
 import App from "./app.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { IdentityProvider } from "./contexts/IdentityContext/index.tsx";
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>

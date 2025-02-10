@@ -4,7 +4,7 @@ import { Button } from "../Button";
 export const Header = () => {
   return (
     <header>
-      <div className="w-full flex justify-center bg-black-20 h-[81px]">
+      <div className="w-full flex justify-center h-[81px]">
         <div className="flex items-center justify-between container">
           <img src={logo} alt="Trampo Finder" className="w-[168] h-[28px]" />
           {/* <nav>
