@@ -102,7 +102,7 @@ export const Dashboard = () => {
               <a href="#" className="text-brand-1 underline">Ver todas</a>
             </div>
           </div>
-          <ul className="pt-[37px] h-full">
+          <ul className="pt-[37px] h-full w-full">
             <CardJob/>
           </ul>
         </section>
