@@ -1,4 +1,4 @@
-import nizos from "../../assets/nizos.png";
+import nizos from "../../assets/nizos.svg";
 import angleUP from "../../assets/angle-up.png";
 export const BlackFooter = () => {
   return (

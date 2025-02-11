@@ -8,7 +8,7 @@ export const BlackHeader = () => {
         <div className="flex items-center justify-between container">
           <img src={logo} alt="Trampo Finder" className="w-[168] h-[28px] " />
           <nav>
-            <ul className="flex justify-center items-center w-[527px] h-[27px] gap-5">
+            <ul className="flex justify-center items-center w-full max-w-[527px] h-[27px] gap-5">
               <li className="cursor-pointer flex flex-col relative w-[45px] items-center">
                 <span className="text-white font-semibold">Início</span>
                 <div className="bg-brand-2 h-1 w-full absolute rounded-br-1 rounded-bl-1 top-6" />
