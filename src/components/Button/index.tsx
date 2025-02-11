@@ -7,6 +7,7 @@ export interface ButtonPrimary {
   disabled?: boolean;
   onClick?: (e: unknown) => void;
   register?: object;
+  icon?: string | undefined;
 }
 
 const sizeStyle = {
@@ -31,6 +32,7 @@ export const Button = ({
   disabled,
   onClick,
   register,
+  icon,
 }: ButtonPrimary) => {
   return (
     <button
@@ -40,7 +42,14 @@ export const Button = ({
       onClick={onClick}
       {...register}
     >
-      {text}
+      {icon ? (
+        <div className="flex items-center justify-center gap-2.5">
+          <img src={icon} alt="" />
+          {text}
+        </div>
+      ) : (
+        text
+      )}
     </button>
   );
 };
