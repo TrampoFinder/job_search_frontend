@@ -4,8 +4,9 @@ import { Button } from "../../components/Button";
 import { BlackHeader } from "../../components/Header/BlackHeader";
 import briefcase from "../../assets/briefcase.svg";
 import enterprise from "../../assets/enterprise.svg";
-import nizos from "../../assets/nizos.png";
+import nizos from "../../assets/nizos.svg";
 import { CardJob } from "../../components/CardJob";
+import { BlackFooter } from "../../components/Footer";
 
 export const Dashboard = () => {
   return (
@@ -90,7 +91,7 @@ export const Dashboard = () => {
         </div>
       </footer>
       <div className="bg-white">
-        <section className="h-[1235px] container">
+        <section className="container">
           <div className="pt-[60px] flex justify-between">
             <div className="flex flex-col gap-[40px]">
               <h2 className="font-bold text-5xl">Vagas recomendadas</h2>
@@ -99,13 +100,19 @@ export const Dashboard = () => {
               </span>
             </div>
             <div className="flex flex-col justify-end">
-              <a href="#" className="text-brand-1 underline">Ver todas</a>
+              <a href="#" className="text-brand-1 underline">
+                Ver todas
+              </a>
             </div>
           </div>
-          <ul className="pt-[37px] h-full w-full">
-            <CardJob/>
+          <ul className="pt-9 pb-14 h-full w-full flex flex-col gap-6">
+            <CardJob />
+            <CardJob />
+            <CardJob />
+            <CardJob />
           </ul>
         </section>
+        <BlackFooter/>
       </div>
     </div>
   );
