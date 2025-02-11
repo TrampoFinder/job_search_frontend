@@ -1,20 +1,12 @@
-import logo from "../../assets/Logo.svg";
+import logo from "../../../assets/Logo.svg";
 
-import { Button } from "../Button";
-export const Header = () => {
+import { Button } from "../../Button";
+export const DefaultHeader = () => {
   return (
     <header>
       <div className="w-full flex justify-center h-[81px]">
         <div className="flex items-center justify-between container">
           <img src={logo} alt="Trampo Finder" className="w-[168] h-[28px]" />
-          {/* <nav>
-            <ul className="flex justify-center items-center w-[527px] h-[27px] gap-5">
-              <li className="text-white">Inicio</li>
-              <li className="text-white">Vagas</li>
-              <li className="text-white">Sobre nós</li>
-              <li className="text-white">Contato</li>
-            </ul>
-          </nav> */}
           <nav className="flex gap-5">
             <button className="text-white rounded-md cursor-pointer">
               Entrar

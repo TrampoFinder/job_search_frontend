@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterUserSchema } from "./registerUserSchema";
 import { useNavigate } from "react-router-dom";
 import { RegisterUserProps } from "../../../contexts/IdentityContext/@types";
+import { InputForm } from "../Input";
 
 export const RegisterUserForm = () => {
   const [loading, setLoading] = useState(false);
@@ -31,78 +32,42 @@ export const RegisterUserForm = () => {
     >
       <h2 className="title-form">Cadastrar</h2>
       <div className="flex flex-col w-full mt-6 gap-3.5">
-        <fieldset className="w-full flex flex-col">
-          <label htmlFor="firstName" className="text-3 font-medium text-white">
-            Nome:
-          </label>
-          <input
-            type="text"
-            id="firstName"
-            placeholder="Digite seu sobrenome"
-            className="text-3 text-gray px-4 h-[48px] w-full border-[1.5px] border-gray-200 outline-none rounded placeholder-gray mt-2.5"
-            disabled={loading}
-            {...register("firstName")}
-          />
-          {errors.username && (
-            <span className="text-red-600 text-3 inline-block">
-              {errors.username.message}
-            </span>
-          )}
-        </fieldset>
-        <fieldset className="w-full flex flex-col">
-          <label htmlFor="lastName" className="text-3 font-medium text-white">
-            Sobrenome:
-          </label>
-          <input
-            type="text"
-            id="lastName"
-            placeholder="Digite seu sobrenome"
-            className="text-3 text-gray px-4 h-[48px] w-full border-[1.5px] border-gray-200 outline-none rounded placeholder-gray mt-2.5"
-            disabled={loading}
-            {...register("lastName")}
-          />
-          {errors.username && (
-            <span className="text-red-600 text-3 inline-block">
-              {errors.username.message}
-            </span>
-          )}
-        </fieldset>
-        <fieldset className="flex flex-col">
-          <label htmlFor="email" className="text-3 font-medium text-white">
-            Email:
-          </label>
-          <input
-            type="text"
-            id="email"
-            placeholder="Digite seu email"
-            className="text-3 text-gray px-4 h-[48px] w-full border-[1.5px] border-gray-200 outline-none rounded placeholder-gray mt-2.5"
-            disabled={loading}
-            {...register("email")}
-          />
-          {errors.email && (
-            <span className="text-red-600 text-3 inline-block">
-              {errors.email.message}
-            </span>
-          )}
-        </fieldset>
-        <fieldset className="w-full flex flex-col">
-          <label htmlFor="password" className="text-3 font-medium text-white">
-            Senha:
-          </label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Digite sua senha"
-            className="text-3 text-gray px-4 h-[48px] w-full border-[1.5px] border-gray-200 outline-none rounded placeholder-gray mt-2.5"
-            disabled={loading}
-            {...register("password")}
-          />
-          {errors.password && (
-            <span className="text-red-600 text-3 inline-block">
-              {errors.password.message}
-            </span>
-          )}
-        </fieldset>
+        <InputForm
+          id="firstName"
+          type="text"
+          label="Nome"
+          placeholder="Digite seu nome..."
+          disabled={loading}
+          register={{ ...register("firstName") }}
+          errors={errors.firstName}
+        />
+        <InputForm
+          id="lastName"
+          type="text"
+          label="Sobrenome"
+          placeholder="Digite seu sobrenome..."
+          disabled={loading}
+          register={{ ...register("lastName") }}
+          errors={errors.lastName}
+        />
+        <InputForm
+          id="email"
+          type="text"
+          label="Email"
+          placeholder="Digite seu email..."
+          disabled={loading}
+          register={{ ...register("email") }}
+          errors={errors.email}
+        />
+        <InputForm
+          id="password"
+          type="password"
+          label="Senha"
+          placeholder="Digite sua senha..."
+          disabled={loading}
+          register={{...register("password") }}
+          errors={errors.password}
+        />
       </div>
       <div className="flex flex-col w-full mt-9 gap-8">
         <Button size="large" text="Cadastrar" type="submit" variant="brand1" />
