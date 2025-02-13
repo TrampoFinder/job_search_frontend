@@ -1,30 +1,80 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import {
   AuthContextProps,
   IdentityContextProps,
   IdentityProviderProps,
   SignInProps,
   RegisterUserProps,
+  UserContextProps,
 } from "./@types";
 import { api } from "../../services";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 const IdentityContext = createContext({} as IdentityContextProps);
 const IdentityProvider = ({ children }: IdentityProviderProps) => {
   const [globalLoading, setGlobalLoading] = useState(false);
   const token = localStorage.getItem("@TOKEN");
   const [auth, setAuth] = useState<AuthContextProps | null>(null);
+  const [user, setUser] = useState<UserContextProps | null>(null);
   const navigate = useNavigate();
+  useEffect(() => {
+    (async () => {
+      if (!token) {
+        return;
+      }
+      try {
+        setGlobalLoading(true);
+        const { sub }: never = jwtDecode(token);
+        const response = await api.get(`users/${sub}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          setUser(response.data);
+          navigate("/profile/user");
+          setAuth({ accessToken: token });
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        localStorage.clear();
+        setUser(null);
+        toast.error("Sessão expirada, faça login novamente.");
+      } finally {
+        setGlobalLoading(false);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const signIn = async (
     data: SignInProps,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     try {
       setLoading(true);
-      const response = await api.post("/auth/sign-in", data);
-      const token = response.data.accessToken;
-      localStorage.setItem("@TOKEN", token);
-      setAuth(response.data.accessToken);
+      const response = await toast.promise(api.post("/auth/sign-in", data), {
+        pending: {
+          render() {
+            return "Carregando...";
+          },
+          theme: "dark",
+        },
+        error: {
+          render() {
+            return "Não foi possível fazer sign-in";
+          },
+          theme: "dark",
+        },
+      });
+      if (response.status === 200) {
+        const token = response.data.accessToken;
+        localStorage.setItem("@TOKEN", token);
+        setAuth(token);
+        await navigate("/profile/user");
+      }
     } catch (error) {
       return error;
     } finally {
@@ -37,8 +87,31 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
   ): Promise<void> => {
     try {
       setLoading(true);
-      await api.post("/users/register", data);
-      navigate("/sign-in");
+      const response = await toast.promise(api.post("/users/register", data), {
+        pending: {
+          render() {
+            return "Carregando...";
+          },
+          theme: "dark",
+        },
+        success: {
+          render({ data }) {
+            const fullName =
+              data.data.data.firstName + " " + data.data.data.lastName;
+            return `Olá, ${fullName}!`;
+          },
+          theme: "dark",
+        },
+        error: {
+          render() {
+            return "Não foi possível cadastrar";
+          },
+          theme: "dark",
+        },
+      });
+      if (response.status === 201) {
+        await navigate("/sign-in");
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -55,6 +128,7 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
         globalLoading,
         setGlobalLoading,
         registerUser,
+        user,
       }}
     >
       {children}

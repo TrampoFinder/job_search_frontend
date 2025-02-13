@@ -1,8 +1,21 @@
-import clipPath from "../../assets/clipPath.svg";
-import enterprise from "../../assets/enterprise.svg";
-import mapPin from "../../assets/map-pin.svg";
-import { Button } from "../Button";
-export const CardJob = () => {
+import clipPath from "../../../assets/clipPath.svg";
+import enterprise from "../../../assets/enterprise.svg";
+import mapPin from "../../../assets/map-pin.svg";
+import { Button } from "../../Button";
+
+interface JobCardProps {
+  company: string;
+  title: string;
+  status?: string;
+  location?: string;
+  createdAt?: Date;
+}
+export const CardJob = ({
+  company,
+  title,
+  location,
+  // createdAt,
+}: JobCardProps) => {
   return (
     <li className="w-full max-h-[229px] h-full rounded-[20px] custom-shadow p-10 hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col">
       <div className="flex justify-between">
@@ -18,16 +31,18 @@ export const CardJob = () => {
           </div>
         </div>
         <div className="flex flex-col gap-2 justify-start items-start">
-          <h3 className="font-semibold text-[28px] leading-8">Nome da vaga</h3>
-          <p className="text-2 leading-4">Empresa</p>
+          <h3 className="font-semibold text-[28px] leading-8">{title}</h3>
+          <p className="text-2 leading-4">{company}</p>
         </div>
       </div>
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
           <img src={mapPin} alt="Locale" />
-          <p className="text-2 leading-4 font-medium text-gray-400">São Paulo, BR</p>
+          <p className="text-2 leading-4 font-medium text-gray-400">
+            {location}
+          </p>
         </div>
-        <Button text="Cadastrar" size="small" variant="brand1"/>
+        <Button text="Cadastrar" size="small" variant="brand1" />
       </div>
     </li>
   );
