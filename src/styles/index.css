@@ -48,7 +48,6 @@
 
   .animate-backdown {
     animation: desktop 5s;
-    animation-delay: var(--animate-delay);
   }
 
   .animate-scale {
@@ -56,11 +55,23 @@
     animation-delay: var(--animate-delay);
   }
   .animate-ping-bounce {
-    animation: falling 10s ease-out forwards;
+    animation: falling 7s ease-out forwards;
+  }
+
+  .animate-backdown-opacity {
+    animation: desktop-opacity 5s;
   }
 
   .custom-shadow {
     box-shadow: 0 3px 8px rgba(139, 93, 255, 0.25);
+  }
+
+  .custom-shadow-40 {
+    box-shadow: 0 3px 8px rgba(139, 93, 255, 0.4);
+  }
+
+    .custom-shadow-80 {
+    box-shadow: 0 3px 8px rgba(139, 93, 255, 0.8);
   }
 }
 
@@ -71,6 +82,16 @@ body {
 }
 @keyframes desktop {
   0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes desktop-opacity {
+  0% {
     opacity: 0;
     transform: translateY(-100%);
   }
@@ -80,6 +101,7 @@ body {
     transform: translateY(0);
   }
 }
+
 
 
 @keyframes falling {

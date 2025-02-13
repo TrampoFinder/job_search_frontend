@@ -16,6 +16,19 @@ export interface IdentityContextProps {
     data: RegisterUserProps,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
+  user: UserContextProps | null;
+}
+
+export interface UserContextProps {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  isActive: boolean;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+  delatedAt: string;
 }
 
 export interface AuthContextProps {
