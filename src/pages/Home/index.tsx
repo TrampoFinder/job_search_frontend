@@ -6,7 +6,7 @@ import enterprise from "../../assets/enterprise.svg";
 import nizos from "../../assets/nizos.svg";
 import { CardJob } from "../../components/ListJobs/CardJob";
 import { BlackFooter } from "../../components/Footer";
-import { BgContentTop } from "../../components/BgContentTop";
+import { BgContentTop } from "../../components/Header/BgContentTop";
 
 export const Home = () => {
   return (

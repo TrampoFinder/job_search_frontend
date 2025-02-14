@@ -47,7 +47,7 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token]);
 
   const signIn = async (
     data: SignInProps,

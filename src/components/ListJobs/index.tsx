@@ -29,22 +29,26 @@ export const ListJobs = () => {
         filteredJobs.map((job) => (
           <CardJob
             key={job.id}
+            id={job.id}
             title={job.title}
             company={job.company}
             status={job.status}
             location={job.location}
             createdAt={job.createdAt}
+            url={job.url}
           />
         ))
       ) : (
         getJobs?.jobs.map((job) => (
           <CardJob
             key={job.id}
+            id={job.id}
             title={job.title}
             company={job.company}
             status={job.status}
             location={job.location}
             createdAt={job.createdAt}
+            url={job.url}
           />
         ))
       )}

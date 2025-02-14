@@ -1,21 +1,19 @@
+import { useContext } from "react";
 import clipPath from "../../../assets/clipPath.svg";
 import enterprise from "../../../assets/enterprise.svg";
 import mapPin from "../../../assets/map-pin.svg";
 import { Button } from "../../Button";
+import { JobManagementContext } from "../../../contexts/JobContext";
+import { JobCardProps } from "../../../contexts/JobContext/@types";
 
-interface JobCardProps {
-  company: string;
-  title: string;
-  status?: string;
-  location?: string;
-  createdAt?: Date;
-}
 export const CardJob = ({
   company,
   title,
   location,
-  // createdAt,
+  url,
+  id,
 }: JobCardProps) => {
+  const { setIsModalOpen, setJob } = useContext(JobManagementContext);
   return (
     <li className="w-full max-h-[229px] h-full rounded-[20px] custom-shadow p-10 hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col">
       <div className="flex justify-between">
@@ -42,7 +40,15 @@ export const CardJob = ({
             {location}
           </p>
         </div>
-        <Button text="Cadastrar" size="small" variant="brand1" />
+        <Button
+          text="Cadastrar"
+          size="small"
+          variant="brand1"
+          onClick={() => {
+            setJob({ title, url, id });
+            setIsModalOpen(true);
+          }}
+        />
       </div>
     </li>
   );
