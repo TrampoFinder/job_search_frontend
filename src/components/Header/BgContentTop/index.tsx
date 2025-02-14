@@ -1,4 +1,4 @@
-import bgDash from "../../assets/backgrounddash.png";
+import bgDash from "../../../assets/backgrounddash.png";
 interface BgContentTopProps {
   children: React.ReactNode;
   height: keyof typeof maxHeightStyle;

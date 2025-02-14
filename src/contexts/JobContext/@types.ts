@@ -3,21 +3,27 @@ export interface JobManagementProviderProps {
 }
 
 export interface JobManagementContextProps {
-  job: JobContextProps | null;
-  setJob: React.Dispatch<React.SetStateAction<JobContextProps | null>>;
+  job: JobCardProps | null;
+  setJob: React.Dispatch<React.SetStateAction<JobCardProps | null>>;
   getJobs: GetAllJobsContextProps | null;
   setJobs: React.Dispatch<React.SetStateAction<GetAllJobsContextProps | null>>;
   retrieveJobs: (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
-  filteredJobs: [] | JobContextProps[] | undefined;
+  filteredJobs: [] | JobContextProps[] | null;
   setFilteredJobs: React.Dispatch<
-    React.SetStateAction<JobContextProps[] | [] | undefined>
+    React.SetStateAction<JobContextProps[] | null>
   >;
   filterByTime: (
     dataArray: JobContextProps[],
-    timeFilter: string
+    timeFilter: string[]
   ) => JobContextProps[] | [];
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  jobApplication: (
+    data: JobCardProps,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
 }
 
 export interface JobContextProps {
@@ -36,4 +42,15 @@ export interface GetAllJobsContextProps {
   jobs: JobContextProps[];
   total: number;
   totalPages: number;
+}
+
+export interface JobCardProps {
+  id?: string;
+  company?: string;
+  title?: string;
+  url?: string;
+  status?: string;
+  note?: string;
+  location?: string;
+  createdAt?: Date;
 }

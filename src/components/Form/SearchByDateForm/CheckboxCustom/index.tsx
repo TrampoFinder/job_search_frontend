@@ -1,10 +1,18 @@
-interface RadioCustomProps {
+interface CheckboxCustomProps {
   text: string;
   quantity: number;
-  onChange: (filter: string) => void;
+  value: string;
+  onChange: (filter: string, checked: boolean) => void;
+  checked: boolean;
 }
 
-export const RadioCustom = ({ text, quantity, onChange }: RadioCustomProps) => {
+export const CheckboxCustom = ({
+  text,
+  quantity,
+  onChange,
+  value,
+  checked,
+}: CheckboxCustomProps) => {
   return (
     <div className="flex items-center justify-between w-full ">
       <div className="flex items-center gap-2">
@@ -15,9 +23,10 @@ export const RadioCustom = ({ text, quantity, onChange }: RadioCustomProps) => {
           <input
             id="checkbox-default"
             type="checkbox"
-            value=""
+            value={value}
+            checked={checked}
             className="peer w-5 h-5 appearance-none border rounded-[4px] border-gray-600 cursor-pointer checked:bg-no-repeat checked:bg-center checked:border-brand-2 checked:bg-brand-1/20"
-            onChange={() => onChange(text)}
+            onChange={(e) => onChange(value, e.target.checked)}
           />
           <span className="absolute text-brand-1 opacity-0 peer-checked:opacity-100 top-2.5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
             <svg
