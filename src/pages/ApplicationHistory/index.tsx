@@ -9,17 +9,15 @@ import { useContext } from "react";
 import { IdentityContext } from "../../contexts/IdentityContext";
 import { JobManagementContext } from "../../contexts/JobContext";
 import { SearchByDateForm } from "../../components/Form/SearchByDateForm";
-import { ListJobs } from "../../components/ListBox/ListJobs";
 import { PaginationFooter } from "../../components/Footer/PaginationFooter";
 import { MotivatingCard } from "../../components/MotivatingCard";
 import { ModalApplyJob } from "../../components/Modal/ModalApplyJob";
+import { ListApplicationJobs } from "../../components/ListBox/ListApplicationJobs";
 
-export const UserProfile = () => {
+export const ApplicationHistory = () => {
   const { user } = useContext(IdentityContext);
   const { getJobs, isModalOpen } = useContext(JobManagementContext);
   const fullName = user?.firstName + " " + user?.lastName;
-  const locations = getJobs?.jobs.map((job) => job.location);
-  const uniqueLocations = [...new Set(locations)];
 
   return (
     <>
@@ -27,7 +25,7 @@ export const UserProfile = () => {
       <div className="flex flex-col">
         <BgContentTop height="profile">
           <BlackHeader />
-          <section className="container flex justify-center items-center pt-7 gap-6 container-apply">
+          <section className="container-apply flex justify-center items-center pt-7 gap-6">
             <div className="w-full max-w-[512px] bg-transparente h-[200px] custom-shadow-40 flex flex-col pl-5 pt-2 gap-2">
               <h3 className="text-white text-[20px] font-semibold">
                 Bem-vinde <span className="text-brand-2">{fullName}</span>
@@ -94,11 +92,6 @@ export const UserProfile = () => {
                     className="outline-none appearance-none text-gray-500 bg-transparent w-full"
                   >
                     <option value="">Selecione o local</option>
-                    {uniqueLocations.map((location) => (
-                      <option key={location} value={location}>
-                        {location}
-                      </option>
-                    ))}
                   </select>
                   <img
                     src={chevronDrown}
@@ -138,7 +131,7 @@ export const UserProfile = () => {
                   />
                 </div>
               </div>
-              <ListJobs />
+              <ListApplicationJobs />
               <PaginationFooter />
             </div>
           </main>

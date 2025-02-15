@@ -12,7 +12,7 @@ export const RegisterUser = () => {
     >
       <div className="flex flex-col justify-start h-screen bg-black-75 backdrop-blur-[14px]">
         <DefaultHeader />
-        <main className="container flex items-center justify-center h-full">
+        <main className="container-apply flex items-center justify-center h-full">
           <RegisterUserForm />
         </main>
         <BlackFooter />

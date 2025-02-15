@@ -1,19 +1,39 @@
 import { useContext } from "react";
-import clipPath from "../../../assets/clipPath.svg";
-import enterprise from "../../../assets/enterprise.svg";
-import mapPin from "../../../assets/map-pin.svg";
-import { Button } from "../../Button";
-import { JobManagementContext } from "../../../contexts/JobContext";
-import { JobCardProps } from "../../../contexts/JobContext/@types";
+import clipPath from "../../../../assets/clipPath.svg";
+import enterprise from "../../../../assets/enterprise.svg";
+import mapPin from "../../../../assets/map-pin.svg";
+import { Button } from "../../../Button";
+import { JobManagementContext } from "../../../../contexts/JobContext";
 
-export const CardJob = ({
-  company,
+interface ApplicationJobProps {
+  title: string;
+  note: string | null;
+  jobId: string;
+  status: string;
+  url: string;
+  userId: string;
+  id: string;
+}
+
+const statuses = {
+  NOT_PROCESSING: "Não elegível",
+  APPLIED: "Aplicado",
+  IN_PROGRESS: "Em andamento",
+  APPROVED: "Aprovado",
+  REJECTED: "Rejeitado",
+  CLOSED: "Encerrado",
+};
+export const CardApplicationJob = ({
   title,
-  location,
+  userId,
+  note,
+  jobId,
+  status,
   url,
   id,
-}: JobCardProps) => {
-  const { setIsModalOpen, setJob } = useContext(JobManagementContext);
+}: ApplicationJobProps) => {
+  const { setIsModalOpen, setApplicationJob } =
+    useContext(JobManagementContext);
   return (
     <li className="w-full max-h-[229px] h-full rounded-[20px] custom-shadow p-10 hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col">
       <div className="flex justify-between">
@@ -30,22 +50,23 @@ export const CardJob = ({
         </div>
         <div className="flex flex-col gap-2 justify-start items-start">
           <h3 className="font-semibold text-[28px] leading-8">{title}</h3>
-          <p className="text-2 leading-4">{company}</p>
+          {/* <p className="text-2 leading-4">{company}</p> */}
         </div>
       </div>
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
           <img src={mapPin} alt="Locale" />
           <p className="text-2 leading-4 font-medium text-gray-400">
-            {location}
+            {statuses[status as keyof typeof statuses]}
           </p>
         </div>
         <Button
-          text="Cadastrar"
+          text="Atualizar candidatura"
           size="small"
           variant="brand1"
+          className="max-w-[180px]"
           onClick={() => {
-            setJob({ title, url, id });
+            setApplicationJob({ id, status, title, url, userId, jobId, note });
             setIsModalOpen(true);
           }}
         />

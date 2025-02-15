@@ -7,7 +7,7 @@ export const DefaultHeader = () => {
   return (
     <header>
       <div className="w-full flex justify-center h-[81px]">
-        <div className="flex items-center justify-between container">
+        <div className="flex items-center justify-between container-apply">
           <img src={logo} alt="Trampo Finder" className="w-[168] h-[28px] cursor-pointer" onClick={() => navigate("/")} />
           <nav className="flex gap-5">
             <button

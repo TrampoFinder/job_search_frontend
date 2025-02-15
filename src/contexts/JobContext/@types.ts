@@ -24,6 +24,33 @@ export interface JobManagementContextProps {
     data: JobCardProps,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
+  applicationJob: ApplicationJobsContextProps | null;
+  setApplicationJob: React.Dispatch<
+    React.SetStateAction<ApplicationJobsContextProps | null>
+  >;
+  applicationJobs: ApplicationJobsContextProps[] | null;
+  setApplicationJobs: React.Dispatch<
+    React.SetStateAction<ApplicationJobsContextProps[] | null>
+  >;
+  applicationHistory: (
+    userId: string,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
+  focusIndex: number | null;
+  setFocusIndex: React.Dispatch<React.SetStateAction<number | null>>;
+  updatedApplicationJobs: ({
+    userId,
+    jobId,
+    status,
+    note,
+    setLoading,
+  }: {
+    userId: string;
+    jobId: string;
+    status: string;
+    note: string;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  }) => Promise<void>;
 }
 
 export interface JobContextProps {
@@ -53,4 +80,13 @@ export interface JobCardProps {
   note?: string;
   location?: string;
   createdAt?: Date;
+}
+export interface ApplicationJobsContextProps {
+  id: string;
+  title: string;
+  url: string;
+  userId: string;
+  jobId: string;
+  status: string;
+  note: string | null;
 }

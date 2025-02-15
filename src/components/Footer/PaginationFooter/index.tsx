@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import { JobManagementContext } from "../../../contexts/JobContext";
+// import { useContext } from "react";
+// import { JobManagementContext } from "../../../contexts/JobContext";
 import { Button } from "../../Button";
 
 export const PaginationFooter = () => {
-  const { getJobs } = useContext(JobManagementContext);
+  // const { getJobs } = useContext(JobManagementContext);
   return (
     <div className="flex justify-between items-center">
       <Button
