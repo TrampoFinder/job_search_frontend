@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import {
+  ApplicationJobsContextProps,
   GetAllJobsContextProps,
   JobCardProps,
   JobContextProps,
@@ -11,12 +12,18 @@ import { api } from "../../services";
 const JobManagementContext = createContext({} as JobManagementContextProps);
 const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
   const [job, setJob] = useState<JobCardProps | null>(null);
+  const [applicationJobs, setApplicationJobs] = useState<
+    ApplicationJobsContextProps[] | null
+  >(null);
+  const [applicationJob, setApplicationJob] =
+    useState<ApplicationJobsContextProps | null>(null);
   const [getJobs, setJobs] = useState<GetAllJobsContextProps | null>(null);
   const [filteredJobs, setFilteredJobs] = useState<JobContextProps[] | null>(
     null
   );
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const token = localStorage.getItem("@TOKEN");
+  const [focusIndex, setFocusIndex] = useState<number | null>(null);
   const retrieveJobs = async (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
@@ -49,7 +56,6 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
         ultimos_7_dias: 7,
         ultimos_30_dias: 30,
       };
-      console.log(timeFilter);
       const daysThreshold = filters[timeFilter];
       if (!daysThreshold) return false;
       if (timeFilter === "ultima_hora") {
@@ -67,7 +73,6 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
     return dataArray.filter((item) =>
       timeFilters.some((filter) => getDateDifference(item.createdAt, filter))
     );
-    console.log(dataArray);
   };
 
   const jobApplication = async (
@@ -88,6 +93,70 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
       setLoading(false);
     }
   };
+
+  const applicationHistory = async (
+    userId: string | null,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      const response = await api.get(`/job-application/${userId}/history/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        setApplicationJobs(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const updatedApplicationJobs = async ({
+    userId,
+    jobId,
+    status,
+    note,
+    setLoading,
+  }: {
+    userId: string;
+    jobId: string;
+    status: string;
+    note: string;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  }) => {
+    try {
+      setLoading(true);
+      const response = await api.put(
+        `/job-application/${userId}/${jobId}/update/`,
+        {
+          status,
+          note,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setApplicationJobs((prevJobs) => {
+          return (
+            prevJobs?.map((job) =>
+              job.id === response.data.id ? response.data : job
+            ) || []
+          );
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <JobManagementContext.Provider
       value={{
@@ -102,6 +171,14 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
         isModalOpen,
         setIsModalOpen,
         jobApplication,
+        applicationJobs,
+        setApplicationJobs,
+        applicationHistory,
+        focusIndex,
+        setFocusIndex,
+        updatedApplicationJobs,
+        applicationJob,
+        setApplicationJob,
       }}
     >
       {children}

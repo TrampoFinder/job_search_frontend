@@ -34,14 +34,17 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
         });
         if (response.status === 200) {
           setUser(response.data);
-          navigate("/profile/user");
+          navigate("/profile/users");
           setAuth({ accessToken: token });
         }
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         localStorage.clear();
         setUser(null);
-        toast.error("Sessão expirada, faça login novamente.");
+        toast.error("Sessão expirada, faça login novamente.", {
+          theme: "dark",
+          autoClose: 5000,
+        });
       } finally {
         setGlobalLoading(false);
       }
@@ -73,7 +76,7 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
         const token = response.data.accessToken;
         localStorage.setItem("@TOKEN", token);
         setAuth(token);
-        await navigate("/profile/user");
+        await navigate("/profile/users");
       }
     } catch (error) {
       return error;

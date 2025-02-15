@@ -9,7 +9,7 @@ export const ProtectPrivateRoutes = () => {
   useEffect(() => {
     if (!token) {
       setAuth(null);
-      navigate("");
+      navigate("/");
     }
   }, [token, setAuth, navigate]);
 

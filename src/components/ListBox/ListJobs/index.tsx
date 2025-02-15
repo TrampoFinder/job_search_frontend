@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { JobManagementContext } from "../../contexts/JobContext";
+import { JobManagementContext } from "../../../contexts/JobContext";
 import { CardJob } from "./CardJob";
 
 export const ListJobs = () => {

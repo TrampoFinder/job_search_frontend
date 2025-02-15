@@ -5,6 +5,7 @@ import { RegisterUser } from "../pages/RegisterUser";
 import { Home } from "../pages/Home";
 import { UserProfile } from "../pages/UserProfile";
 import { ProtectPrivateRoutes } from "./ProtectPrivateRoutes";
+import { ApplicationHistory } from "../pages/ApplicationHistory";
 
 export const RoutesComponent = () => {
   return (
@@ -13,7 +14,8 @@ export const RoutesComponent = () => {
       <Route path="sign-in" element={<SignIn />} />
       <Route path="register" element={<RegisterUser />} />
       <Route path="profile" element={<ProtectPrivateRoutes />}>
-        <Route path="user" element={<UserProfile />} />
+        <Route path="users" element={<UserProfile />}/>
+        <Route path="users/:id" element={<ApplicationHistory />} />
         {/* <Route path="admin" element={<AdminProfile />} /> */}
       </Route>
       <Route path="*" element={<Navigate to="" />} />

@@ -5,21 +5,34 @@ import { UpdateJobApplicationSchema } from "./updateJobApplicationSchema";
 import chevronDrown from "../../../assets/chevron-down.svg";
 import { Button } from "../../Button";
 import { JobManagementContext } from "../../../contexts/JobContext";
+import { useLocation } from "react-router-dom";
+import { IdentityContext } from "../../../contexts/IdentityContext";
 
 interface UpdateJobApplicationProps {
   note: string;
-  status:
-    | "NOT_PROCESSING"
-    | "APPLIED"
-    | "IN_PROGRESS"
-    | "APPROVED"
-    | "REJECTED"
-    | "CLOSED";
+  status: JobApplicationStatus;
 }
+
+type JobApplicationStatus =
+  | "NOT_PROCESSING"
+  | "APPLIED"
+  | "IN_PROGRESS"
+  | "APPROVED"
+  | "REJECTED"
+  | "CLOSED";
+
 export const ModifyStatusJobApplyForm = () => {
   const [loading, setLoading] = useState(false);
-  const { setIsModalOpen, setJob, job, jobApplication } =
-    useContext(JobManagementContext);
+  const { user } = useContext(IdentityContext);
+  const {
+    setIsModalOpen,
+    setJob,
+    job,
+    jobApplication,
+    applicationJob,
+    updatedApplicationJobs,
+  } = useContext(JobManagementContext);
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -29,9 +42,20 @@ export const ModifyStatusJobApplyForm = () => {
     resolver: zodResolver(UpdateJobApplicationSchema),
   });
   const submit: SubmitHandler<UpdateJobApplicationProps> = async (data) => {
-    const updatedJob = { ...job, ...data };
-    setJob(updatedJob);
-    await jobApplication(updatedJob, setLoading);
+    if (location.pathname === "/profile/users") {
+      const updatedJob = { ...job, ...data };
+      setJob(updatedJob);
+      await jobApplication(updatedJob, setLoading);
+    }
+    if (location.pathname === `/profile/users/${user?.id}`) {
+      await updatedApplicationJobs({
+        userId: user!.id,
+        jobId: applicationJob!.id,
+        status: data.status,
+        note: data.note,
+        setLoading: setLoading,
+      });
+    }
     setIsModalOpen(false);
   };
 

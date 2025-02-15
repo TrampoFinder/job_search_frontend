@@ -4,7 +4,7 @@ import { BlackHeader } from "../../components/Header/BlackHeader";
 import briefcase from "../../assets/briefcase.svg";
 import enterprise from "../../assets/enterprise.svg";
 import nizos from "../../assets/nizos.svg";
-import { CardJob } from "../../components/ListJobs/CardJob";
+import { CardJob } from "../../components/ListBox/ListJobs/CardJob";
 import { BlackFooter } from "../../components/Footer";
 import { BgContentTop } from "../../components/Header/BgContentTop";
 
@@ -13,7 +13,7 @@ export const Home = () => {
     <div className="flex flex-col">
       <BgContentTop height="home">
         <BlackHeader />
-        <main className="container flex flex-col justify-center items-center h-[503px] gap-20 mt-20">
+        <main className="container-apply flex flex-col justify-center items-center h-[503px] gap-20 mt-20">
           <div className="flex flex-col justify-center items-center max-w-[813px] w-full gap-3">
             <h2 className="text-[70px] text-white h-[169px] text-center font-bold leading-20">
               Encontre seu emprego dos{" "}
@@ -74,7 +74,7 @@ export const Home = () => {
         </main>
       </BgContentTop>
       <footer className="bg-black w-full h-[100px]">
-        <div className="container flex items-center h-full justify-between">
+        <div className="container-apply flex items-center h-full justify-between">
           <img src={nizos} alt="Nizos" />
           <img src={nizos} alt="Nizos" />
           <img src={nizos} alt="Nizos" />
@@ -83,7 +83,7 @@ export const Home = () => {
         </div>
       </footer>
       <div className="bg-white">
-        <section className="container">
+        <section className="container-apply">
           <div className="pt-[60px] flex justify-between">
             <div className="flex flex-col gap-[40px]">
               <h2 className="font-bold text-5xl">Vagas recomendadas</h2>
