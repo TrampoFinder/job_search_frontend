@@ -11,6 +11,7 @@ export const ProtectPrivateRoutes = () => {
       setAuth(null);
       navigate("/");
     }
+  
   }, [token, setAuth, navigate]);
 
   return auth ? <Outlet /> : <Navigate to="/" />;

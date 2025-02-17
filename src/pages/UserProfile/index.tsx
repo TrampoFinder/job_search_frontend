@@ -16,7 +16,8 @@ import { ModalApplyJob } from "../../components/Modal/ModalApplyJob";
 
 export const UserProfile = () => {
   const { user } = useContext(IdentityContext);
-  const { getJobs, isModalOpen } = useContext(JobManagementContext);
+  const { getJobs, isModalOpen, applicationJobs } =
+    useContext(JobManagementContext);
   const fullName = user?.firstName + " " + user?.lastName;
   const locations = getJobs?.jobs.map((job) => job.location);
   const uniqueLocations = [...new Set(locations)];
@@ -34,8 +35,8 @@ export const UserProfile = () => {
               </h3>
               <span className="text-white">Ultimas candidaturas:</span>
               <ul className="flex flex-col gap-2 pl-2.5">
-                {getJobs?.jobs &&
-                  getJobs?.jobs.slice(-3).map((job) => (
+                {applicationJobs &&
+                  applicationJobs.slice(-3).map((job) => (
                     <li className="flex items-center gap-3" key={job.id}>
                       <div className="rounded-full w-[30px] h-[30px] custom-shadow-80 flex items-center justify-center">
                         <img
@@ -45,7 +46,7 @@ export const UserProfile = () => {
                         />
                       </div>
                       <span className="text-white font-semibold text-2">
-                        {job.company}
+                        {job.title}
                       </span>
                     </li>
                   ))}
