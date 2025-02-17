@@ -34,7 +34,11 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
         });
         if (response.status === 200) {
           setUser(response.data);
-          navigate("/profile/users");
+          if (response.data.role === "ADMIN") {
+            navigate("/profile/admin");
+          } else {
+            navigate("/profile/users");
+          }
           setAuth({ accessToken: token });
         }
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
