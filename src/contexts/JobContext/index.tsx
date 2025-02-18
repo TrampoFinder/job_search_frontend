@@ -114,6 +114,7 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
       setLoading(false);
     }
   };
+
   const updatedApplicationJobs = async ({
     userId,
     jobId,
@@ -157,6 +158,7 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
       setLoading(false);
     }
   };
+
   return (
     <JobManagementContext.Provider
       value={{
