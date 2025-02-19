@@ -36,8 +36,8 @@ export interface JobManagementContextProps {
     userId: string,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
-  focusIndex: number | null;
-  setFocusIndex: React.Dispatch<React.SetStateAction<number | null>>;
+  focusIndex: number;
+  setFocusIndex: React.Dispatch<React.SetStateAction<number>>;
   updatedApplicationJobs: ({
     userId,
     jobId,
