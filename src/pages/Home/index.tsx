@@ -1,5 +1,5 @@
 import searchIcon from "../../assets/search.svg";
-import { Button } from "../../components/Button";
+import { DefaultButton } from "../../components/Buttons/DefaultButton";
 import { BlackHeader } from "../../components/Header/BlackHeader";
 import briefcase from "../../assets/briefcase.svg";
 import enterprise from "../../assets/enterprise.svg";
@@ -35,7 +35,7 @@ export const Home = () => {
               />
               <div className="bg-gray-400 h-10 w-[1px]" />
             </div>
-            <Button
+            <DefaultButton
               variant="brand1"
               size="small"
               text="Pesquisar"

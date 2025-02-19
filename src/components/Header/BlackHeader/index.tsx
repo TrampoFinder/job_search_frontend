@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../../../assets/Logo.svg";
 
-import { Button } from "../../Button";
+import { DefaultButton } from "../../Buttons/DefaultButton";
 import { useContext } from "react";
 import { IdentityContext } from "../../../contexts/IdentityContext";
 import { JobManagementContext } from "../../../contexts/JobContext";
@@ -109,7 +109,7 @@ export const BlackHeader = () => {
                 >
                   Entrar
                 </button>
-                <Button
+                <DefaultButton
                   variant="brand1"
                   text="Cadastrar"
                   size="small"

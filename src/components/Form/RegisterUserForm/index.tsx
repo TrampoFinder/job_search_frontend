@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Button } from "../../Button";
+import { DefaultButton } from "../../Buttons/DefaultButton";
 import { IdentityContext } from "../../../contexts/IdentityContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -70,8 +70,8 @@ export const RegisterUserForm = () => {
         />
       </div>
       <div className="flex flex-col w-full mt-9 gap-8">
-        <Button size="large" text="Cadastrar" type="submit" variant="brand1" />
-        <Button
+        <DefaultButton size="large" text="Cadastrar" type="submit" variant="brand1" />
+        <DefaultButton
           size="large"
           text="Entrar"
           type="button"

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import clipPath from "../../../../assets/clipPath.svg";
 import enterprise from "../../../../assets/enterprise.svg";
 import mapPin from "../../../../assets/map-pin.svg";
-import { Button } from "../../../Button";
+import { DefaultButton } from "../../../Buttons/DefaultButton";
 import { JobManagementContext } from "../../../../contexts/JobContext";
 import { JobCardProps } from "../../../../contexts/JobContext/@types";
 
@@ -40,7 +40,7 @@ export const CardJob = ({
             {location}
           </p>
         </div>
-        <Button
+        <DefaultButton
           text="Cadastrar"
           size="small"
           variant="brand1"

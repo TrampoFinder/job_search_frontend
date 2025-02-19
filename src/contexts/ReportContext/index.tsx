@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import {
-  ReportCandidateProps,
+  ReportCandidateResumeProps,
   ReportCandidateViewProps,
   ReportManagementContextProps,
   ReportManagementProviderProps,
@@ -15,9 +15,11 @@ const ReportManagementProvider = ({
   const [reportViewCandidates, setReportViewCandidates] = useState<
     ReportCandidateViewProps[] | []
   >([]);
-  const [reportCandidates, setReportCandidates] =
-    useState<ReportCandidateProps | null>(null);
+  const [reportResumeCandidates, setReportResumeCandidates] = useState<
+    ReportCandidateResumeProps[] | []
+  >([]);
   const token = localStorage.getItem("@TOKEN");
+  const [view, setView] = useState("grid");
 
   const reportCandidatesDownload = async (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -52,8 +54,10 @@ const ReportManagementProvider = ({
         reportViewCandidates,
         setReportViewCandidates,
         reportCandidatesDownload,
-        reportCandidates,
-        setReportCandidates,
+        reportResumeCandidates,
+        setReportResumeCandidates,
+        view,
+        setView,
       }}
     >
       {children}

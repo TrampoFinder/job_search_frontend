@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UpdateJobApplicationSchema } from "./updateJobApplicationSchema";
 import chevronDrown from "../../../assets/chevron-down.svg";
-import { Button } from "../../Button";
+import { DefaultButton } from "../../Buttons/DefaultButton";
 import { JobManagementContext } from "../../../contexts/JobContext";
 import { useLocation } from "react-router-dom";
 import { IdentityContext } from "../../../contexts/IdentityContext";
@@ -102,13 +102,13 @@ export const ModifyStatusJobApplyForm = () => {
         />
       </label>
       <div className="flex w-full gap-[33px] items-center justify-center">
-        <Button
+        <DefaultButton
           variant="outlinebrand1"
           text="Fechar"
           size="medium"
           onClick={() => setIsModalOpen(false)}
         />
-        <Button
+        <DefaultButton
           variant="brand1"
           text="Confirmar"
           size="medium"
