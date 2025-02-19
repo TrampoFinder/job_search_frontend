@@ -52,12 +52,14 @@ export const BlackHeader = () => {
               <li
                 className="cursor-pointer flex flex-col relative items-center"
                 onClick={() => {
+                  handleFocus(1);
                   if (isProfilePage) {
                     navigate(`/profile/users/${user?.id}`);
+                    handleFocus(0);
                   } else {
                     navigate("/");
+                    handleFocus(0);
                   }
-                  handleFocus(1);
                 }}
               >
                 <span

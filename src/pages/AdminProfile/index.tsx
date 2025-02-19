@@ -17,9 +17,8 @@ import { Button } from "../../components/Button";
 export const AdminProfile = () => {
   const { user } = useContext(IdentityContext);
   const { isModalOpen } = useContext(JobManagementContext);
-  const { reportCandidates, reportCandidatesDownload } = useContext(
-    ReportManagementContext
-  );
+  const { reportViewCandidates, reportCandidates, reportCandidatesDownload } =
+    useContext(ReportManagementContext);
   const fullName = user?.firstName + " " + user?.lastName;
   const [selectValues, setSelectValues] = useState<string[]>([]);
   const handleFilterChange = (filter: string, isChecked: boolean) => {
@@ -156,8 +155,8 @@ export const AdminProfile = () => {
             <div className="flex flex-col w-full gap-10">
               <div className="flex gap-5 w-full justify-between">
                 <span className="text-[20px] font-regular text-gray-600">
-                  {reportCandidates.length > 0
-                    ? `Mostrando x-x de ${reportCandidates.length} resultados`
+                  {reportViewCandidates.length > 0
+                    ? `Mostrando x-x de ${reportViewCandidates.length} resultados`
                     : "Sem candidatos cadastrados no sistema"}
                 </span>
                 <Button

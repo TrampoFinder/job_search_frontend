@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import {
   ReportCandidateProps,
+  ReportCandidateViewProps,
   ReportManagementContextProps,
   ReportManagementProviderProps,
 } from "./@types";
@@ -11,9 +12,11 @@ const ReportManagementContext = createContext(
 const ReportManagementProvider = ({
   children,
 }: ReportManagementProviderProps) => {
-  const [reportCandidates, setReportCandidates] = useState<
-    ReportCandidateProps[] | []
+  const [reportViewCandidates, setReportViewCandidates] = useState<
+    ReportCandidateViewProps[] | []
   >([]);
+  const [reportCandidates, setReportCandidates] =
+    useState<ReportCandidateProps | null>(null);
   const token = localStorage.getItem("@TOKEN");
 
   const reportCandidatesDownload = async (
@@ -46,9 +49,11 @@ const ReportManagementProvider = ({
   return (
     <ReportManagementContext.Provider
       value={{
+        reportViewCandidates,
+        setReportViewCandidates,
+        reportCandidatesDownload,
         reportCandidates,
         setReportCandidates,
-        reportCandidatesDownload,
       }}
     >
       {children}

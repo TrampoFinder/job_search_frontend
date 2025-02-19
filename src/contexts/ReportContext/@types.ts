@@ -3,16 +3,20 @@ export interface ReportManagementProviderProps {
 }
 
 export interface ReportManagementContextProps {
-  reportCandidates: [] | ReportCandidateProps[];
-  setReportCandidates: React.Dispatch<
-    React.SetStateAction<[] | ReportCandidateProps[]>
+  reportViewCandidates: [] | ReportCandidateViewProps[];
+  setReportViewCandidates: React.Dispatch<
+    React.SetStateAction<[] | ReportCandidateViewProps[]>
   >;
   reportCandidatesDownload: (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
+  setReportCandidates: React.Dispatch<
+    React.SetStateAction<ReportCandidateProps | null>
+  >;
+  reportCandidates: ReportCandidateProps | null;
 }
 
-export interface ReportCandidateProps {
+export interface ReportCandidateViewProps {
   userId: string;
   fullName: string;
   notProcessing: string;
@@ -21,4 +25,21 @@ export interface ReportCandidateProps {
   approved: string;
   rejected: string;
   closed: string;
+}
+
+export interface ReportCandidateProps {
+  statusCounts: {
+    status: string | null;
+    count: number;
+  }[];
+  totalApplications: number;
+  applications: {
+    userId: string;
+    fullName: string | null;
+    status: string | null;
+    createdAt: Date;
+    totalApplications: number;
+    statusCount: number;
+  }[];
+  total: number;
 }
