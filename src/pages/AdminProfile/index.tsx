@@ -12,23 +12,37 @@ import { ListReportUsers } from "../../components/ListBox/ListReportUsers";
 import mapPin from "../../assets/map-pin.svg";
 import { CheckboxCustom } from "../../components/Form/SearchByDateForm/CheckboxCustom";
 import { ReportManagementContext } from "../../contexts/ReportContext";
-import { Button } from "../../components/Button";
+import { DefaultButton } from "../../components/Buttons/DefaultButton";
+import { ToggleViewButton } from "../../components/Buttons/ToggleViewButton";
 
 export const AdminProfile = () => {
   const { user } = useContext(IdentityContext);
   const { isModalOpen } = useContext(JobManagementContext);
-  const { reportViewCandidates, reportCandidates, reportCandidatesDownload } =
-    useContext(ReportManagementContext);
+  const {
+    reportViewCandidates,
+    reportCandidatesDownload,
+    view,
+    setView,
+    reportResumeCandidates,
+  } = useContext(ReportManagementContext);
   const fullName = user?.firstName + " " + user?.lastName;
   const [selectValues, setSelectValues] = useState<string[]>([]);
   const handleFilterChange = (filter: string, isChecked: boolean) => {
     const newValues = isChecked
       ? [...selectValues, filter]
-      : selectValues.filter((f) => f !== filter);
+      : selectValues.filter((value) => value !== filter);
     setSelectValues(newValues);
   };
   const [loading, setLoading] = useState(false);
-
+  const validLength = () => {
+    if (reportViewCandidates.length > 0 && view === "grid") {
+      return `Mostrando x-x de ${reportViewCandidates.length} resultados`;
+    } else if (reportResumeCandidates.length > 0 && view === "list") {
+      return `Mostrando x-x de ${reportViewCandidates.length} resultados`;
+    } else {
+      return "Sem candidatos cadastrados no sistema";
+    }
+  };
   return (
     <>
       {isModalOpen && <ModalApplyJob />}
@@ -113,7 +127,7 @@ export const AdminProfile = () => {
               </div>
               <div className="flex flex-col gap-5 max-w-[203px] w-full">
                 <span className="text-[20px] font-semibold text-black">
-                  Data de inicialização da turma
+                  Período das turmas
                 </span>
                 <div className="flex flex-col gap-3">
                   <CheckboxCustom
@@ -155,20 +169,21 @@ export const AdminProfile = () => {
             <div className="flex flex-col w-full gap-10">
               <div className="flex gap-5 w-full justify-between">
                 <span className="text-[20px] font-regular text-gray-600">
-                  {reportViewCandidates.length > 0
-                    ? `Mostrando x-x de ${reportViewCandidates.length} resultados`
-                    : "Sem candidatos cadastrados no sistema"}
+                  {validLength()}
                 </span>
-                <Button
-                  variant="brand1"
-                  size="small"
-                  type="button"
-                  text="Baixar relatório"
-                  className="w-full max-w-[154px]"
-                  onClick={() => reportCandidatesDownload(setLoading)}
-                />
+                <div className="flex gap-5 max-w-[250px] w-full h-[40px]">
+                  <ToggleViewButton view={view} onViewChange={setView} />
+                  <DefaultButton
+                    variant="brand1"
+                    size="small"
+                    type="button"
+                    text="Baixar relatório"
+                    className="w-full max-w-[154px]"
+                    onClick={() => reportCandidatesDownload(setLoading)}
+                  />
+                </div>
               </div>
-              <ListReportUsers />
+              <ListReportUsers/>
             </div>
           </main>
           <BlackFooter />

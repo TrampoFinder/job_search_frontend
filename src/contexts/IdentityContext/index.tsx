@@ -18,6 +18,7 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
   const token = localStorage.getItem("@TOKEN");
   const [auth, setAuth] = useState<AuthContextProps | null>(null);
   const [user, setUser] = useState<UserContextProps | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
@@ -136,6 +137,9 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
         setGlobalLoading,
         registerUser,
         user,
+        setUser,
+        isDropdownOpen,
+        setIsDropdownOpen,
       }}
     >
       {children}

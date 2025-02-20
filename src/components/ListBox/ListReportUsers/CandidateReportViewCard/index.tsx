@@ -20,7 +20,7 @@ export const CandidateReportViewCard = ({
 }: CandidateReportCardProps) => {
   return (
     <li
-      className="w-full max-w-[306px] rounded-[20px] custom-shadow hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col justify-center items-center pt-8 pb-5 pl-1.5 pr-1.5"
+      className="w-full max-w-[306px] rounded-[20px] custom-shadow hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col justify-center items-center pt-8 pb-5 pl-1.5 pr-1.5 animate-opacity"
       key={fullName}
     >
       <div className="flex flex-col items-center gap-5 w-full">

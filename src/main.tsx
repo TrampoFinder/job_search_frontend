@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import { IdentityProvider } from "./contexts/IdentityContext/index.tsx";
 import { JobManagementProvider } from "./contexts/JobContext/index.tsx";
 import { ReportManagementProvider } from "./contexts/ReportContext/index.tsx";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>

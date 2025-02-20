@@ -23,7 +23,7 @@ const variantStyle = {
     "border-brand-1 border-solid text-brand-2 bg-transparent border-3 text-2 font-semibold rounded-[8px] hover:bg-brand-2 hover:text-white cursor-pointer",
 };
 
-export const Button = ({
+export const DefaultButton = ({
   variant,
   text,
   size,

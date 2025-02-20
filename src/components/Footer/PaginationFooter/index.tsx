@@ -1,12 +1,12 @@
 // import { useContext } from "react";
 // import { JobManagementContext } from "../../../contexts/JobContext";
-import { Button } from "../../Button";
+import { DefaultButton } from "../../Buttons/DefaultButton";
 
 export const PaginationFooter = () => {
   // const { getJobs } = useContext(JobManagementContext);
   return (
     <div className="flex justify-between items-center">
-      <Button
+      <DefaultButton
         type="button"
         text="<"
         variant="outlinebrand1"
@@ -14,7 +14,7 @@ export const PaginationFooter = () => {
         className="border-gray-400 text-gray-500 hover:border-brand-1 max-w-[50px] font-semibold"
       />
       <div className="flex gap-6">
-        <Button
+        <DefaultButton
           type="button"
           text="1"
           variant="brand1"
@@ -22,7 +22,7 @@ export const PaginationFooter = () => {
           className="border-gray-400 text-gray-500 hover:border-brand-1 w-[40px] h-[40px] font-semibold"
         />
       </div>
-      <Button
+      <DefaultButton
         type="button"
         text=">"
         variant="outlinebrand1"

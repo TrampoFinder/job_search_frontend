@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Button } from "../../Button";
+import { DefaultButton } from "../../Buttons/DefaultButton";
 import { IdentityContext } from "../../../contexts/IdentityContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { SignInProps } from "../../../contexts/IdentityContext/@types";
@@ -63,9 +63,9 @@ export const SignInForm = () => {
         <span className="text-gray mt-2 text-end">Esqueci minha senha</span>
       </div>
       <div className="flex flex-col gap-6 w-full mt-5">
-        <Button size="large" text="Entrar" type="submit" variant="brand1" />
+        <DefaultButton size="large" text="Entrar" type="submit" variant="brand1" />
         <span className=" text-gray text-center">Ainda não possui conta?</span>
-        <Button
+        <DefaultButton
           size="large"
           text="Cadastrar"
           type="button"

@@ -10,10 +10,12 @@ export interface ReportManagementContextProps {
   reportCandidatesDownload: (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
-  setReportCandidates: React.Dispatch<
-    React.SetStateAction<ReportCandidateProps | null>
+  setReportResumeCandidates: React.Dispatch<
+    React.SetStateAction<ReportCandidateResumeProps[] | []>
   >;
-  reportCandidates: ReportCandidateProps | null;
+  reportResumeCandidates: ReportCandidateResumeProps[] | [];
+  view: string;
+  setView: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface ReportCandidateViewProps {
@@ -27,19 +29,17 @@ export interface ReportCandidateViewProps {
   closed: string;
 }
 
-export interface ReportCandidateProps {
-  statusCounts: {
-    status: string | null;
-    count: number;
-  }[];
+export interface ReportCandidateResumeProps {
+  userId: string;
+  fullName: string;
   totalApplications: number;
-  applications: {
-    userId: string;
-    fullName: string | null;
-    status: string | null;
-    createdAt: Date;
-    totalApplications: number;
-    statusCount: number;
-  }[];
-  total: number;
+  activeProcessCount: number;
+  statusCount: {
+    IN_PROGRESS: number;
+    APPROVED: number;
+    APPLIED: number;
+    REJECTED: number;
+    CLOSED: number;
+    NOT_PROCESSING: number;
+  };
 }

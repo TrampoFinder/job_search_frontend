@@ -1,17 +1,25 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect } from "react";
+import { RefObject, useEffect } from "react";
 
-export const useOutClick = (ref: any, handler: any) => {
+type EventType = MouseEvent | TouchEvent;
+
+export const useOutClick = <T extends HTMLElement>(
+  ref: RefObject<T>,
+  handler: (event: EventType) => void
+) => {
   useEffect(() => {
-    const eventListener = (event: any) => {
-      if (!ref.current || ref.current.contains(event.target)) {
+    const eventListener = (event: EventType) => {
+      if (!ref.current || ref.current.contains(event.target as Node)) {
         return;
       }
       handler(event);
     };
+
     document.addEventListener("mousedown", eventListener);
+    document.addEventListener("touchstart", eventListener);
+
     return () => {
       document.removeEventListener("mousedown", eventListener);
+      document.removeEventListener("touchstart", eventListener);
     };
   }, [ref, handler]);
 };

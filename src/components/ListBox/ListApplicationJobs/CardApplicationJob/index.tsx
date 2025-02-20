@@ -2,7 +2,7 @@ import { useContext } from "react";
 import clipPath from "../../../../assets/clipPath.svg";
 import enterprise from "../../../../assets/enterprise.svg";
 import mapPin from "../../../../assets/map-pin.svg";
-import { Button } from "../../../Button";
+import { DefaultButton } from "../../../Buttons/DefaultButton";
 import { JobManagementContext } from "../../../../contexts/JobContext";
 
 interface ApplicationJobProps {
@@ -60,7 +60,7 @@ export const CardApplicationJob = ({
             {statuses[status as keyof typeof statuses]}
           </p>
         </div>
-        <Button
+        <DefaultButton
           text="Atualizar candidatura"
           size="small"
           variant="brand1"
