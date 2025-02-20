@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useRef } from "react";
 import { useOutClick } from "../../../hooks/useOutClick";
 import { JobManagementContext } from "../../../contexts/JobContext";
@@ -6,7 +5,7 @@ import { ModifyStatusJobApplyForm } from "../../Form/ModifyStatusJobApplyForm";
 
 export const ModalApplyJob = () => {
   const { setIsModalOpen } = useContext(JobManagementContext);
-  const close: any = useRef();
+  const close = useRef(null);
   useOutClick(close, () => setIsModalOpen(false));
   return (
     <div

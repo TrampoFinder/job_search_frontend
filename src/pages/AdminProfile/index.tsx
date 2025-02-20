@@ -183,7 +183,7 @@ export const AdminProfile = () => {
                   />
                 </div>
               </div>
-              <ListReportUsers />
+              <ListReportUsers/>
             </div>
           </main>
           <BlackFooter />

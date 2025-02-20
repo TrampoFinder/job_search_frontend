@@ -60,7 +60,9 @@
   .animate-opacity {
     animation: desktop-opacity 1.5s;
   }
-
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
   .custom-shadow {
     box-shadow: 0 3px 8px rgba(139, 93, 255, 0.25);
   }

@@ -52,7 +52,9 @@ export const ListReportUsers = () => {
         {!loading &&
           view === "grid" &&
           reportViewCandidates?.map((candidate) => {
-            return <CandidateReportViewCard {...candidate} />;
+            return (
+              <CandidateReportViewCard key={candidate.userId} {...candidate} />
+            );
           })}
         {!loading &&
           view === "list" &&

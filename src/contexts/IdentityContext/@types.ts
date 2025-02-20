@@ -17,6 +17,9 @@ export interface IdentityContextProps {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
   user: UserContextProps | null;
+  setUser: React.Dispatch<React.SetStateAction<UserContextProps | null>>;
+  isDropdownOpen: boolean;
+  setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface UserContextProps {
