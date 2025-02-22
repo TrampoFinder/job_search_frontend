@@ -7,6 +7,7 @@ import { UserProfile } from "../pages/UserProfile";
 import { ProtectPrivateRoutes } from "./ProtectPrivateRoutes";
 import { ApplicationHistory } from "../pages/ApplicationHistory";
 import { AdminProfile } from "../pages/AdminProfile";
+import { NotFound } from "../pages/NotFound";
 
 export const RoutesComponent = () => {
   return (
@@ -19,7 +20,8 @@ export const RoutesComponent = () => {
         <Route path="users/:id" element={<ApplicationHistory />} />
         <Route path="admin" element={<AdminProfile />} />
       </Route>
-      <Route path="*" element={<Navigate to="" />} />
+      <Route path="/not-found" element={<NotFound />} />
+      <Route path="*" element={<Navigate to="/not-found" replace />} />
     </Routes>
   );
 };

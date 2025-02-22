@@ -7,8 +7,23 @@ import nizos from "../../assets/nizos.svg";
 import { CardJob } from "../../components/ListBox/ListJobs/CardJob";
 import { BlackFooter } from "../../components/Footer";
 import { BgContentTop } from "../../components/Header/BgContentTop";
+import { useContext, useEffect, useState } from "react";
+import { JobManagementContext } from "../../contexts/JobContext";
 
 export const Home = () => {
+  const { retrieveJobs, retrieveJobsCount, jobsCompanyCount, getJobs } =
+    useContext(JobManagementContext);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      await retrieveJobs(setLoading);
+      await retrieveJobsCount(setLoading);
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="flex flex-col">
       <BgContentTop height="home">
@@ -50,7 +65,7 @@ export const Home = () => {
               </div>
               <div className="flex flex-col items-start">
                 <span className="font-bold text-[20px] text-white text-center">
-                  NaN
+                  {getJobs?.total}
                 </span>
                 <span className="text-2 text-white opacity-50 text-center">
                   Vagas
@@ -63,7 +78,7 @@ export const Home = () => {
               </div>
               <div className="flex flex-col items-start">
                 <span className="font-bold text-[20px] text-white text-center">
-                  NaN
+                  {jobsCompanyCount}
                 </span>
                 <span className="text-2 text-white opacity-50 text-center">
                   Empresas
@@ -98,10 +113,9 @@ export const Home = () => {
             </div>
           </div>
           <ul className="pt-9 pb-14 h-full w-full flex flex-col gap-6">
-            <CardJob />
-            <CardJob />
-            <CardJob />
-            <CardJob />
+            {getJobs?.jobs.slice(0, 4).map((job) => {
+              return <CardJob {...job} key={job.id} />;
+            })}
           </ul>
         </section>
         <BlackFooter />

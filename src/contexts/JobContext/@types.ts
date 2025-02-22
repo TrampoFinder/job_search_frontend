@@ -51,6 +51,11 @@ export interface JobManagementContextProps {
     note: string;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   }) => Promise<void>;
+  setJobsCompanyCount: React.Dispatch<React.SetStateAction<number>>;
+  jobsCompanyCount: number;
+  retrieveJobsCount: (
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
 }
 
 export interface JobContextProps {

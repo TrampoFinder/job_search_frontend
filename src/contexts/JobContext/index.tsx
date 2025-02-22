@@ -24,6 +24,7 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const token = localStorage.getItem("@TOKEN");
   const [focusIndex, setFocusIndex] = useState<number>(0);
+  const [jobsCompanyCount, setJobsCompanyCount] = useState(0);
   const retrieveJobs = async (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
@@ -159,6 +160,22 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
     }
   };
 
+  const retrieveJobsCount = async (
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      const response = await api.get("/job-management/companies");
+      if (response.status === 200) {
+        setJobsCompanyCount(response.data.companyCount);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <JobManagementContext.Provider
       value={{
@@ -181,6 +198,9 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
         updatedApplicationJobs,
         applicationJob,
         setApplicationJob,
+        jobsCompanyCount,
+        setJobsCompanyCount,
+        retrieveJobsCount,
       }}
     >
       {children}
