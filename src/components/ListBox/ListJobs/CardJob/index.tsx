@@ -5,6 +5,8 @@ import mapPin from "../../../../assets/map-pin.svg";
 import { DefaultButton } from "../../../Buttons/DefaultButton";
 import { JobManagementContext } from "../../../../contexts/JobContext";
 import { JobCardProps } from "../../../../contexts/JobContext/@types";
+import { IdentityContext } from "../../../../contexts/IdentityContext";
+import { useNavigate } from "react-router-dom";
 
 export const CardJob = ({
   company,
@@ -14,6 +16,16 @@ export const CardJob = ({
   id,
 }: JobCardProps) => {
   const { setIsModalOpen, setJob } = useContext(JobManagementContext);
+  const { user } = useContext(IdentityContext);
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (user) {
+      setJob({ title, id, url });
+      setIsModalOpen(true);
+    } else {
+      navigate("/sign-in");
+    }
+  };
   return (
     <li className="w-full max-h-[229px] h-full rounded-[20px] custom-shadow p-10 hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col">
       <div className="flex justify-between">
@@ -44,10 +56,7 @@ export const CardJob = ({
           text="Cadastrar"
           size="small"
           variant="brand1"
-          onClick={() => {
-            setJob({ title, url, id });
-            setIsModalOpen(true);
-          }}
+          onClick={handleClick}
         />
       </div>
     </li>
