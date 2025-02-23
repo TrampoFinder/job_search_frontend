@@ -1,5 +1,3 @@
-import searchIcon from "../../assets/search.svg";
-import { DefaultButton } from "../../components/Buttons/DefaultButton";
 import { BlackHeader } from "../../components/Header/BlackHeader";
 import briefcase from "../../assets/briefcase.svg";
 import enterprise from "../../assets/enterprise.svg";
@@ -9,6 +7,7 @@ import { BlackFooter } from "../../components/Footer";
 import { BgContentTop } from "../../components/Header/BgContentTop";
 import { useContext, useEffect, useState } from "react";
 import { JobManagementContext } from "../../contexts/JobContext";
+import { SearchByCompany } from "../../components/Form/SearchByCompany";
 
 export const Home = () => {
   const { retrieveJobs, retrieveJobsCount, jobsCompanyCount, getJobs } =
@@ -40,24 +39,7 @@ export const Home = () => {
               profissional.
             </p>
           </div>
-          {/* abstract select tomorrow  */}
-          <div className="max-w-[645px] w-full h-20 bg-white rounded-2xl flex justify-between ">
-            <div className="w-full max-w-[402px] flex items-center">
-              <input
-                type="text"
-                placeholder="Digite o nome de uma empresa..."
-                className="p-5 w-full outline-none"
-              />
-              <div className="bg-gray-400 h-10 w-[1px]" />
-            </div>
-            <DefaultButton
-              variant="brand1"
-              size="small"
-              text="Pesquisar"
-              className="h-full w-full max-w-[168px] rounded-l-[0px]"
-              icon={searchIcon}
-            />
-          </div>
+          <SearchByCompany />
           <div className="max-w-[345px] w-full h-full max-h-[69px] flex">
             <div className="max-w-[160px] w-full h-full  flex gap-3 items-center">
               <div className="w-[60px] h-[60px] bg-brand-1 rounded-full flex items-center justify-center">
@@ -65,7 +47,7 @@ export const Home = () => {
               </div>
               <div className="flex flex-col items-start">
                 <span className="font-bold text-[20px] text-white text-center">
-                  {getJobs?.total}
+                  {getJobs?.total || 0}
                 </span>
                 <span className="text-2 text-white opacity-50 text-center">
                   Vagas
