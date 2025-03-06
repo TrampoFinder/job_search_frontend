@@ -13,6 +13,7 @@ export const CardJob = ({
   title,
   location,
   url,
+  createdAt,
   id,
 }: JobCardProps) => {
   const { setIsModalOpen, setJob } = useContext(JobManagementContext);
@@ -26,11 +27,27 @@ export const CardJob = ({
       navigate("/sign-in");
     }
   };
+  const formatTimeDifference = () => {
+    const date = new Date(createdAt!);
+    const now = new Date();
+    const diffInMillis = now.getTime() - date.getTime();
+    const diffInMinutes = Math.floor(diffInMillis / 60000);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    if (diffInMinutes < 60) {
+      return `${diffInMinutes} min ago`;
+    } else if (diffInHours < 24) {
+      return `${diffInHours} hour${diffInHours > 1 ? "s" : ""} ago`;
+    } else {
+      return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
+    }
+  };
   return (
     <li className="w-full max-h-[229px] h-full rounded-[20px] custom-shadow p-10 hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col">
       <div className="flex justify-between">
         <div className="bg-brand-2/20 p-2 text-brand-1 rounded-1 h-[28px] flex items-center">
-          <span className="text-2">10 min ago</span>
+          <span className="text-2">{formatTimeDifference()}</span>
         </div>
         <img src={clipPath} alt="Favorite" />
       </div>

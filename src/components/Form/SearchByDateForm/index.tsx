@@ -3,10 +3,10 @@ import { CheckboxCustom } from "./CheckboxCustom";
 import { JobManagementContext } from "../../../contexts/JobContext";
 
 export const SearchByDateForm = () => {
-  const { getJobs, filterByTime, setFilteredJobs } =
+  const { getJobsPagination, filterByTime, setFilteredJobs } =
     useContext(JobManagementContext);
   const [selectValues, setSelectValues] = useState<string[]>([]);
-  const jobs = getJobs?.jobs || [];
+  const jobs = getJobsPagination?.jobs || [];
   const handleFilterChange = (filter: string, isChecked: boolean) => {
     const newValues = isChecked
       ? [...selectValues, filter]

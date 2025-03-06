@@ -16,7 +16,7 @@ import { ListApplicationJobs } from "../../components/ListBox/ListApplicationJob
 
 export const ApplicationHistory = () => {
   const { user } = useContext(IdentityContext);
-  const { getJobs, isModalOpen, applicationJobs } =
+  const { getJobsPagination, isModalOpen, applicationJobs } =
     useContext(JobManagementContext);
   const fullName = user?.firstName + " " + user?.lastName;
 
@@ -116,8 +116,8 @@ export const ApplicationHistory = () => {
             <div className="flex flex-col w-full gap-10">
               <div className="w-full h-10 flex justify-between items-center">
                 <span className="text-gray-500">
-                  {getJobs &&
-                    `Mostrando ${getJobs.jobs.length}-${getJobs.jobs.length} de ${getJobs.total} resultados`}
+                  {getJobsPagination &&
+                    `Mostrando ${getJobsPagination.data.length}-${getJobsPagination.data.length} de ${getJobsPagination.total} resultados`}
                 </span>
                 <div className="border-[2px] border-gray-400 rounded-[6px] max-w-40 w-full flex items-center justify-between relative pl-3">
                   <select className="outline-none appearance-none text-2 text-gray-500 bg-transparent w-full">

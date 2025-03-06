@@ -5,8 +5,8 @@ export interface JobManagementProviderProps {
 export interface JobManagementContextProps {
   job: JobCardProps | null;
   setJob: React.Dispatch<React.SetStateAction<JobCardProps | null>>;
-  getJobs: GetAllJobsContextProps | null;
-  setJobs: React.Dispatch<React.SetStateAction<GetAllJobsContextProps | null>>;
+  getJobsPagination: GetAllJobsContextProps | null;
+  setJobsPagination: React.Dispatch<React.SetStateAction<GetAllJobsContextProps | null>>;
   retrieveJobs: (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
@@ -51,7 +51,7 @@ export interface JobManagementContextProps {
     note: string;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   }) => Promise<void>;
-  setJobsCompanyCount: React.Dispatch<React.SetStateAction<number>>;
+  setJobsPaginationCompanyCount: React.Dispatch<React.SetStateAction<number>>;
   jobsCompanyCount: number;
   retrieveJobsCount: (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -71,9 +71,11 @@ export interface JobContextProps {
 }
 
 export interface GetAllJobsContextProps {
-  jobs: JobContextProps[];
+  data: JobContextProps[];
   total: number;
   totalPages: number;
+  previousPage: number | null;
+  nextPage: number | null;
 }
 
 export interface JobCardProps {
