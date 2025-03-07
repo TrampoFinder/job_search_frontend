@@ -5,7 +5,7 @@ import { BlackFooter } from "../../components/Footer";
 import chevronDrown from "../../assets/chevron-down.svg";
 import mapPin from "../../assets/map-pin.svg";
 import { BgContentTop } from "../../components/Header/BgContentTop";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { IdentityContext } from "../../contexts/IdentityContext";
 import { JobManagementContext } from "../../contexts/JobContext";
 import { SearchByDateForm } from "../../components/Form/SearchByDateForm";
@@ -16,11 +16,30 @@ import { ModalApplyJob } from "../../components/Modal/ModalApplyJob";
 
 export const UserProfile = () => {
   const { user } = useContext(IdentityContext);
-  const { getJobsPagination, isModalOpen, applicationJobs } =
+  const { getJobsPagination, isModalOpen, applicationJobs, setFilteredJobs } =
     useContext(JobManagementContext);
   const fullName = user?.firstName + " " + user?.lastName;
   const locations = getJobsPagination?.data.map((job) => job.location);
   const uniqueLocations = [...new Set(locations)];
+
+  const [selectedLocation, setSelectedLocation] = useState<string>("todos_os_locais");
+
+  const filterByLocation = (location: string) => {
+    const jobsData = getJobsPagination?.data || [];
+    if (location === "todos_os_locais") {
+      setFilteredJobs(jobsData);
+    } else {
+      const filteredJobs = jobsData.filter(
+        (job) => job.location === location
+      );
+      setFilteredJobs(filteredJobs);
+    }
+  };
+
+  useEffect(() => {
+    // Filtra os jobs toda vez que a localidade for alterada
+    filterByLocation(selectedLocation);
+  }, [selectedLocation, getJobsPagination?.data, setFilteredJobs]);
 
   return (
     <>
@@ -89,12 +108,11 @@ export const UserProfile = () => {
                     className="w-[20px] h-[20px]"
                   />
                   <select
-                    id="search_enterprise"
-                    // value={selectedLocation}
-                    // onChange={handleLocationChange}
+                    id="search_enterprise2"
+                    onChange={(e) => setSelectedLocation(e.target.value)}
                     className="outline-none appearance-none text-gray-500 bg-transparent w-full"
                   >
-                    <option value="">Selecione o local</option>
+                    <option value="todos_os_locais">Todos os locais</option>
                     {uniqueLocations.map((location) => (
                       <option key={location} value={location}>
                         {location}
