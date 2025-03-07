@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 import {
+  ReportCandidateDataProps,
   ReportCandidateResumeProps,
-  ReportCandidateViewProps,
-  ReportManagementContextProps,
+    ReportManagementContextProps,
   ReportManagementProviderProps,
 } from "./@types";
 import { api } from "../../services";
@@ -12,9 +12,8 @@ const ReportManagementContext = createContext(
 const ReportManagementProvider = ({
   children,
 }: ReportManagementProviderProps) => {
-  const [reportViewCandidates, setReportViewCandidates] = useState<
-    ReportCandidateViewProps[] | []
-  >([]);
+  const [reportViewCandidates, setReportViewCandidates] =
+    useState<null | ReportCandidateDataProps>(null);
   const [reportResumeCandidates, setReportResumeCandidates] = useState<
     ReportCandidateResumeProps[] | []
   >([]);

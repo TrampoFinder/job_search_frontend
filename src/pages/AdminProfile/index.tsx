@@ -18,13 +18,8 @@ import { ToggleViewButton } from "../../components/Buttons/ToggleViewButton";
 export const AdminProfile = () => {
   const { user } = useContext(IdentityContext);
   const { isModalOpen } = useContext(JobManagementContext);
-  const {
-    reportViewCandidates,
-    reportCandidatesDownload,
-    view,
-    setView,
-    reportResumeCandidates,
-  } = useContext(ReportManagementContext);
+  const { reportViewCandidates, reportCandidatesDownload, view, setView } =
+    useContext(ReportManagementContext);
   const fullName = user?.firstName + " " + user?.lastName;
   const [selectValues, setSelectValues] = useState<string[]>([]);
   const handleFilterChange = (filter: string, isChecked: boolean) => {
@@ -35,14 +30,18 @@ export const AdminProfile = () => {
   };
   const [loading, setLoading] = useState(false);
   const validLength = () => {
-    if (reportViewCandidates.length > 0 && view === "grid") {
-      return `Mostrando x-x de ${reportViewCandidates.length} resultados`;
-    } else if (reportResumeCandidates.length > 0 && view === "list") {
-      return `Mostrando x-x de ${reportViewCandidates.length} resultados`;
-    } else {
+    if (!reportViewCandidates || reportViewCandidates.data.length === 0) {
       return "Sem candidatos cadastrados no sistema";
     }
+
+    const { data, total, previousPage } = reportViewCandidates;
+    const perPage = data.length;
+    const start = previousPage !== null ? previousPage * perPage + 1 : 1;
+    const end = Math.min(start + perPage - 1, total);
+
+    return `Mostrando ${start}-${end} de ${total} resultados`;
   };
+
   return (
     <>
       {isModalOpen && <ModalApplyJob />}
@@ -183,7 +182,7 @@ export const AdminProfile = () => {
                   />
                 </div>
               </div>
-              <ListReportUsers/>
+              <ListReportUsers />
             </div>
           </main>
           <BlackFooter />
