@@ -44,14 +44,13 @@ export const ListReportUsers = () => {
   useEffect(() => {
     getReportCandidates();
   }, []);
-
   return (
     <div>
       {loading && <p>Carregando...</p>}
       <ul className="h-full w-full flex flex-col gap-3">
         {!loading &&
           view === "grid" &&
-          reportViewCandidates?.map((candidate) => {
+          reportViewCandidates?.data.map((candidate) => {
             return (
               <CandidateReportViewCard key={candidate.userId} {...candidate} />
             );

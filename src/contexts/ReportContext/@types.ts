@@ -3,9 +3,9 @@ export interface ReportManagementProviderProps {
 }
 
 export interface ReportManagementContextProps {
-  reportViewCandidates: [] | ReportCandidateViewProps[];
+  reportViewCandidates: null | ReportCandidateDataProps;
   setReportViewCandidates: React.Dispatch<
-    React.SetStateAction<[] | ReportCandidateViewProps[]>
+    React.SetStateAction<null | ReportCandidateDataProps>
   >;
   reportCandidatesDownload: (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -27,6 +27,14 @@ export interface ReportCandidateViewProps {
   approved: string;
   rejected: string;
   closed: string;
+}
+
+export interface ReportCandidateDataProps {
+  data: ReportCandidateViewProps[];
+  total: number;
+  totalPages: number;
+  previousPage: number | null;
+  nextPage: number | null;
 }
 
 export interface ReportCandidateResumeProps {
