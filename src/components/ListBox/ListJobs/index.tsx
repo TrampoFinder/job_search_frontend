@@ -3,7 +3,7 @@ import { JobManagementContext } from "../../../contexts/JobContext";
 import { CardJob } from "./CardJob";
 
 export const ListJobs = () => {
-  const { getJobs, retrieveJobs, filteredJobs } =
+  const { getJobsPagination, retrieveJobs, filteredJobs } =
     useContext(JobManagementContext);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -39,7 +39,7 @@ export const ListJobs = () => {
           />
         ))
       ) : (
-        getJobs?.jobs.map((job) => (
+        getJobsPagination?.data.map((job) => (
           <CardJob
             key={job.id}
             id={job.id}

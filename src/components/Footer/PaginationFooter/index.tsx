@@ -3,7 +3,7 @@
 import { DefaultButton } from "../../Buttons/DefaultButton";
 
 export const PaginationFooter = () => {
-  // const { getJobs } = useContext(JobManagementContext);
+  // const { getJobsPagination } = useContext(JobManagementContext);
   return (
     <div className="flex justify-between items-center">
       <DefaultButton

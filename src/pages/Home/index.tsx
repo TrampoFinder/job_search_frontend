@@ -10,8 +10,9 @@ import { JobManagementContext } from "../../contexts/JobContext";
 import { SearchByCompany } from "../../components/Form/SearchByCompany";
 
 export const Home = () => {
-  const { retrieveJobs, retrieveJobsCount, jobsCompanyCount, getJobs } =
+  const { retrieveJobs, retrieveJobsCount, jobsCompanyCount, getJobsPagination } =
     useContext(JobManagementContext);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +23,6 @@ export const Home = () => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <div className="flex flex-col">
       <BgContentTop height="home">
@@ -47,7 +47,7 @@ export const Home = () => {
               </div>
               <div className="flex flex-col items-start">
                 <span className="font-bold text-[20px] text-white text-center">
-                  {getJobs?.total || 0}
+                  {getJobsPagination?.total || 0}
                 </span>
                 <span className="text-2 text-white opacity-50 text-center">
                   Vagas
@@ -95,7 +95,7 @@ export const Home = () => {
             </div>
           </div>
           <ul className="pt-9 pb-14 h-full w-full flex flex-col gap-6">
-            {getJobs?.jobs.slice(0, 4).map((job) => {
+            {getJobsPagination?.data.slice(0, 4).map((job) => {
               return <CardJob {...job} key={job.id} />;
             })}
           </ul>

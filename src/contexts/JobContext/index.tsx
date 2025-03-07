@@ -17,14 +17,14 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
   >(null);
   const [applicationJob, setApplicationJob] =
     useState<ApplicationJobsContextProps | null>(null);
-  const [getJobs, setJobs] = useState<GetAllJobsContextProps | null>(null);
+  const [getJobsPagination, setJobsPagination] = useState<GetAllJobsContextProps | null>(null);
   const [filteredJobs, setFilteredJobs] = useState<JobContextProps[] | null>(
     null
   );
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const token = localStorage.getItem("@TOKEN");
   const [focusIndex, setFocusIndex] = useState<number>(0);
-  const [jobsCompanyCount, setJobsCompanyCount] = useState(0);
+  const [jobsCompanyCount, setJobsPaginationCompanyCount] = useState(0);
   const retrieveJobs = async (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
@@ -32,7 +32,7 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
       setLoading(true);
       const response = await api.get("/job-management");
       if (response.status === 200) {
-        setJobs(response.data);
+        setJobsPagination(response.data);
       }
     } catch (error) {
       console.error(error);
@@ -167,7 +167,7 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
       setLoading(true);
       const response = await api.get("/job-management/companies");
       if (response.status === 200) {
-        setJobsCompanyCount(response.data.companyCount);
+        setJobsPaginationCompanyCount(response.data.companyCount);
       }
     } catch (error) {
       console.error(error);
@@ -181,8 +181,8 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
       value={{
         job,
         setJob,
-        getJobs,
-        setJobs,
+        getJobsPagination,
+        setJobsPagination,
         retrieveJobs,
         filterByTime,
         filteredJobs,
@@ -199,7 +199,7 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
         applicationJob,
         setApplicationJob,
         jobsCompanyCount,
-        setJobsCompanyCount,
+        setJobsPaginationCompanyCount,
         retrieveJobsCount,
       }}
     >
