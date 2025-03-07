@@ -6,7 +6,7 @@ export const SearchByDateForm = () => {
   const { getJobsPagination, filterByTime, setFilteredJobs } =
     useContext(JobManagementContext);
   const [selectValues, setSelectValues] = useState<string | null>(null);
-  const jobs = getJobs?.jobs || [];
+  const jobs = getJobsPagination?.data || [];
   const handleFilterChange = (filter: string, isChecked: boolean) => {
     const newValue = isChecked ? filter : null;
     setSelectValues(newValue);
