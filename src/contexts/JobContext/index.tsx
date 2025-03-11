@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import {
   ApplicationJobsContextProps,
+  GetAllJobsApplicationContextProps,
   GetAllJobsContextProps,
   JobCardProps,
   JobContextProps,
@@ -11,13 +12,14 @@ import { api } from "../../services";
 
 const JobManagementContext = createContext({} as JobManagementContextProps);
 const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
+  const [modalType, setModalType] = useState("");
   const [job, setJob] = useState<JobCardProps | null>(null);
-  const [applicationJobs, setApplicationJobs] = useState<
-    ApplicationJobsContextProps[] | null
-  >(null);
+  const [applicationJobs, setApplicationJobs] =
+    useState<GetAllJobsApplicationContextProps | null>(null);
   const [applicationJob, setApplicationJob] =
     useState<ApplicationJobsContextProps | null>(null);
-  const [getJobsPagination, setJobsPagination] = useState<GetAllJobsContextProps | null>(null);
+  const [getJobsPagination, setJobsPagination] =
+    useState<GetAllJobsContextProps | null>(null);
   const [filteredJobs, setFilteredJobs] = useState<JobContextProps[] | null>(
     null
   );
@@ -144,12 +146,9 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
         }
       );
       if (response.status === 200) {
-        setApplicationJobs((prevJobs) => {
-          return (
-            prevJobs?.map((job) =>
-              job.id === response.data.id ? response.data : job
-            ) || []
-          );
+        setApplicationJobs({
+          ...applicationJobs!,
+          data: [...applicationJobs!.data, response.data],
         });
         setLoading(false);
       }
@@ -201,6 +200,8 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
         jobsCompanyCount,
         setJobsPaginationCompanyCount,
         retrieveJobsCount,
+        modalType,
+        setModalType,
       }}
     >
       {children}
