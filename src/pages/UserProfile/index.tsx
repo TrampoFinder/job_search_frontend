@@ -144,18 +144,6 @@ export const UserProfile = () => {
                   {getJobsPagination &&
                     `Mostrando ${getJobsPagination.data.length}-${getJobsPagination.data.length} de ${getJobsPagination.total} resultados`}
                 </span>
-                <div className="border-[2px] border-gray-400 rounded-[6px] max-w-40 w-full flex items-center justify-between relative pl-3">
-                  <select className="outline-none appearance-none text-2 text-gray-500 bg-transparent w-full">
-                    <option value="">Mais recentes</option>
-                    <option value="">Date</option>
-                    <option value="">Relevance</option>
-                  </select>
-                  <img
-                    src={chevronDrown}
-                    alt="Arrow Down"
-                    className="absolute right-2 z-[5]"
-                  />
-                </div>
               </div>
               <ListJobs />
               <PaginationFooter />
