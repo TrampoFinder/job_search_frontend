@@ -13,6 +13,7 @@ import { ListJobs } from "../../components/ListBox/ListJobs";
 import { PaginationFooter } from "../../components/Footer/PaginationFooter";
 import { MotivatingCard } from "../../components/MotivatingCard";
 import { ModalApplyJob } from "../../components/Modal/ModalApplyJob";
+import { ModalWrapper } from "../../components/Modal";
 
 export const UserProfile = () => {
   const { user } = useContext(IdentityContext);
@@ -22,16 +23,15 @@ export const UserProfile = () => {
   const locations = getJobsPagination?.data.map((job) => job.location);
   const uniqueLocations = [...new Set(locations)];
 
-  const [selectedLocation, setSelectedLocation] = useState<string>("todos_os_locais");
+  const [selectedLocation, setSelectedLocation] =
+    useState<string>("todos_os_locais");
 
   const filterByLocation = (location: string) => {
     const jobsData = getJobsPagination?.data || [];
     if (location === "todos_os_locais") {
       setFilteredJobs(jobsData);
     } else {
-      const filteredJobs = jobsData.filter(
-        (job) => job.location === location
-      );
+      const filteredJobs = jobsData.filter((job) => job.location === location);
       setFilteredJobs(filteredJobs);
     }
   };
@@ -43,7 +43,7 @@ export const UserProfile = () => {
 
   return (
     <>
-      {isModalOpen && <ModalApplyJob />}
+      {isModalOpen && <ModalWrapper />}
       <div className="flex flex-col">
         <BgContentTop height="profile">
           <BlackHeader />
@@ -55,7 +55,7 @@ export const UserProfile = () => {
               <span className="text-white">Ultimas candidaturas:</span>
               <ul className="flex flex-col gap-2 pl-2.5">
                 {applicationJobs &&
-                  applicationJobs.slice(-3).map((job) => (
+                  applicationJobs.data.slice(-3).map((job) => (
                     <li className="flex items-center gap-3" key={job.id}>
                       <div className="rounded-full w-[30px] h-[30px] custom-shadow-80 flex items-center justify-center">
                         <img

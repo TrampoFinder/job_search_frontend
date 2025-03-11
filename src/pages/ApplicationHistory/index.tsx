@@ -11,8 +11,8 @@ import { JobManagementContext } from "../../contexts/JobContext";
 import { SearchByDateForm } from "../../components/Form/SearchByDateForm";
 import { PaginationFooter } from "../../components/Footer/PaginationFooter";
 import { MotivatingCard } from "../../components/MotivatingCard";
-import { ModalApplyJob } from "../../components/Modal/ModalApplyJob";
 import { ListApplicationJobs } from "../../components/ListBox/ListApplicationJobs";
+import { ModalWrapper } from "../../components/Modal";
 
 export const ApplicationHistory = () => {
   const { user } = useContext(IdentityContext);
@@ -22,7 +22,7 @@ export const ApplicationHistory = () => {
 
   return (
     <>
-      {isModalOpen && <ModalApplyJob />}
+      {isModalOpen && <ModalWrapper />}
       <div className="flex flex-col">
         <BgContentTop height="profile">
           <BlackHeader />
@@ -34,7 +34,7 @@ export const ApplicationHistory = () => {
               <span className="text-white">Ultimas candidaturas:</span>
               <ul className="flex flex-col gap-2 pl-2.5">
                 {applicationJobs &&
-                  applicationJobs.slice(-3).map((job) => (
+                  applicationJobs.data.slice(-3).map((job) => (
                     <li className="flex items-center gap-3" key={job.id}>
                       <div className="rounded-full w-[30px] h-[30px] custom-shadow-80 flex items-center justify-center">
                         <img

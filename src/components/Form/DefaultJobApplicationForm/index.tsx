@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UpdateJobApplicationSchema } from "./updateJobApplicationSchema";
 import chevronDrown from "../../../assets/chevron-down.svg";
 import { DefaultButton } from "../../Buttons/DefaultButton";
 import { JobManagementContext } from "../../../contexts/JobContext";
 import { useLocation } from "react-router-dom";
 import { IdentityContext } from "../../../contexts/IdentityContext";
+import { DefaultJobApplicationSchema } from "./DefaultJobApplicationSchema";
 
-interface UpdateJobApplicationProps {
+interface DefaultJobApplicationProps {
   note: string;
   status: JobApplicationStatus;
 }
@@ -21,7 +21,7 @@ type JobApplicationStatus =
   | "REJECTED"
   | "CLOSED";
 
-export const ModifyStatusJobApplyForm = () => {
+export const DefaultJobApplicationForm = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useContext(IdentityContext);
   const {
@@ -37,11 +37,11 @@ export const ModifyStatusJobApplyForm = () => {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<UpdateJobApplicationProps>({
+  } = useForm<DefaultJobApplicationProps>({
     mode: "onBlur",
-    resolver: zodResolver(UpdateJobApplicationSchema),
+    resolver: zodResolver(DefaultJobApplicationSchema),
   });
-  const submit: SubmitHandler<UpdateJobApplicationProps> = async (data) => {
+  const submit: SubmitHandler<DefaultJobApplicationProps> = async (data) => {
     if (location.pathname === "/profile/users") {
       const updatedJob = { ...job, ...data };
       setJob(updatedJob);
@@ -65,7 +65,7 @@ export const ModifyStatusJobApplyForm = () => {
         htmlFor="status_job_application"
         className="flex flex-col text-white"
       >
-        Alterar status da candidatura:
+        Status da candidatura:
         <div className="text-3 text-gray px-4 h-[40px] w-full border-[1.5px] border-gray-200 rounded-[8px] placeholder-gray mt-2.5 relative flex justify-between">
           <select
             id="status_job_application"
@@ -92,7 +92,7 @@ export const ModifyStatusJobApplyForm = () => {
         htmlFor="note_job_application"
         className="flex flex-col text-white"
       >
-        Observações de candidatura:
+        Adicione um comentário (opcional):
         <textarea
           id="note_job_application"
           {...register("note")}
@@ -110,7 +110,7 @@ export const ModifyStatusJobApplyForm = () => {
         />
         <DefaultButton
           variant="brand1"
-          text="Confirmar"
+          text="Salvar candidatura"
           size="medium"
           type="submit"
           disabled={!isValid}

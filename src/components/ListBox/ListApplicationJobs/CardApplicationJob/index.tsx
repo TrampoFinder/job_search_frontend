@@ -32,7 +32,7 @@ export const CardApplicationJob = ({
   url,
   id,
 }: ApplicationJobProps) => {
-  const { setIsModalOpen, setApplicationJob } =
+  const { setIsModalOpen, setApplicationJob, setModalType } =
     useContext(JobManagementContext);
   return (
     <li className="w-full max-h-[229px] h-full rounded-[20px] custom-shadow p-10 hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col">
@@ -68,6 +68,7 @@ export const CardApplicationJob = ({
           onClick={() => {
             setApplicationJob({ id, status, title, url, userId, jobId, note });
             setIsModalOpen(true);
+            setModalType("changeStatusApplicationJob");
           }}
         />
       </div>

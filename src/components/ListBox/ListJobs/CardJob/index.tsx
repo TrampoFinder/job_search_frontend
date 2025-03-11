@@ -16,12 +16,14 @@ export const CardJob = ({
   createdAt,
   id,
 }: JobCardProps) => {
-  const { setIsModalOpen, setJob } = useContext(JobManagementContext);
+  const { setIsModalOpen, setJob, setModalType } =
+    useContext(JobManagementContext);
   const { user } = useContext(IdentityContext);
   const navigate = useNavigate();
   const handleClick = () => {
     if (user) {
       setJob({ title, id, url });
+      setModalType("applyJob");
       setIsModalOpen(true);
     } else {
       navigate("/sign-in");
@@ -70,7 +72,7 @@ export const CardJob = ({
           </p>
         </div>
         <DefaultButton
-          text="Cadastrar"
+          text="Candidatar"
           size="small"
           variant="brand1"
           onClick={handleClick}

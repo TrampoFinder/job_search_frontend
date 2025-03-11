@@ -6,6 +6,7 @@ import {
   SignInProps,
   RegisterUserProps,
   UserContextProps,
+  UpdateUserProps,
 } from "./@types";
 import { api } from "../../services";
 import { useNavigate } from "react-router-dom";
@@ -126,6 +127,30 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
       setLoading(false);
     }
   };
+  const updateUser = async (
+    data: UpdateUserProps,
+    userId: string,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ): Promise<void> => {
+    try {
+      setLoading(true);
+      const response = await api.patch(`/users/${userId}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 204) {
+        localStorage.removeItem("@TOKEN");
+        setUser(null);
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <IdentityContext.Provider
       value={{
@@ -140,6 +165,7 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
         setUser,
         isDropdownOpen,
         setIsDropdownOpen,
+        updateUser,
       }}
     >
       {children}

@@ -2,6 +2,7 @@ import { useContext, useRef } from "react";
 import { IdentityContext } from "../../../contexts/IdentityContext";
 import { useOutClick } from "../../../hooks/useOutClick";
 import { useNavigate } from "react-router-dom";
+import { JobManagementContext } from "../../../contexts/JobContext";
 
 export const DropdownUser = ({
   initials,
@@ -11,6 +12,7 @@ export const DropdownUser = ({
   firstName: string;
 }) => {
   const { isDropdownOpen, setIsDropdownOpen } = useContext(IdentityContext);
+  const { setIsModalOpen, setModalType } = useContext(JobManagementContext);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const { setUser } = useContext(IdentityContext);
@@ -48,8 +50,9 @@ export const DropdownUser = ({
         <div className="py-1">
           <button
             onClick={() => {
-              //   onEditProfile?.();
               setIsDropdownOpen(false);
+              setModalType("editProfile");
+              setIsModalOpen(true);
             }}
             className="w-full px-4 py-2 text-left text-gray-700 hover:bg-[#F3F0FF] transition-colors duration-300 flex items-center space-x-2"
           >

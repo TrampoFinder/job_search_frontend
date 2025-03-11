@@ -14,6 +14,7 @@ export const BlackHeader = () => {
 
   const handleFocus = (index: number) => {
     setFocusIndex(index);
+    console.log(focusIndex);
   };
   return (
     <header>
@@ -57,7 +58,7 @@ export const BlackHeader = () => {
                   handleFocus(1);
                   if (user?.role === "USER") {
                     navigate(`/profile/users/${user?.id}`);
-                    handleFocus(0);
+                    handleFocus(1);
                   } else {
                     navigate("/");
                     handleFocus(0);
