@@ -37,14 +37,13 @@ export const UserProfile = () => {
     }
   };
 
-   // Função para filtrar por empresa
    const filterByCompany = (query: string) => {
     const jobsData = getJobsPagination?.data || [];
     if (!query) {
-      setFilteredJobs(jobsData); // Se a pesquisa estiver vazia, exibe todos os jobs
+      setFilteredJobs(jobsData);
     } else {
       const filteredJobs = jobsData.filter((job) =>
-        job.company.toLowerCase().includes(query.toLowerCase()) // Filtra pelo nome da empresa
+        job.company.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredJobs(filteredJobs);
     }
@@ -111,7 +110,7 @@ export const UserProfile = () => {
                       type="text"
                       id="search_enterprise3"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)} // Atualiza o estado com o valor do input
+                      onChange={(e) => setSearchQuery(e.target.value)}
                       className="outline-none text-gray-500 leading-1"
                       placeholder="Nome de uma empresa..."
                     />
