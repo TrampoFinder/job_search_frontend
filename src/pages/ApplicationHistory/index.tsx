@@ -55,64 +55,6 @@ export const ApplicationHistory = () => {
         </BgContentTop>
         <div className="bg-white h-auto">
           <main className="container-apply flex gap-[18px] pt-9 pb-10 relative">
-            <aside className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]">
-              <div className="flex flex-col gap-5 w-full">
-                <span className="text-[20px] font-semibold text-black">
-                  Procure por empresa
-                </span>
-                <label htmlFor="search_enterprise">
-                  <div className="flex w-full max-w-[276px] h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3">
-                    <img
-                      src={graySearchIcon}
-                      alt="Search"
-                      className="w-[20px] h-[20px]"
-                    />
-                    <input
-                      type="text"
-                      id="search_enterprise"
-                      className="outline-none text-gray-500 leading-1"
-                      placeholder="Nome de uma empresa..."
-                    />
-                  </div>
-                </label>
-              </div>
-              <div className="flex flex-col gap-5 w-full">
-                <span className="text-[20px] font-semibold text-black">
-                  Localidade
-                </span>
-                <div className="flex w-full max-w-[276px] h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3 relative">
-                  <img
-                    src={mapPin}
-                    alt="location"
-                    className="w-[20px] h-[20px]"
-                  />
-                  <select
-                    id="search_enterprise"
-                    // value={selectedLocation}
-                    // onChange={handleLocationChange}
-                    className="outline-none appearance-none text-gray-500 bg-transparent w-full"
-                  >
-                    <option value="">Selecione o local</option>
-                  </select>
-                  <img
-                    src={chevronDrown}
-                    alt="Arrow Down"
-                    className="absolute right-2 z-[5]"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col gap-5 max-w-[203px] w-full">
-                <span className="text-[20px] font-semibold text-black">
-                  Data de postagem
-                </span>
-                <SearchByDateForm />
-              </div>
-              <div>
-                <span className="text-[20px] font-semibold text-black">
-                  Tags
-                </span>
-              </div>
-            </aside>
             <div className="flex flex-col w-full gap-10">
               <div className="w-full h-10 flex justify-between items-center">
                 <span className="text-gray-500">
