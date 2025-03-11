@@ -25,6 +25,7 @@ export const UserProfile = () => {
 
   const [selectedLocation, setSelectedLocation] =
     useState<string>("todos_os_locais");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const filterByLocation = (location: string) => {
     const jobsData = getJobsPagination?.data || [];
@@ -36,10 +37,27 @@ export const UserProfile = () => {
     }
   };
 
+   const filterByCompany = (query: string) => {
+    const jobsData = getJobsPagination?.data || [];
+    if (!query) {
+      setFilteredJobs(jobsData);
+    } else {
+      const filteredJobs = jobsData.filter((job) =>
+        job.company.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredJobs(filteredJobs);
+    }
+  };
+
   useEffect(() => {
     // Filtra os jobs toda vez que a localidade for alterada
     filterByLocation(selectedLocation);
   }, [selectedLocation, getJobsPagination?.data, setFilteredJobs]);
+
+  useEffect(() => {
+    // Filtra os jobs toda vez que o valor da pesquisa mudar
+    filterByCompany(searchQuery);
+  }, [searchQuery, getJobsPagination?.data]);
 
   return (
     <>
@@ -90,7 +108,9 @@ export const UserProfile = () => {
                     />
                     <input
                       type="text"
-                      id="search_enterprise"
+                      id="search_enterprise3"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
                       className="outline-none text-gray-500 leading-1"
                       placeholder="Nome de uma empresa..."
                     />
@@ -144,18 +164,6 @@ export const UserProfile = () => {
                   {getJobsPagination &&
                     `Mostrando ${getJobsPagination.data.length}-${getJobsPagination.data.length} de ${getJobsPagination.total} resultados`}
                 </span>
-                <div className="border-[2px] border-gray-400 rounded-[6px] max-w-40 w-full flex items-center justify-between relative pl-3">
-                  <select className="outline-none appearance-none text-2 text-gray-500 bg-transparent w-full">
-                    <option value="">Mais recentes</option>
-                    <option value="">Date</option>
-                    <option value="">Relevance</option>
-                  </select>
-                  <img
-                    src={chevronDrown}
-                    alt="Arrow Down"
-                    className="absolute right-2 z-[5]"
-                  />
-                </div>
               </div>
               <ListJobs />
               <PaginationFooter />
