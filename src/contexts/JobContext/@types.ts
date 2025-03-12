@@ -58,12 +58,8 @@ export interface JobManagementContextProps {
   retrieveJobsCount: (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
-  modalType: "applyJob" | "editProfile" | "changeStatusApplicationJob";
-  setModalType: React.Dispatch<
-    React.SetStateAction<
-      "applyJob" | "editProfile" | "changeStatusApplicationJob"
-    >
-  >;
+  modalType: string;
+  setModalType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface JobContextProps {

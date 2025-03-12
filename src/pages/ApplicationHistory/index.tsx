@@ -1,14 +1,10 @@
-import graySearchIcon from "../../assets/gray-search.svg";
 import { BlackHeader } from "../../components/Header/BlackHeader";
 import enterprise from "../../assets/enterprise.svg";
 import { BlackFooter } from "../../components/Footer";
-import chevronDrown from "../../assets/chevron-down.svg";
-import mapPin from "../../assets/map-pin.svg";
 import { BgContentTop } from "../../components/Header/BgContentTop";
 import { useContext } from "react";
 import { IdentityContext } from "../../contexts/IdentityContext";
 import { JobManagementContext } from "../../contexts/JobContext";
-import { SearchByDateForm } from "../../components/Form/SearchByDateForm";
 import { PaginationFooter } from "../../components/Footer/PaginationFooter";
 import { MotivatingCard } from "../../components/MotivatingCard";
 import { ListApplicationJobs } from "../../components/ListBox/ListApplicationJobs";
