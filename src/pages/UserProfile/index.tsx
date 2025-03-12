@@ -1,25 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import graySearchIcon from "../../assets/gray-search.svg";
 import { BlackHeader } from "../../components/Header/BlackHeader";
-import enterprise from "../../assets/enterprise.svg";
 import { BlackFooter } from "../../components/Footer";
 import chevronDrown from "../../assets/chevron-down.svg";
 import mapPin from "../../assets/map-pin.svg";
 import { BgContentTop } from "../../components/Header/BgContentTop";
 import { useContext, useState, useEffect } from "react";
-import { IdentityContext } from "../../contexts/IdentityContext";
 import { JobManagementContext } from "../../contexts/JobContext";
 import { SearchByDateForm } from "../../components/Form/SearchByDateForm";
 import { ListJobs } from "../../components/ListBox/ListJobs";
 import { PaginationFooter } from "../../components/Footer/PaginationFooter";
 import { MotivatingCard } from "../../components/MotivatingCard";
-import { ModalApplyJob } from "../../components/Modal/ModalApplyJob";
 import { ModalWrapper } from "../../components/Modal";
+import { ProfileDataContent } from "../../components/ProfileDataContent";
 
 export const UserProfile = () => {
-  const { user } = useContext(IdentityContext);
-  const { getJobsPagination, isModalOpen, applicationJobs, setFilteredJobs } =
+  const { getJobsPagination, isModalOpen, setFilteredJobs } =
     useContext(JobManagementContext);
-  const fullName = user?.firstName + " " + user?.lastName;
   const locations = getJobsPagination?.data.map((job) => job.location);
   const uniqueLocations = [...new Set(locations)];
 
@@ -52,6 +49,7 @@ export const UserProfile = () => {
   useEffect(() => {
     // Filtra os jobs toda vez que a localidade for alterada
     filterByLocation(selectedLocation);
+    
   }, [selectedLocation, getJobsPagination?.data, setFilteredJobs]);
 
   useEffect(() => {
@@ -66,29 +64,7 @@ export const UserProfile = () => {
         <BgContentTop height="profile">
           <BlackHeader />
           <section className="container flex justify-center items-center pt-7 gap-6 container-apply">
-            <div className="w-full max-w-[512px] bg-transparente h-[200px] custom-shadow-40 flex flex-col pl-5 pt-2 gap-2">
-              <h3 className="text-white text-[20px] font-semibold">
-                Bem-vinde <span className="text-brand-2">{fullName}</span>
-              </h3>
-              <span className="text-white">Ultimas candidaturas:</span>
-              <ul className="flex flex-col gap-2 pl-2.5">
-                {applicationJobs &&
-                  applicationJobs.data.slice(-3).map((job) => (
-                    <li className="flex items-center gap-3" key={job.id}>
-                      <div className="rounded-full w-[30px] h-[30px] custom-shadow-80 flex items-center justify-center">
-                        <img
-                          src={enterprise}
-                          alt="Enterprise"
-                          className="w-[20px] h-[20px]"
-                        />
-                      </div>
-                      <span className="text-white font-semibold text-2">
-                        {job.title}
-                      </span>
-                    </li>
-                  ))}
-              </ul>
-            </div>
+            <ProfileDataContent/>
             <MotivatingCard />
           </section>
         </BgContentTop>
