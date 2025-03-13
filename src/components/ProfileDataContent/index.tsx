@@ -31,9 +31,7 @@ export const ProfileDataContent = () => {
         setLoading(false);
       }
     };
-
     getReportCandidateById();
-    
   }, [user]);
   return (
     <div className="w-full max-w-[512px] bg-transparente h-[200px] custom-shadow-40 flex justify-between">
