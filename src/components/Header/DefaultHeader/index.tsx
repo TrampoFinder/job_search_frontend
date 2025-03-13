@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/Logo.svg";
+import './style.css'
 
 import { DefaultButton } from "../../Buttons/DefaultButton";
 export const DefaultHeader = () => {
@@ -8,7 +9,7 @@ export const DefaultHeader = () => {
     <header>
       <div className="w-full flex justify-center h-[81px]">
         <div className="flex items-center justify-between container-apply">
-          <img
+          <img id="logo"
             src={logo}
             alt="Trampo Finder"
             className="w-[168] h-[28px] cursor-pointer"

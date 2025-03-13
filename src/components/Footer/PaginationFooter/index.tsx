@@ -1,11 +1,11 @@
 // import { useContext } from "react";
 // import { JobManagementContext } from "../../../contexts/JobContext";
 import { DefaultButton } from "../../Buttons/DefaultButton";
-
+import "./style.css"
 export const PaginationFooter = () => {
   // const { getJobsPagination } = useContext(JobManagementContext);
   return (
-    <div className="flex justify-between items-center">
+    <div id="navegation" className="flex justify-between items-center">
       <DefaultButton
         type="button"
         text="<"

@@ -4,30 +4,46 @@ import searchIcon from "../../../assets/search.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SearchByCompanySchema } from "./searchCompanySchema";
-import { useEffect, useState } from "react";
-
+import { useContext, useEffect, useState } from "react";
+import { JobManagementContext } from "../../../contexts/JobContext";
+import './style.css';
 interface SearchByCompanyProps {
   companyName: string;
 }
+
 export const SearchByCompany = () => {
+  const { getJobsPagination, setFilteredJobs } = useContext(JobManagementContext)
   const { register, handleSubmit } = useForm<SearchByCompanyProps>({
     resolver: zodResolver(SearchByCompanySchema),
     mode: "onChange",
   });
 
   const [searchTerm, setSearchTerm] = useState("");
+  const jobs = getJobsPagination?.data || [];
 
   useEffect(() => {
     const handler = setTimeout(() => {
+      if(jobs.length > 0 && searchTerm !== ""){
+        const filtered = jobs.filter((job) =>
+          job.company.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+          setFilteredJobs(filtered);
+      } else {
+          setFilteredJobs(jobs);
+      }
       console.log("Empresa pesquisada:", searchTerm);
     }, 500);
 
     return () => clearTimeout(handler);
-  }, [searchTerm]);
+  }, [searchTerm, jobs, setFilteredJobs]);
+  
+  
 
   const submit: SubmitHandler<SearchByCompanyProps> = (data) => {
     console.log("Empresa pesquisada:", data.companyName);
   };
+
+
 
   return (
     <form
@@ -55,3 +71,5 @@ export const SearchByCompany = () => {
     </form>
   );
 };
+
+export default SearchByCompany;

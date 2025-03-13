@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { IdentityContext } from "../../../contexts/IdentityContext";
 import { JobManagementContext } from "../../../contexts/JobContext";
 import { DropdownUser } from "../Dropdown/intex";
+import './style.css';
 export const BlackHeader = () => {
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ export const BlackHeader = () => {
     <header>
       <div className="w-full flex justify-center h-[81px] bg-black-20">
         <div className="flex items-center justify-between container-apply">
-          <img
+          <img id="logo"
             src={logo}
             alt="Trampo Finder"
             className="w-[168] h-[28px] cursor-pointer"
@@ -96,7 +97,7 @@ export const BlackHeader = () => {
               />
             ) : (
               <div className="flex gap-5">
-                <button
+                <button id="entrar"
                   className="text-white rounded-full  cursor-pointer"
                   onClick={() => navigate("/sign-in")}
                 >
