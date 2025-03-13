@@ -1,0 +1,13 @@
+@media (min-width: 721px) and (max-width: 1000px) {}
+
+@media (max-width: 720px) {
+
+ footer span{
+    font-size: 13px;
+ }
+ #cursor{
+    width: 30px;
+    height: 30px;
+ }
+    
+}

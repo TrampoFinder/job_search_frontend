@@ -1,0 +1,15 @@
+@media (min-width: 721px) and (max-width: 1000px)  {
+    
+}
+
+@media (max-width: 720px)  {
+    #motivation_card  h3{
+        font-size: 0.7rem;
+        text-align: start;
+    }
+    #motivation_card span {
+        padding-top: 50px;
+        font-size: 0.9rem;
+    }
+
+}

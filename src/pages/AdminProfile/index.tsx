@@ -14,6 +14,7 @@ import { CheckboxCustom } from "../../components/Form/SearchByDateForm/CheckboxC
 import { ReportManagementContext } from "../../contexts/ReportContext";
 import { DefaultButton } from "../../components/Buttons/DefaultButton";
 import { ToggleViewButton } from "../../components/Buttons/ToggleViewButton";
+import './style.css'
 
 export const AdminProfile = () => {
   const { user } = useContext(IdentityContext);
@@ -75,14 +76,14 @@ export const AdminProfile = () => {
             <MotivatingCard />
           </section>
         </BgContentTop>
-        <div className="bg-white h-auto">
-          <main className="container-apply flex gap-[18px] pt-9 pb-10 relative">
-            <aside className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]">
+        <div  className="bg-white h-auto">
+          <main id="work_area" className="container-apply flex gap-[18px] pt-9 pb-10 relative">
+            <aside id="search" className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]">
               <div className="flex flex-col gap-5 w-full">
                 <span className="text-[20px] font-semibold text-black">
                   Procure por usuário
                 </span>
-                <label htmlFor="search_enterprise">
+                <label id="find_user" htmlFor="search_enterprise">
                   <div className="flex w-full max-w-[276px] h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3">
                     <img
                       src={graySearchIcon}
@@ -92,13 +93,13 @@ export const AdminProfile = () => {
                     <input
                       type="text"
                       id="search_enterprise"
-                      className="outline-none text-gray-500 leading-1"
+                      className="outline-none  text-gray-500 leading-1"
                       placeholder="Nome de um usuário..."
                     />
                   </div>
                 </label>
               </div>
-              <div className="flex flex-col gap-5 w-full">
+              <div id= "find_turma"className="flex flex-col gap-5 w-full">
                 <span className="text-[20px] font-semibold text-black">
                   Turma
                 </span>
@@ -128,7 +129,7 @@ export const AdminProfile = () => {
                 <span className="text-[20px] font-semibold text-black">
                   Período das turmas
                 </span>
-                <div className="flex flex-col gap-3">
+                <div id="options" className="flex flex-col gap-3">
                   <CheckboxCustom
                     text="Todas as turmas"
                     value="all_classes"
@@ -165,12 +166,12 @@ export const AdminProfile = () => {
                 </span>
               </div>
             </aside>
-            <div className="flex flex-col w-full gap-10">
+            <div id="relatorio" className="flex flex-col w-full gap-10">
               <div className="flex gap-5 w-full justify-between">
                 <span className="text-[20px] font-regular text-gray-600">
                   {validLength()}
                 </span>
-                <div className="flex gap-5 max-w-[250px] w-full h-[40px]">
+                <div id="buttom_relatorio" className="flex gap-5 max-w-[250px] w-full h-[40px]">
                   <ToggleViewButton view={view} onViewChange={setView} />
                   <DefaultButton
                     variant="brand1"

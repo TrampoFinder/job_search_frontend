@@ -1,0 +1,35 @@
+#banner_head h2 {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 721px) and (max-width: 1000px) {
+    #banner_head h2 {
+        font-size: 60px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 720px) {
+    #banner_head h2 {
+        font-size: 35px;
+        padding: 20px;
+    }
+
+    #banner_head p {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    #count_results {
+        justify-content: center;
+        margin-bottom: 50px;
+    }
+
+    footer img {
+        width: 50px;
+    }
+
+    .container-apply h2 {
+        font-size: 30px;
+    }
+}
