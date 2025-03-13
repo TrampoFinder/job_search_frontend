@@ -6,7 +6,9 @@ export interface JobManagementContextProps {
   job: JobCardProps | null;
   setJob: React.Dispatch<React.SetStateAction<JobCardProps | null>>;
   getJobsPagination: GetAllJobsContextProps | null;
-  setJobsPagination: React.Dispatch<React.SetStateAction<GetAllJobsContextProps | null>>;
+  setJobsPagination: React.Dispatch<
+    React.SetStateAction<GetAllJobsContextProps | null>
+  >;
   retrieveJobs: (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
@@ -28,9 +30,9 @@ export interface JobManagementContextProps {
   setApplicationJob: React.Dispatch<
     React.SetStateAction<ApplicationJobsContextProps | null>
   >;
-  applicationJobs: ApplicationJobsContextProps[] | null;
+  applicationJobs: GetAllJobsApplicationContextProps | null;
   setApplicationJobs: React.Dispatch<
-    React.SetStateAction<ApplicationJobsContextProps[] | null>
+    React.SetStateAction<GetAllJobsApplicationContextProps | null>
   >;
   applicationHistory: (
     userId: string,
@@ -56,6 +58,8 @@ export interface JobManagementContextProps {
   retrieveJobsCount: (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
+  modalType: string;
+  setModalType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface JobContextProps {
@@ -70,12 +74,15 @@ export interface JobContextProps {
   deletedAt: Date | null;
 }
 
-export interface GetAllJobsContextProps {
-  data: JobContextProps[];
+interface PaginationProps {
   total: number;
   totalPages: number;
   previousPage: number | null;
   nextPage: number | null;
+}
+
+export interface GetAllJobsContextProps extends PaginationProps {
+  data: JobContextProps[];
 }
 
 export interface JobCardProps {
@@ -87,6 +94,10 @@ export interface JobCardProps {
   note?: string;
   location?: string;
   createdAt?: Date;
+}
+
+export interface GetAllJobsApplicationContextProps extends PaginationProps {
+  data: ApplicationJobsContextProps[];
 }
 export interface ApplicationJobsContextProps {
   id: string;

@@ -1,58 +1,70 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import graySearchIcon from "../../assets/gray-search.svg";
 import { BlackHeader } from "../../components/Header/BlackHeader";
-import enterprise from "../../assets/enterprise.svg";
 import { BlackFooter } from "../../components/Footer";
 import chevronDrown from "../../assets/chevron-down.svg";
 import mapPin from "../../assets/map-pin.svg";
 import { BgContentTop } from "../../components/Header/BgContentTop";
-import { useContext } from "react";
-import { IdentityContext } from "../../contexts/IdentityContext";
+import { useContext, useState, useEffect } from "react";
 import { JobManagementContext } from "../../contexts/JobContext";
 import { SearchByDateForm } from "../../components/Form/SearchByDateForm";
 import { ListJobs } from "../../components/ListBox/ListJobs";
 import { PaginationFooter } from "../../components/Footer/PaginationFooter";
 import { MotivatingCard } from "../../components/MotivatingCard";
-import { ModalApplyJob } from "../../components/Modal/ModalApplyJob";
 import './style.css'
-
+import { ModalWrapper } from "../../components/Modal";
+import { ProfileDataContent } from "../../components/ProfileDataContent";
 export const UserProfile = () => {
-  const { user } = useContext(IdentityContext);
-  const { getJobsPagination, isModalOpen, applicationJobs } =
+  const { getJobsPagination, isModalOpen, setFilteredJobs } =
     useContext(JobManagementContext);
-  const fullName = user?.firstName + " " + user?.lastName;
   const locations = getJobsPagination?.data.map((job) => job.location);
   const uniqueLocations = [...new Set(locations)];
 
+  const [selectedLocation, setSelectedLocation] =
+    useState<string>("todos_os_locais");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const filterByLocation = (location: string) => {
+    const jobsData = getJobsPagination?.data || [];
+    if (location === "todos_os_locais") {
+      setFilteredJobs(jobsData);
+    } else {
+      const filteredJobs = jobsData.filter((job) => job.location === location);
+      setFilteredJobs(filteredJobs);
+    }
+  };
+
+   const filterByCompany = (query: string) => {
+    const jobsData = getJobsPagination?.data || [];
+    if (!query) {
+      setFilteredJobs(jobsData);
+    } else {
+      const filteredJobs = jobsData.filter((job) =>
+        job.company.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredJobs(filteredJobs);
+    }
+  };
+
+  useEffect(() => {
+    // Filtra os jobs toda vez que a localidade for alterada
+    filterByLocation(selectedLocation);
+    
+  }, [selectedLocation, getJobsPagination?.data, setFilteredJobs]);
+
+  useEffect(() => {
+    // Filtra os jobs toda vez que o valor da pesquisa mudar
+    filterByCompany(searchQuery);
+  }, [searchQuery, getJobsPagination?.data]);
+
   return (
     <>
-      {isModalOpen && <ModalApplyJob />}
+      {isModalOpen && <ModalWrapper />}
       <div className="flex flex-col">
         <BgContentTop height="profile">
           <BlackHeader />
           <section className="container flex justify-center items-center pt-7 gap-6 container-apply">
-            <div  className="w-full max-w-[512px] bg-transparente h-[200px] custom-shadow-40 flex flex-col pl-5 pt-2 gap-2">
-              <h3 className="text-white text-[20px] font-semibold">
-                Bem-vinde <span className="text-brand-2">{fullName}</span>
-              </h3>
-              <span className="text-white">Ultimas candidaturas:</span>
-              <ul className="flex flex-col gap-2 pl-2.5">
-                {applicationJobs &&
-                  applicationJobs.slice(-3).map((job) => (
-                    <li className="flex items-center gap-3" key={job.id}>
-                      <div className="rounded-full w-[30px] h-[30px] custom-shadow-80 flex items-center justify-center">
-                        <img
-                          src={enterprise}
-                          alt="Enterprise"
-                          className="w-[20px] h-[20px]"
-                        />
-                      </div>
-                      <span className="text-white font-semibold text-2">
-                        {job.title}
-                      </span>
-                    </li>
-                  ))}
-              </ul>
-            </div>
+            <ProfileDataContent/>
             <MotivatingCard />
           </section>
         </BgContentTop>
@@ -72,7 +84,9 @@ export const UserProfile = () => {
                     />
                     <input
                       type="text"
-                      id="search_enterprise"
+                      id="search_enterprise3"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
                       className="outline-none text-gray-500 leading-1"
                       placeholder="Nome de uma empresa..."
                     />
@@ -90,12 +104,11 @@ export const UserProfile = () => {
                     className="w-[20px] h-[20px]"
                   />
                   <select
-                    id="search_enterprise"
-                    // value={selectedLocation}
-                    // onChange={handleLocationChange}
+                    id="search_enterprise2"
+                    onChange={(e) => setSelectedLocation(e.target.value)}
                     className="outline-none appearance-none text-gray-500 bg-transparent w-full"
                   >
-                    <option value="">Selecione o local</option>
+                    <option value="todos_os_locais">Todos os locais</option>
                     {uniqueLocations.map((location) => (
                       <option key={location} value={location}>
                         {location}

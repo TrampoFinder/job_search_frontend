@@ -26,7 +26,7 @@ export const ListApplicationJobs = () => {
 
   return (
     <ul className="h-full w-full flex flex-col gap-6">
-      {applicationJobs?.map((applicationJob) => (
+      {applicationJobs?.data.map((applicationJob) => (
         <CardApplicationJob
           key={applicationJob.id}
           id={applicationJob.id}

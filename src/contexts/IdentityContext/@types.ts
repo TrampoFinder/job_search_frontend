@@ -20,6 +20,11 @@ export interface IdentityContextProps {
   setUser: React.Dispatch<React.SetStateAction<UserContextProps | null>>;
   isDropdownOpen: boolean;
   setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateUser: (
+    data: UpdateUserProps,
+    userId: string,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
 }
 
 export interface UserContextProps {
@@ -49,4 +54,18 @@ export interface RegisterUserProps {
   username: string;
   email: string;
   password: string;
+}
+
+export interface RegisterUserProps {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export interface UpdateUserProps {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
 }
