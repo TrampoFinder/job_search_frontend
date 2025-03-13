@@ -32,7 +32,8 @@ export const ListReportUsers = () => {
         setReportViewCandidates(candidatesStatisticResponse.data);
       }
       if (candidatesResumeReport.status === 200) {
-        setReportResumeCandidates(candidatesResumeReport.data);
+        const { data } = candidatesResumeReport.data;
+        setReportResumeCandidates(data);
       }
     } catch (error) {
       console.error("Error fetching report candidates", error);

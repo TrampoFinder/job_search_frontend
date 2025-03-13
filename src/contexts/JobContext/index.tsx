@@ -103,7 +103,7 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
   ) => {
     try {
       setLoading(true);
-      const response = await api.get(`/job-application/${userId}/history/`, {
+      const response = await api.get(`/job-application/history/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -11,7 +11,7 @@ import { SearchByDateForm } from "../../components/Form/SearchByDateForm";
 import { ListJobs } from "../../components/ListBox/ListJobs";
 import { PaginationFooter } from "../../components/Footer/PaginationFooter";
 import { MotivatingCard } from "../../components/MotivatingCard";
-import './style.css'
+import "./style.css";
 import { ModalWrapper } from "../../components/Modal";
 import { ProfileDataContent } from "../../components/ProfileDataContent";
 export const UserProfile = () => {
@@ -34,7 +34,7 @@ export const UserProfile = () => {
     }
   };
 
-   const filterByCompany = (query: string) => {
+  const filterByCompany = (query: string) => {
     const jobsData = getJobsPagination?.data || [];
     if (!query) {
       setFilteredJobs(jobsData);
@@ -49,7 +49,6 @@ export const UserProfile = () => {
   useEffect(() => {
     // Filtra os jobs toda vez que a localidade for alterada
     filterByLocation(selectedLocation);
-    
   }, [selectedLocation, getJobsPagination?.data, setFilteredJobs]);
 
   useEffect(() => {
@@ -64,19 +63,28 @@ export const UserProfile = () => {
         <BgContentTop height="profile">
           <BlackHeader />
           <section className="container flex justify-center items-center pt-7 gap-6 container-apply">
-            <ProfileDataContent/>
+            <ProfileDataContent />
             <MotivatingCard />
           </section>
         </BgContentTop>
-        <div  className="bg-white h-auto">
-          <main id="work_area" className="container-apply flex gap-[18px] pt-9 pb-10 relative">
-            <aside id="search" className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]">
+        <div className="bg-white h-auto">
+          <main
+            id="work_area"
+            className="container-apply flex gap-[18px] pt-9 pb-10 relative"
+          >
+            <aside
+              id="search"
+              className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]"
+            >
               <div className="flex flex-col gap-5 w-full">
                 <span className="text-[20px] font-semibold text-black">
                   Procure por empresa
                 </span>
                 <label htmlFor="search_enterprise">
-                  <div id="find_company"className="flex w-full max-w-[276px] h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3">
+                  <div
+                    id="find_company"
+                    className="flex w-full max-w-[276px] h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3"
+                  >
                     <img
                       src={graySearchIcon}
                       alt="Search"
@@ -134,24 +142,12 @@ export const UserProfile = () => {
                 </span>
               </div>
             </aside>
-            <div  id="results" className="flex flex-col w-full gap-10">
-              <div   className="w-full h-10 flex justify-between items-center">
+            <div id="results" className="flex flex-col w-full gap-10">
+              <div className="w-full h-10 flex justify-between items-center">
                 <span className="text-gray-500">
                   {getJobsPagination &&
                     `Mostrando ${getJobsPagination.data.length}-${getJobsPagination.data.length} de ${getJobsPagination.total} resultados`}
                 </span>
-                <div id="order" className="border-[2px] border-gray-400 rounded-[6px] max-w-40 w-full flex items-center justify-between relative pl-3">
-                  <select className="outline-none appearance-none text-2 text-gray-500 bg-transparent w-full">
-                    <option value="">Mais recentes</option>
-                    <option value="">Date</option>
-                    <option value="">Relevance</option>
-                  </select>
-                  <img
-                    src={chevronDrown}
-                    alt="Arrow Down"
-                    className="absolute right-2 z-[5]"
-                  />
-                </div>
               </div>
               <ListJobs />
               <PaginationFooter />
