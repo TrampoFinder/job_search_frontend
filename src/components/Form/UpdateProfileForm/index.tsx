@@ -24,17 +24,18 @@ export const UpdateProfileForm = () => {
   };
   const hasErrors = Object.keys(errors).length > 0;
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-[34px]">
+    <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-[14px]">
       <label htmlFor="firstName" className="flex flex-col text-white">
         Nome:
         <input
           id="firstName"
           type="text"
           {...register("firstName")}
-          className={`border-2 border-gray-200 w-full h-[40px] px-4 rounded-[8px] ${
+          className={`border-1 border-gray-200 w-full h-[40px] px-4 rounded-[4px] ${
             hasErrors && errors.firstName?.message ? "border-red-500" : ""
           }`}
           placeholder={user?.firstName}
+          disabled={loading}
         />
         {errors.firstName && (
           <p className="text-red-500">{errors.firstName.message}</p>
@@ -46,10 +47,11 @@ export const UpdateProfileForm = () => {
           id="lastName"
           type="text"
           {...register("lastName")}
-          className={`border-2 border-gray-200 w-full h-[40px] px-4 rounded-[8px] ${
+          className={`border-1 border-gray-200 w-full h-[40px] px-4 rounded-[4px] ${
             hasErrors && errors.lastName?.message ? "border-red-500" : ""
           }`}
           placeholder={user?.lastName}
+          disabled={loading}
         />
         {errors.lastName && (
           <p className="text-red-500">{errors.lastName.message}</p>
@@ -60,11 +62,13 @@ export const UpdateProfileForm = () => {
         <input
           id="email"
           type="email"
+          value={user?.email}
           {...register("email")}
-          className={`border-2 border-gray-200 w-full h-[40px] px-4 rounded-[8px] ${
+          className={`border-1 border-gray-200 w-full h-[40px] px-4 rounded-[4px] ${
             hasErrors && errors.email?.message ? "border-red-500" : ""
           }`}
           placeholder={user?.email}
+          disabled={true}
         />
         {errors.email && <p className="text-red-500">{errors.email.message}</p>}
       </label>
@@ -74,15 +78,16 @@ export const UpdateProfileForm = () => {
           id="password"
           type="password"
           {...register("password")}
-          className={`border-2 border-gray-200 w-full h-[40px] px-4 rounded-[8px] ${
+          className={`border-1 border-gray-200 w-full h-[40px] px-4 rounded-[4px] ${
             hasErrors && errors.password?.message ? "border-red-500" : ""
           }`}
+          disabled={loading}
         />
         {errors.password && (
           <p className="text-red-500">{errors.password.message}</p>
         )}
       </label>
-      <div className="flex w-full gap-[33px] items-center justify-center">
+      <div className="flex w-full gap-[33px] items-center justify-center mt-6">
         <DefaultButton
           variant="outlinebrand1"
           text="Fechar"

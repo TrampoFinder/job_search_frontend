@@ -14,6 +14,7 @@ import { MotivatingCard } from "../../components/MotivatingCard";
 import "./style.css";
 import { ModalWrapper } from "../../components/Modal";
 import { ProfileDataContent } from "../../components/ProfileDataContent";
+import { CheckboxCustom } from "../../components/Form/SearchByDateForm/CheckboxCustom";
 export const UserProfile = () => {
   const { getJobsPagination, isModalOpen, setFilteredJobs } =
     useContext(JobManagementContext);
@@ -55,7 +56,17 @@ export const UserProfile = () => {
     // Filtra os jobs toda vez que o valor da pesquisa mudar
     filterByCompany(searchQuery);
   }, [searchQuery, getJobsPagination?.data]);
-
+  const [checkedFilter, setCheckedFilter] = useState(false);
+  const handlerFavoriteChecked = (filter: string, checked: boolean) => {
+    setCheckedFilter(checked);
+    // const jobsData = getJobsPagination?.data || [];
+    // if (checked) {
+    //   const filteredJobs = jobsData.filter((job) => job.filter === filter);
+    //   setFilteredJobs(filteredJobs);
+    // } else {
+    //   setFilteredJobs(jobsData);
+    // }
+  };
   return (
     <>
       {isModalOpen && <ModalWrapper />}
@@ -138,8 +149,15 @@ export const UserProfile = () => {
               </div>
               <div>
                 <span className="text-[20px] font-semibold text-black">
-                  Tags
+                  Favoritos
                 </span>
+                <CheckboxCustom
+                  text="Todos os favoritos"
+                  quantity={10}
+                  value="favoritos"
+                  checked={checkedFilter}
+                  onChange={handlerFavoriteChecked}
+                />
               </div>
             </aside>
             <div id="results" className="flex flex-col w-full gap-10">

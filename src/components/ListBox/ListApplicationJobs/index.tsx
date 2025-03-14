@@ -1,18 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { JobManagementContext } from "../../../contexts/JobContext";
-import { IdentityContext } from "../../../contexts/IdentityContext";
 import { CardApplicationJob } from "./CardApplicationJob";
 
 export const ListApplicationJobs = () => {
   const { applicationHistory, applicationJobs } =
     useContext(JobManagementContext);
-  const { user } = useContext(IdentityContext);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchApplicationJobs = async () => {
       setLoading(true);
       try {
-        await applicationHistory(user!.id, setLoading);
+        await applicationHistory(setLoading);
       } catch (error) {
         console.error("Error fetching jobs", error);
       } finally {

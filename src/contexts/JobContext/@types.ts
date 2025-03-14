@@ -35,7 +35,6 @@ export interface JobManagementContextProps {
     React.SetStateAction<GetAllJobsApplicationContextProps | null>
   >;
   applicationHistory: (
-    userId: string,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
   focusIndex: number;
@@ -60,6 +59,10 @@ export interface JobManagementContextProps {
   ) => Promise<void>;
   modalType: string;
   setModalType: React.Dispatch<React.SetStateAction<string>>;
+  addFavoriteJob: (
+    jobId: string,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
 }
 
 export interface JobContextProps {
@@ -69,6 +72,7 @@ export interface JobContextProps {
   status: "ACTIVE" | "INACTIVE";
   url: string;
   location: string;
+  FavoriteJob: FavoriteJobProps[];
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
@@ -107,4 +111,13 @@ export interface ApplicationJobsContextProps {
   jobId: string;
   status: string;
   note: string | null;
+}
+
+interface FavoriteJobProps {
+  id: string;
+  userId: string;
+  jobId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
 }

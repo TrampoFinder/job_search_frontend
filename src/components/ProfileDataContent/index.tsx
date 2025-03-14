@@ -13,6 +13,18 @@ export const ProfileDataContent = () => {
   const [candidateReport, setCandidateReport] =
     useState<ReportCandidateViewProps | null>(null);
   const fullName = user?.firstName + " " + user?.lastName;
+  function getGreetings() {
+    const hour = new Date().getHours();
+
+    if (hour >= 6 && hour < 12) {
+      return "Bom dia,";
+    } else if (hour >= 12 && hour < 18) {
+      return "Boa tarde,";
+    } else {
+      return "Boa noite,";
+    }
+  }
+
   useEffect(() => {
     const getReportCandidateById = async () => {
       setLoading(true);
@@ -20,24 +32,28 @@ export const ProfileDataContent = () => {
         if (!token || !user) {
           return;
         }
-        const { data } = await api.get(`/candidates-report/${user.id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setCandidateReport(data);
-        applicationHistory(user.id, setLoading);
+        applicationHistory(setLoading);
+        if (applicationJobs && applicationJobs?.data.length > 0) {
+          const response = await api.get(`/candidates-report/${user.id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setCandidateReport(response.data);
+        }
       } catch (error) {
         console.error("Error fetching report candidates", error);
       } finally {
         setLoading(false);
       }
     };
-    getReportCandidateById();
+    if (!loading) {
+      getReportCandidateById();
+    }
   }, [user]);
   return (
     <div className="w-full max-w-[512px] bg-transparente h-[200px] custom-shadow-40 flex justify-between">
       <div className="flex flex-col pl-5 pt-2 gap-2">
         <h3 className="text-white text-[20px] font-semibold">
-          Bem-vinde <span className="text-brand-2">{fullName}</span>
+          {getGreetings()} <span className="text-brand-2">{fullName}!</span>
         </h3>
         <span className="text-white">Ultimas candidaturas:</span>
         <ul className="flex flex-col gap-2 pl-2.5">

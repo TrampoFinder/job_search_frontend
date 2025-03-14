@@ -82,23 +82,22 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
     data: JobCardProps | null,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ): Promise<void> => {
-    const { id, ...rest } = data;
     try {
       setLoading(true);
-      await api.post(`/job-application/apply/${data?.id}`, rest, {
+      const { id, ...rest } = data ?? {};
+      await api.post(`/job-application/apply/${id}`, rest, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setLoading(false);
     } catch (error) {
       console.error(error);
+    } finally {
       setLoading(false);
     }
   };
 
   const applicationHistory = async (
-    userId: string | null,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     try {
@@ -112,7 +111,7 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
         setApplicationJobs(response.data);
       }
     } catch (error) {
-      console.error(error);
+      console.error("", error);
     } finally {
       setLoading(false);
     }
@@ -175,6 +174,38 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
     }
   };
 
+  const addFavoriteJob = async (
+    jobId: string,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      const isFavoritedJob = getJobsPagination?.data.some(
+        (favJob) => favJob.id === jobId && favJob.FavoriteJob.length > 0
+      );
+      if (isFavoritedJob) {
+        await api.delete(`/favorites-job/${jobId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+      await api.post(
+        `/favorites-job/${jobId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <JobManagementContext.Provider
       value={{
@@ -202,6 +233,7 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
         retrieveJobsCount,
         modalType,
         setModalType,
+        addFavoriteJob,
       }}
     >
       {children}

@@ -17,9 +17,9 @@ export const ListJobs = () => {
         setLoading(false);
       }
     };
-
-    fetchJobs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!loading) {
+      fetchJobs();
+    }
   }, []);
   return (
     <ul className="h-full w-full flex flex-col gap-6">
