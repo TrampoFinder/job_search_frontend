@@ -42,16 +42,20 @@ export const BlackHeader = () => {
                   }
                 }}
               >
-                <span
-                  className={`text-white font-semibold ${
-                    focusIndex === 0 ? "" : "opacity-50"
-                  }`}
-                >
-                  Início
-                </span>
-                {focusIndex === 0 && (
-                  <div className="bg-brand-2 h-1 w-full absolute rounded-br-1 rounded-bl-1 top-6" />
+                {user && user.role === "USER" && (
+                  <>
+                    <span 
+                      className={`text-white font-semibold ${
+                        focusIndex === 0 ? "" : "opacity-50"}`}
+                    >
+                      Início
+                    </span>
+                    {focusIndex === 0 && (
+                      <div className="bg-brand-2 h-1 w-full absolute rounded-br-1 rounded-bl-1 top-6" />
+                    )}
+                  </>
                 )}
+
               </li>
               <li
                 className="cursor-pointer flex flex-col relative items-center"
@@ -66,34 +70,31 @@ export const BlackHeader = () => {
                   }
                 }}
               >
-                <span
-                  className={`text-white font-semibold ${
-                    focusIndex === 1 ? "" : "opacity-50"
-                  }`}
-                >
-                  {user && user.role === "USER"
-                    ? "Minhas candidaturas"
-                    : "Vagas"}
-                </span>
+                {user && user.role === "USER" && (
+                  <>
+                    <span
+                      className={`text-white font-semibold ${
+                        focusIndex === 1 ? "" : "opacity-50"
+                      }`}
+                    >
+                      Minhas candidaturas
+                    </span>
+                  </>
+                )}
                 {focusIndex === 1 && (
                   <div className="bg-brand-2 h-1 w-full absolute rounded-br-1 rounded-bl-1 top-6" />
                 )}
               </li>
-
-              {/* <li className="text-white opacity-50 cursor-pointer">
-                Sobre nós
-              </li>
-              <li className="text-white opacity-50 cursor-pointer">Contato</li> */}
             </ul>
           </nav>
           <nav>
             {user ? (
               <DropdownUser
                 initials={
-                  user.firstName.charAt(0) +
+                  user.firstName.charAt(0).toLocaleUpperCase() +
                   user.lastName.charAt(0).toLocaleUpperCase()
                 }
-                firstName={user.firstName}
+                firstName={user.firstName.charAt(0).toLocaleUpperCase()+user.firstName.slice(1).toLocaleLowerCase()}
               />
             ) : (
               <div className="flex gap-5">
