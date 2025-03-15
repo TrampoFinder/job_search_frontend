@@ -36,7 +36,7 @@ export const ProfileDataContent = () => {
     
   }, [user]);
   return (
-    <div className="w-full max-w-[512px] bg-transparente h-[200px] custom-shadow-40 flex justify-between">
+    <div className="w-full max-w-[512px] bg-transparente h-[100%] custom-shadow-40 flex justify-between">
       <div className="flex flex-col pl-5 pt-2 gap-2">
         <h3 className="text-white text-[20px] font-semibold">
           Bem-vinde <span className="text-brand-2">{fullName}</span>

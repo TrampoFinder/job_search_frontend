@@ -1,10 +1,11 @@
 @media (max-width: 720px) {
     #card{
         width: 100%;
+        
     }
     #time,
     #company,
-    #location {
+    #status {
         font-size: 0.9rem;
     }
     #title{

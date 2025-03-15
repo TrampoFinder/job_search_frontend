@@ -63,14 +63,14 @@ export const UserProfile = () => {
       <div className="flex flex-col">
         <BgContentTop height="profile">
           <BlackHeader />
-          <section className="container flex justify-center items-center pt-7 gap-6 container-apply">
+          <section id="cards" className="container flex justify-center items-center pt-7 gap-6 container-apply">
             <ProfileDataContent/>
             <MotivatingCard />
           </section>
         </BgContentTop>
         <div  className="bg-white h-auto">
-          <main id="work_area" className="container-apply flex gap-[18px] pt-9 pb-10 relative">
-            <aside id="search" className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]">
+          <main  className="container-apply flex gap-[18px] pt-9 pb-10 relative">
+            <aside  className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]">
               <div className="flex flex-col gap-5 w-full">
                 <span className="text-[20px] font-semibold text-black">
                   Procure por empresa

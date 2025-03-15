@@ -4,7 +4,7 @@ import enterprise from "../../../../assets/enterprise.svg";
 import mapPin from "../../../../assets/map-pin.svg";
 import { DefaultButton } from "../../../Buttons/DefaultButton";
 import { JobManagementContext } from "../../../../contexts/JobContext";
-
+import './style.css'
 interface ApplicationJobProps {
   title: string;
   note: string | null;
@@ -61,10 +61,10 @@ export const CardApplicationJob = ({
           </p>
         </div>
         <DefaultButton
-          text="Atualizar candidatura"
+          text="Atualizar"
           size="small"
           variant="brand1"
-          className="max-w-[180px]"
+          className="max-w-[100px]"
           onClick={() => {
             setApplicationJob({ id, status, title, url, userId, jobId, note });
             setIsModalOpen(true);

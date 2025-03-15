@@ -1,7 +1,6 @@
 // import { useContext } from "react";
 // import { JobManagementContext } from "../../../contexts/JobContext";
 import { DefaultButton } from "../../Buttons/DefaultButton";
-import "./style.css"
 export const PaginationFooter = () => {
   // const { getJobsPagination } = useContext(JobManagementContext);
   return (
