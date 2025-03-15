@@ -4,7 +4,7 @@ import enterprise from "../../../../assets/enterprise.svg";
 import mapPin from "../../../../assets/map-pin.svg";
 import { DefaultButton } from "../../../Buttons/DefaultButton";
 import { JobManagementContext } from "../../../../contexts/JobContext";
-import './style.css'
+
 interface ApplicationJobProps {
   title: string;
   note: string | null;
@@ -35,10 +35,10 @@ export const CardApplicationJob = ({
   const { setIsModalOpen, setApplicationJob, setModalType } =
     useContext(JobManagementContext);
   return (
-    <li id="card" className="w-full max-h-[229px] h-full rounded-[20px] custom-shadow p-10 hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col">
+    <li className="w-full max-h-[229px] h-full rounded-[20px] custom-shadow p-10 hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col">
       <div className="flex justify-between">
         <div className="bg-brand-2/20 p-2 text-brand-1 rounded-1 h-[28px] flex items-center">
-          <span id="time" className="text-2">10 min ago</span>
+          <span className="text-2">10 min ago</span>
         </div>
         <img src={clipPath} alt="Favorite" />
       </div>
@@ -49,22 +49,22 @@ export const CardApplicationJob = ({
           </div>
         </div>
         <div className="flex flex-col gap-2 justify-start items-start">
-          <h3 id="title" className="font-semibold text-[28px] leading-8">{title}</h3>
+          <h3 className="font-semibold text-[28px] leading-8">{title}</h3>
           {/* <p className="text-2 leading-4">{company}</p> */}
         </div>
       </div>
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
           <img src={mapPin} alt="Locale" />
-          <p id="status" className="text-2 leading-4 font-medium text-gray-400">
+          <p className="text-2 leading-4 font-medium text-gray-400">
             {statuses[status as keyof typeof statuses]}
           </p>
         </div>
         <DefaultButton
-          text="Atualizar"
+          text="Atualizar candidatura"
           size="small"
           variant="brand1"
-          className="max-w-[100px]"
+          className="max-w-[180px]"
           onClick={() => {
             setApplicationJob({ id, status, title, url, userId, jobId, note });
             setIsModalOpen(true);

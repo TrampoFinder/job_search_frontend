@@ -1,25 +1,17 @@
 @media (min-width: 721px) and (max-width: 1000px) {}
 
 @media (max-width: 720px) {
-    #cards{
-        flex-direction: column;
-        
-    }
     #profile h3{
         font-size: 0.7rem;
         text-align: start;
     }
-    main{
-        width: 100%;
-        flex-direction: column;
-        
+    #search{
+        width: 25vw;
+        height: 100vh;
     }
-    aside{
-        width: 100%;
-        flex-direction: column;
-        
+    #search span{
+        font-size: 1rem;
     }
-    
     #find_company img{
         width: 2vh;
     }
@@ -42,6 +34,9 @@
     }
     #results select{
         font-size: 0.9rem;
+    }
+    #work_area{
+        width: 100%;
     }
     #order{
         width: 50%;

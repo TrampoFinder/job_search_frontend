@@ -1,22 +1,37 @@
+@media (min-width: 721px) and (max-width: 1000px)  {
+    
+}
+
 @media (max-width: 720px)  {
-    #cards{
-        display: flex;
-        flex-direction: column;
+    #search{
+        width: 25vh;
     }
-    main{
+    #search span{
+        font-size: 1rem;
+    }
+    #find_user img{
+        width: 2vh;
+    }
+    #find_user input{
         width: 100%;
-        flex-direction: column;
+        font-size: 1rem;
     }
-    
-    
+    #find_turma img{
+        width: 2vh;
+    }
     #relatorio span{
         font-size: 1rem;
     }
+    #work_area {
+        width: 100%;
+        flex-flow: row;
+
+    }
     #buttom_relatorio{
-        width: 30vw;
-        height:20vh ;
+        width: 100%;
+        height: 30vh;
+        display: flex;
         flex-direction: column;
-        
     }
 
 }

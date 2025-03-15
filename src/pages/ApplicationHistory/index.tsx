@@ -9,7 +9,6 @@ import { PaginationFooter } from "../../components/Footer/PaginationFooter";
 import { MotivatingCard } from "../../components/MotivatingCard";
 import { ListApplicationJobs } from "../../components/ListBox/ListApplicationJobs";
 import { ModalWrapper } from "../../components/Modal";
-import './style.css'
 
 export const ApplicationHistory = () => {
   const { user } = useContext(IdentityContext);
@@ -23,7 +22,7 @@ export const ApplicationHistory = () => {
       <div className="flex flex-col">
         <BgContentTop height="profile">
           <BlackHeader />
-          <section id="cards" className="container-apply flex justify-center items-center pt-7 gap-6">
+          <section className="container-apply flex justify-center items-center pt-7 gap-6">
             <div className="w-full max-w-[512px] bg-transparente h-[200px] custom-shadow-40 flex flex-col pl-5 pt-2 gap-2">
               <h3 className="text-white text-[20px] font-semibold">
                 Bem-vinde <span className="text-brand-2">{fullName}</span>

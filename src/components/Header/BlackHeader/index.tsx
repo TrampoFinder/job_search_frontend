@@ -72,7 +72,7 @@ export const BlackHeader = () => {
                   }`}
                 >
                   {user && user.role === "USER"
-                    ? "Candidaturas"
+                    ? "Minhas candidaturas"
                     : "Vagas"}
                 </span>
                 {focusIndex === 1 && (
@@ -90,7 +90,7 @@ export const BlackHeader = () => {
             {user ? (
               <DropdownUser
                 initials={
-                  user.firstName.charAt(0).toLocaleUpperCase() +
+                  user.firstName.charAt(0) +
                   user.lastName.charAt(0).toLocaleUpperCase()
                 }
                 firstName={user.firstName}
