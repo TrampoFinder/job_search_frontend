@@ -1,3 +1,4 @@
+import './style.css'
 export interface ButtonPrimary {
   variant: keyof typeof variantStyle;
   text: string;

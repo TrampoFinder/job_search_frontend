@@ -1,5 +1,6 @@
 import chevronRight from "../../../../assets/chevron-right.svg";
 import user from "../../../../assets/user.svg";
+import './style.css'
 
 interface ReportResumeContentProps {
   fullName: string;
@@ -19,7 +20,7 @@ export const CandidateReportCard = ({
 }: ReportResumeContentProps) => {
   return (
     <li className="bg-white p-2.5 hover:bg-gray-50 transition-all custom-shadow-40 cursor-pointer group rounded-1 animate-opacity">
-      <div className="flex items-center justify-between">
+      <div id="view_card" className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="w-11 h-11 bg-gradient-to-br from-brand-1 to-[#C4B5FD] rounded-full flex items-center justify-center shadow-sm ring-2 ring-purple-100">
             <img src={user} alt="user" />

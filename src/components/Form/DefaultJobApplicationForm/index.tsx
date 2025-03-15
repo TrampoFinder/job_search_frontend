@@ -110,7 +110,7 @@ export const DefaultJobApplicationForm = () => {
         />
         <DefaultButton
           variant="brand1"
-          text="Salvar candidatura"
+          text="Salvar"
           size="medium"
           type="submit"
           disabled={!isValid}
