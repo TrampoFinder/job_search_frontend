@@ -17,9 +17,16 @@ export const CardJob = ({
   createdAt,
   id,
 }: JobCardProps) => {
-  const { setIsModalOpen, setJob, setModalType, addFavoriteJob } =
-    useContext(JobManagementContext);
+  const {
+    setIsModalOpen,
+    setJob,
+    setModalType,
+    addFavoriteJob,
+    deleteFavoriteJob,
+    retrieveJobs,
+  } = useContext(JobManagementContext);
   const [loading, setLoading] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(true);
   const { user } = useContext(IdentityContext);
   const navigate = useNavigate();
 
@@ -32,6 +39,17 @@ export const CardJob = ({
       navigate("/sign-in");
     }
   };
+
+  const handleToggleFavorite = async () => {
+    if (isFavorite) {
+      await addFavoriteJob(id!, setLoading);
+    } else {
+      await deleteFavoriteJob(id!, setLoading);
+      await retrieveJobs(1, setLoading);
+    }
+    setIsFavorite(!isFavorite);
+  };
+
   const formatTimeDifference = () => {
     const date = new Date(createdAt!);
     const now = new Date();
@@ -59,11 +77,8 @@ export const CardJob = ({
             {formatTimeDifference()}
           </span>
         </div>
-        <img
-          src={clipPath}
-          alt="Favorite"
-          onClick={async () => await addFavoriteJob(id!, setLoading)}
-        />
+
+        <img src={clipPath} alt="Favorite" onClick={handleToggleFavorite} />
       </div>
       <div className="flex gap-5 h-[51px] items-center">
         <div className="flex items-center">

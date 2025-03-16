@@ -17,10 +17,10 @@ export const Home = () => {
     jobsCompanyCount,
     getJobsPagination,
   } = useContext(JobManagementContext);
-  const [, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
-      await retrieveJobs(setLoading);
+      await retrieveJobs(1, setLoading);
       await retrieveJobsCount(setLoading);
     };
 

@@ -10,12 +10,11 @@ export interface JobManagementContextProps {
     React.SetStateAction<GetAllJobsContextProps | null>
   >;
   retrieveJobs: (
+    page: number,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
-  filteredJobs: [] | JobContextProps[] | null;
-  setFilteredJobs: React.Dispatch<
-    React.SetStateAction<JobContextProps[] | null>
-  >;
+  filteredJobs: [] | JobContextProps[];
+  setFilteredJobs: React.Dispatch<React.SetStateAction<JobContextProps[] | []>>;
   filterByTime: (
     dataArray: JobContextProps[],
     timeFilter: string[]
@@ -35,6 +34,7 @@ export interface JobManagementContextProps {
     React.SetStateAction<GetAllJobsApplicationContextProps | null>
   >;
   applicationHistory: (
+    page: number,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
   focusIndex: number;
@@ -63,6 +63,13 @@ export interface JobManagementContextProps {
     jobId: string,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
+  retrieveFavoriteJobs: (
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
+  deleteFavoriteJob: (
+    jobId: string,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
 }
 
 export interface JobContextProps {
@@ -72,7 +79,6 @@ export interface JobContextProps {
   status: "ACTIVE" | "INACTIVE";
   url: string;
   location: string;
-  FavoriteJob: FavoriteJobProps[];
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
@@ -91,6 +97,7 @@ export interface GetAllJobsContextProps extends PaginationProps {
 
 export interface JobCardProps {
   id?: string;
+  isFavorite?: boolean;
   company?: string;
   title?: string;
   url?: string;
@@ -108,9 +115,11 @@ export interface ApplicationJobsContextProps {
   title: string;
   url: string;
   userId: string;
+  company: string;
   jobId: string;
   status: string;
   note: string | null;
+  createdAt: Date;
 }
 
 interface FavoriteJobProps {

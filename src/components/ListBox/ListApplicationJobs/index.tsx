@@ -10,7 +10,7 @@ export const ListApplicationJobs = () => {
     const fetchApplicationJobs = async () => {
       setLoading(true);
       try {
-        await applicationHistory(setLoading);
+        await applicationHistory(1, setLoading);
       } catch (error) {
         console.error("Error fetching jobs", error);
       } finally {
