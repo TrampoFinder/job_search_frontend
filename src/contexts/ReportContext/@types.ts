@@ -3,19 +3,27 @@ export interface ReportManagementProviderProps {
 }
 
 export interface ReportManagementContextProps {
-  reportViewCandidates: null | ReportCandidateDataProps;
+  reportViewCandidates: null | ReportCandidateViewDataProps;
   setReportViewCandidates: React.Dispatch<
-    React.SetStateAction<null | ReportCandidateDataProps>
+    React.SetStateAction<null | ReportCandidateViewDataProps>
   >;
   reportCandidatesDownload: (
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
   setReportResumeCandidates: React.Dispatch<
-    React.SetStateAction<ReportCandidateResumeProps[] | []>
+    React.SetStateAction<ReportCandidateResumeDataProps | null>
   >;
-  reportResumeCandidates: ReportCandidateResumeProps[] | [];
+  reportResumeCandidates: ReportCandidateResumeDataProps | null;
   view: string;
   setView: React.Dispatch<React.SetStateAction<string>>;
+  getReportCandidatesView: (
+    page: number,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
+  getReportCandidatesResume: (
+    page: number,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
 }
 
 export interface ReportCandidateViewProps {
@@ -29,12 +37,18 @@ export interface ReportCandidateViewProps {
   closed: string;
 }
 
-export interface ReportCandidateDataProps {
-  data: ReportCandidateViewProps[];
+interface PaginationProps {
   total: number;
   totalPages: number;
   previousPage: number | null;
   nextPage: number | null;
+}
+export interface ReportCandidateViewDataProps extends PaginationProps {
+  data: ReportCandidateViewProps[];
+}
+
+export interface ReportCandidateResumeDataProps extends PaginationProps {
+  data: ReportCandidateResumeProps[];
 }
 
 export interface ReportCandidateResumeProps {

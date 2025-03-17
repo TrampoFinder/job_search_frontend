@@ -20,19 +20,20 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
     useState<ApplicationJobsContextProps | null>(null);
   const [getJobsPagination, setJobsPagination] =
     useState<GetAllJobsContextProps | null>(null);
-  const [filteredJobs, setFilteredJobs] = useState<JobContextProps[] | null>(
-    null
-  );
+  const [filteredJobs, setFilteredJobs] = useState<JobContextProps[] | []>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const token = localStorage.getItem("@TOKEN");
   const [focusIndex, setFocusIndex] = useState<number>(0);
   const [jobsCompanyCount, setJobsPaginationCompanyCount] = useState(0);
   const retrieveJobs = async (
+    page: number,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     try {
       setLoading(true);
-      const response = await api.get("/job-management");
+      const response = await api.get(
+        `/job-management?page=${page}&pageSize=10`
+      );
       if (response.status === 200) {
         setJobsPagination(response.data);
       }
@@ -82,32 +83,35 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
     data: JobCardProps | null,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ): Promise<void> => {
-    const { id, ...rest } = data;
     try {
       setLoading(true);
-      await api.post(`/job-application/apply/${data?.id}`, rest, {
+      const { id, ...rest } = data ?? {};
+      await api.post(`/job-application/apply/${id}`, rest, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setLoading(false);
     } catch (error) {
       console.error(error);
+    } finally {
       setLoading(false);
     }
   };
 
   const applicationHistory = async (
-    userId: string | null,
+    page: number,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     try {
       setLoading(true);
-      const response = await api.get(`/job-application/history/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await api.get(
+        `/job-application/history?page=${page}&pageSize=10`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.status === 200) {
         setApplicationJobs(response.data);
       }
@@ -150,7 +154,6 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
           ...applicationJobs!,
           data: [...applicationJobs!.data, response.data],
         });
-        setLoading(false);
       }
     } catch (error) {
       console.error(error);
@@ -168,6 +171,73 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
       if (response.status === 200) {
         setJobsPaginationCompanyCount(response.data.companyCount);
       }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const addFavoriteJob = async (
+    jobId: string,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      const response = await api.post(
+        `/favorites-job/${jobId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        // setFilteredJobs([...filteredJobs, response.data.data.job]);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const retrieveFavoriteJobs = async (
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      const response = await api.get(`/favorites-job/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        const jobsArray = response.data.data.map((item: any) => item.job);
+        setFilteredJobs(jobsArray);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteFavoriteJob = async (
+    jobId: string,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      await api.delete(`/favorites-job/${jobId}/remove`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // setFilteredJobs((prev) =>
+      //   prev ? prev.filter((item) => item.id !== jobId) : []
+      // );
     } catch (error) {
       console.error(error);
     } finally {
@@ -202,6 +272,9 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
         retrieveJobsCount,
         modalType,
         setModalType,
+        addFavoriteJob,
+        retrieveFavoriteJobs,
+        deleteFavoriteJob,
       }}
     >
       {children}

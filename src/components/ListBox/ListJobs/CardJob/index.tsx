@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import clipPath from "../../../../assets/clipPath.svg";
 import enterprise from "../../../../assets/enterprise.svg";
 import mapPin from "../../../../assets/map-pin.svg";
@@ -7,7 +7,7 @@ import { JobManagementContext } from "../../../../contexts/JobContext";
 import { JobCardProps } from "../../../../contexts/JobContext/@types";
 import { IdentityContext } from "../../../../contexts/IdentityContext";
 import { useNavigate } from "react-router-dom";
-import './style.css';
+import "./style.css";
 
 export const CardJob = ({
   company,
@@ -17,10 +17,19 @@ export const CardJob = ({
   createdAt,
   id,
 }: JobCardProps) => {
-  const { setIsModalOpen, setJob, setModalType } =
-    useContext(JobManagementContext);
+  const {
+    setIsModalOpen,
+    setJob,
+    setModalType,
+    addFavoriteJob,
+    deleteFavoriteJob,
+    retrieveJobs,
+  } = useContext(JobManagementContext);
+  const [loading, setLoading] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(true);
   const { user } = useContext(IdentityContext);
   const navigate = useNavigate();
+
   const handleClick = () => {
     if (user) {
       setJob({ title, id, url });
@@ -30,6 +39,17 @@ export const CardJob = ({
       navigate("/sign-in");
     }
   };
+
+  const handleToggleFavorite = async () => {
+    if (isFavorite) {
+      await addFavoriteJob(id!, setLoading);
+    } else {
+      await deleteFavoriteJob(id!, setLoading);
+      await retrieveJobs(1, setLoading);
+    }
+    setIsFavorite(!isFavorite);
+  };
+
   const formatTimeDifference = () => {
     const date = new Date(createdAt!);
     const now = new Date();
@@ -47,12 +67,18 @@ export const CardJob = ({
     }
   };
   return (
-    <li id="card" className="w-full max-h-[229px] h-full rounded-[20px] custom-shadow p-10 hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col">
+    <li
+      id="card"
+      className="w-full max-h-[229px] h-full rounded-[20px] custom-shadow p-10 hover:scale-[102%] transition-transform duration-300 ease-out gap-6 flex flex-col"
+    >
       <div className="flex justify-between">
         <div className="bg-brand-2/20 p-2 text-brand-1 rounded-1 h-[28px] flex items-center">
-          <span id="time" className="text-2">{formatTimeDifference()}</span>
+          <span id="time" className="text-2">
+            {formatTimeDifference()}
+          </span>
         </div>
-        <img src={clipPath} alt="Favorite" />
+
+        <img src={clipPath} alt="Favorite" onClick={handleToggleFavorite} />
       </div>
       <div className="flex gap-5 h-[51px] items-center">
         <div className="flex items-center">
@@ -61,14 +87,21 @@ export const CardJob = ({
           </div>
         </div>
         <div className="flex flex-col justify-start items-start">
-          <h3 id="title" className="font-semibold text-[28px] leading-8">{title}</h3>
-          <p id="company" className="text-2 leading-4">{company}</p>
+          <h3 id="title" className="font-semibold text-[28px] leading-8">
+            {title}
+          </h3>
+          <p id="company" className="text-2 leading-4">
+            {company}
+          </p>
         </div>
       </div>
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
           <img src={mapPin} alt="Locale" />
-          <p id="location" className="text-2 leading-4 font-medium text-gray-400">
+          <p
+            id="location"
+            className="text-2 leading-4 font-medium text-gray-400"
+          >
             {location}
           </p>
         </div>

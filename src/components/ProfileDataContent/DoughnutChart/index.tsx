@@ -65,15 +65,15 @@ export const DoughnutChart = ({
       options: {
         responsive: true,
         maintainAspectRatio: true,
-        layout: {autoPadding: true, padding: 5},
-        cutout: "50%",
+        layout: { autoPadding: true, padding: 5 },
+        cutout: "30%",
 
         plugins: {
           legend: { position: "top", align: "center" },
           tooltip: {
             callbacks: {
               label: function (tooltipItem) {
-                return ` ${tooltipItem.label}: ${tooltipItem.raw}`;
+                return `${tooltipItem.label}: ${tooltipItem.raw}`;
               },
             },
           },

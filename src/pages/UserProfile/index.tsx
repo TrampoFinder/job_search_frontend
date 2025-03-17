@@ -14,9 +14,16 @@ import { MotivatingCard } from "../../components/MotivatingCard";
 import "./style.css";
 import { ModalWrapper } from "../../components/Modal";
 import { ProfileDataContent } from "../../components/ProfileDataContent";
+import { CheckboxCustom } from "../../components/Form/SearchByDateForm/CheckboxCustom";
 export const UserProfile = () => {
-  const { getJobsPagination, isModalOpen, setFilteredJobs } =
-    useContext(JobManagementContext);
+  const {
+    getJobsPagination,
+    isModalOpen,
+    setFilteredJobs,
+    retrieveFavoriteJobs,
+    retrieveJobs,
+  } = useContext(JobManagementContext);
+  const [loading, setLoading] = useState(false);
   const locations = getJobsPagination?.data.map((job) => job.location);
   const uniqueLocations = [...new Set(locations)];
 
@@ -55,14 +62,33 @@ export const UserProfile = () => {
     // Filtra os jobs toda vez que o valor da pesquisa mudar
     filterByCompany(searchQuery);
   }, [searchQuery, getJobsPagination?.data]);
+  const [checkedFilter, setCheckedFilter] = useState(false);
+  const handlerFavoriteChecked = async (_filter: string, checked: boolean) => {
+    setCheckedFilter(checked);
+    setLoading(true);
 
+    if (checked) {
+      await retrieveFavoriteJobs(setLoading);
+    } else {
+      setFilteredJobs([]);
+      await retrieveJobs(1, setLoading);
+    }
+
+    setLoading(false);
+  };
+  const currentPage =
+    getJobsPagination?.previousPage == null
+      ? 1
+      : getJobsPagination.previousPage + 1;
+  const startIndex = (currentPage - 1) * 10 + 1;
+  const endIndex = Math.min(currentPage * 10, getJobsPagination?.total ?? 0);
   return (
     <>
       {isModalOpen && <ModalWrapper />}
       <div className="flex flex-col">
-        <BgContentTop height="profile">
+        <BgContentTop height="profileUser">
           <BlackHeader />
-          <section className="container flex justify-center items-center pt-7 gap-6 container-apply">
+          <section className="flex justify-between pt-7 gap-6 container-apply pb-7">
             <ProfileDataContent />
             <MotivatingCard />
           </section>
@@ -138,19 +164,30 @@ export const UserProfile = () => {
               </div>
               <div>
                 <span className="text-[20px] font-semibold text-black">
-                  Tags
+                  Favoritos
                 </span>
+                <CheckboxCustom
+                  text="Todos os favoritos"
+                  quantity={10}
+                  value="favoritos"
+                  checked={checkedFilter}
+                  onChange={handlerFavoriteChecked}
+                />
               </div>
             </aside>
             <div id="results" className="flex flex-col w-full gap-10">
               <div className="w-full h-10 flex justify-between items-center">
                 <span className="text-gray-500">
                   {getJobsPagination &&
-                    `Mostrando ${getJobsPagination.data.length}-${getJobsPagination.data.length} de ${getJobsPagination.total} resultados`}
+                    `Mostrando ${startIndex}-${endIndex} de ${getJobsPagination.total} resultados`}
                 </span>
               </div>
               <ListJobs />
-              <PaginationFooter />
+              <PaginationFooter
+                nextPage={getJobsPagination?.nextPage}
+                previousPage={getJobsPagination?.previousPage}
+                fetch={retrieveJobs}
+              />
             </div>
           </main>
           <BlackFooter />

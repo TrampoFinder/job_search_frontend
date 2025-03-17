@@ -8,16 +8,19 @@ import { BgContentTop } from "../../components/Header/BgContentTop";
 import { useContext, useEffect, useState } from "react";
 import { JobManagementContext } from "../../contexts/JobContext";
 import { SearchByCompany } from "../../components/Form/SearchByCompany";
-import './style.css';
+import "./style.css";
 
 export const Home = () => {
-  const { retrieveJobs, retrieveJobsCount, jobsCompanyCount, getJobsPagination } =
-    useContext(JobManagementContext);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {
+    retrieveJobs,
+    retrieveJobsCount,
+    jobsCompanyCount,
+    getJobsPagination,
+  } = useContext(JobManagementContext);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
-      await retrieveJobs(setLoading);
+      await retrieveJobs(1, setLoading);
       await retrieveJobsCount(setLoading);
     };
 
@@ -29,7 +32,10 @@ export const Home = () => {
       <BgContentTop height="home">
         <BlackHeader />
         <main className="container-apply flex flex-col justify-center items-center h-[503px] gap-20 mt-20">
-          <div id="banner_head" className="flex flex-col justify-center items-center max-w-[813px] w-full gap-3">
+          <div
+            id="banner_head"
+            className="flex flex-col justify-center items-center max-w-[813px] w-full gap-3"
+          >
             <h2 className="text-[70px] text-white h-[169px] text-center font-bold ">
               Encontre seu emprego dos{" "}
               <span className="text-brand-1 animate-pulse">sonhos</span>!
@@ -41,7 +47,10 @@ export const Home = () => {
             </p>
           </div>
           <SearchByCompany />
-          <div id="count_results" className="max-w-[345px] w-full h-full max-h-[69px] flex">
+          <div
+            id="count_results"
+            className="max-w-[345px] w-full h-full max-h-[69px] flex"
+          >
             <div className="max-w-[160px] w-full h-full  flex gap-3 items-center">
               <div className="w-[60px] h-[60px] bg-brand-1 rounded-full flex items-center justify-center">
                 <img id="briefcase" src={briefcase} alt="briefcase" />
@@ -94,7 +103,6 @@ export const Home = () => {
                 </a>
               </div>
             </div>
-
           </div>
           <ul className="pt-9 pb-14 h-full w-full flex flex-col gap-6">
             {getJobsPagination?.data.slice(0, 4).map((job) => {
