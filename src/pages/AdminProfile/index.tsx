@@ -7,20 +7,27 @@ import { IdentityContext } from "../../contexts/IdentityContext";
 import { JobManagementContext } from "../../contexts/JobContext";
 import graySearchIcon from "../../assets/gray-search.svg";
 import { MotivatingCard } from "../../components/MotivatingCard";
-import { ModalApplyJob } from "../../components/Modal/ModalApplyJob";
 import { ListReportUsers } from "../../components/ListBox/ListReportUsers";
 import mapPin from "../../assets/map-pin.svg";
 import { CheckboxCustom } from "../../components/Form/SearchByDateForm/CheckboxCustom";
 import { ReportManagementContext } from "../../contexts/ReportContext";
 import { DefaultButton } from "../../components/Buttons/DefaultButton";
 import { ToggleViewButton } from "../../components/Buttons/ToggleViewButton";
-import './style.css'
+import "./style.css";
+import { ModalWrapper } from "../../components/Modal";
+import { PaginationFooter } from "../../components/Footer/PaginationFooter";
 
 export const AdminProfile = () => {
   const { user } = useContext(IdentityContext);
   const { isModalOpen } = useContext(JobManagementContext);
-  const { reportViewCandidates, reportCandidatesDownload, view, setView } =
-    useContext(ReportManagementContext);
+  const {
+    reportViewCandidates,
+    reportCandidatesDownload,
+    view,
+    setView,
+    getReportCandidatesResume,
+    getReportCandidatesView,
+  } = useContext(ReportManagementContext);
   const fullName = user?.firstName + " " + user?.lastName;
   const [selectValues, setSelectValues] = useState<string[]>([]);
   const handleFilterChange = (filter: string, isChecked: boolean) => {
@@ -30,22 +37,32 @@ export const AdminProfile = () => {
     setSelectValues(newValues);
   };
   const [loading, setLoading] = useState(false);
-  const validLength = () => {
-    if (!reportViewCandidates || reportViewCandidates.data.length === 0) {
-      return "Sem candidatos cadastrados no sistema";
-    }
+  // const validLength = () => {
+  //   if (!reportViewCandidates || reportViewCandidates.data.length === 0) {
+  //     return "Sem candidatos cadastrados no sistema";
+  //   }
 
-    const { data, total, previousPage } = reportViewCandidates;
-    const perPage = data.length;
-    const start = previousPage !== null ? previousPage * perPage + 1 : 1;
-    const end = Math.min(start + perPage - 1, total);
+  //   const { data, total, previousPage } = reportViewCandidates;
+  //   const perPage = data.length;
+  //   const start = previousPage !== null ? previousPage * perPage + 1 : 1;
+  //   const end = Math.min(start + perPage - 1, total);
 
-    return `Mostrando ${start}-${end} de ${total} resultados`;
-  };
+  //   return `Mostrando ${start}-${end} de ${total} resultados`;
+  // };
+  const perPage = view != "grid" ? 20 : 10;
+  const currentPage =
+    reportViewCandidates?.previousPage == null
+      ? 1
+      : reportViewCandidates.previousPage + 1;
+  const startIndex = (currentPage - 1) * perPage + 1;
+  const endIndex = Math.min(
+    currentPage * perPage,
+    reportViewCandidates?.total ?? 0
+  );
 
   return (
     <>
-      {isModalOpen && <ModalApplyJob />}
+      {isModalOpen && <ModalWrapper />}
       <div className="flex flex-col">
         <BgContentTop height="profile">
           <BlackHeader />
@@ -76,9 +93,15 @@ export const AdminProfile = () => {
             <MotivatingCard />
           </section>
         </BgContentTop>
-        <div  className="bg-white h-auto">
-          <main id="work_area" className="container-apply flex gap-[18px] pt-9 pb-10 relative">
-            <aside id="search" className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]">
+        <div className="bg-white h-auto">
+          <main
+            id="work_area"
+            className="container-apply flex gap-[18px] pt-9 pb-10 relative"
+          >
+            <aside
+              id="search"
+              className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]"
+            >
               <div className="flex flex-col gap-5 w-full">
                 <span className="text-[20px] font-semibold text-black">
                   Procure por usuário
@@ -99,7 +122,7 @@ export const AdminProfile = () => {
                   </div>
                 </label>
               </div>
-              <div id= "find_turma"className="flex flex-col gap-5 w-full">
+              <div id="find_turma" className="flex flex-col gap-5 w-full">
                 <span className="text-[20px] font-semibold text-black">
                   Turma
                 </span>
@@ -169,9 +192,13 @@ export const AdminProfile = () => {
             <div id="relatorio" className="flex flex-col w-full gap-10">
               <div className="flex gap-5 w-full justify-between">
                 <span className="text-[20px] font-regular text-gray-600">
-                  {validLength()}
+                  {reportViewCandidates &&
+                    `Mostrando ${startIndex}-${endIndex} de ${reportViewCandidates.total} resultados`}
                 </span>
-                <div id="buttom_relatorio" className="flex gap-5 max-w-[250px] w-full h-[40px]">
+                <div
+                  id="buttom_relatorio"
+                  className="flex gap-5 max-w-[250px] w-full h-[40px]"
+                >
                   <ToggleViewButton view={view} onViewChange={setView} />
                   <DefaultButton
                     variant="brand1"
@@ -184,6 +211,11 @@ export const AdminProfile = () => {
                 </div>
               </div>
               <ListReportUsers />
+              <PaginationFooter
+                nextPage={reportViewCandidates?.nextPage}
+                previousPage={reportViewCandidates?.previousPage}
+                fetch={getReportCandidatesView}
+              />
             </div>
           </main>
           <BlackFooter />

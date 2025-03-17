@@ -46,7 +46,7 @@ export const ProfileDataContent = () => {
       }
     };
     getReportCandidateById();
-  }, [user, token]);
+  }, [user, token, applicationHistory, applicationJobs]);
   return (
     <div className="w-full bg-transparente flex items-start justify-between custom-shadow-40 h-auto">
       <div className="flex flex-col w-full">

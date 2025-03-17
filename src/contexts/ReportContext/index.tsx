@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 import {
-  ReportCandidateDataProps,
-  ReportCandidateResumeProps,
-    ReportManagementContextProps,
+  ReportCandidateResumeDataProps,
+  ReportCandidateViewDataProps,
+  ReportManagementContextProps,
   ReportManagementProviderProps,
 } from "./@types";
 import { api } from "../../services";
@@ -13,10 +13,10 @@ const ReportManagementProvider = ({
   children,
 }: ReportManagementProviderProps) => {
   const [reportViewCandidates, setReportViewCandidates] =
-    useState<null | ReportCandidateDataProps>(null);
+    useState<null | ReportCandidateViewDataProps>(null);
   const [reportResumeCandidates, setReportResumeCandidates] = useState<
-    ReportCandidateResumeProps[] | []
-  >([]);
+    ReportCandidateResumeDataProps | null
+  >(null);
   const token = localStorage.getItem("@TOKEN");
   const [view, setView] = useState("grid");
 
@@ -47,6 +47,51 @@ const ReportManagementProvider = ({
     }
   };
 
+  const getReportCandidatesView = async (
+    page: number,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      const response = await api.get(
+        `/candidates-report/view?page=${page}&pageSize=10`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (response.status === 200) {
+        setReportViewCandidates(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching report candidates", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getReportCandidatesResume = async (
+    page: number,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      const response = await api.get(
+        `/candidates-report?page=${page}&pageSize=20`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.status === 200) {
+        setReportResumeCandidates(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching report candidates", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <ReportManagementContext.Provider
       value={{
@@ -57,6 +102,8 @@ const ReportManagementProvider = ({
         setReportResumeCandidates,
         view,
         setView,
+        getReportCandidatesView,
+        getReportCandidatesResume,
       }}
     >
       {children}

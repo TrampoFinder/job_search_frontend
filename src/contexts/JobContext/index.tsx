@@ -104,11 +104,14 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
   ) => {
     try {
       setLoading(true);
-      const response = await api.get(`/job-application/history?page=${page}&pageSize=10`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await api.get(
+        `/job-application/history?page=${page}&pageSize=10`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.status === 200) {
         setApplicationJobs(response.data);
       }
@@ -151,7 +154,6 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
           ...applicationJobs!,
           data: [...applicationJobs!.data, response.data],
         });
-        setLoading(false);
       }
     } catch (error) {
       console.error(error);

@@ -1,54 +1,32 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
-
 import { ReportManagementContext } from "../../../contexts/ReportContext";
-import { api } from "../../../services";
 import { CandidateReportViewCard } from "./CandidateReportViewCard";
 import { CandidateReportCard } from "./CandidateReportCard";
 export const ListReportUsers = () => {
   const [loading, setLoading] = useState(false);
   const {
     reportViewCandidates,
-    setReportViewCandidates,
     reportResumeCandidates,
-    setReportResumeCandidates,
     view,
+    getReportCandidatesView,
+    getReportCandidatesResume,
   } = useContext(ReportManagementContext);
-  const getReportCandidates = async () => {
-    setLoading(true);
-    try {
-      const token = localStorage.getItem("@TOKEN");
-      const [candidatesStatisticResponse, candidatesResumeReport] =
-        await Promise.all([
-          api.get("/candidates-report/view", {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          api.get("/candidates-report", {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-        ]);
-
-      if (candidatesStatisticResponse.status === 200) {
-        setReportViewCandidates(candidatesStatisticResponse.data);
-      }
-      if (candidatesResumeReport.status === 200) {
-        const { data } = candidatesResumeReport.data;
-        setReportResumeCandidates(data);
-      }
-    } catch (error) {
-      console.error("Error fetching report candidates", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    getReportCandidates();
-  }, []);
+    if (view === "grid") {
+      getReportCandidatesView(1, setLoading);
+    } else {
+      getReportCandidatesResume(1, setLoading);
+    }
+  }, [view]);
   return (
     <div>
       {loading && <p>Carregando...</p>}
-      <ul className="h-full w-full flex flex-col gap-3">
+      <ul
+        className={
+          `h-full w-full flex gap-3 ` +
+          `${view === "grid" ? "flex-wrap gap-3" : "flex-col"}`
+        }
+      >
         {!loading &&
           view === "grid" &&
           reportViewCandidates?.data.map((candidate) => {
@@ -58,7 +36,7 @@ export const ListReportUsers = () => {
           })}
         {!loading &&
           view === "list" &&
-          reportResumeCandidates?.map((candidate) => {
+          reportResumeCandidates?.data.map((candidate) => {
             return (
               <CandidateReportCard
                 key={candidate.userId}
