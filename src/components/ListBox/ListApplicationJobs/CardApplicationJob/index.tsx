@@ -66,7 +66,15 @@ export const CardApplicationJob = ({
           variant="brand1"
           className="max-w-[180px]"
           onClick={() => {
-            setApplicationJob({ id, status, title, url, userId, jobId, note });
+            setApplicationJob({
+              id,
+              status,
+              title,
+              url,
+              userId,
+              jobId,
+              note,
+            });
             setIsModalOpen(true);
             setModalType("changeStatusApplicationJob");
           }}

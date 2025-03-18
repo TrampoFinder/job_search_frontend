@@ -5,7 +5,7 @@ import { CardApplicationJob } from "./CardApplicationJob";
 export const ListApplicationJobs = () => {
   const { applicationHistory, applicationJobs } =
     useContext(JobManagementContext);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   useEffect(() => {
     const fetchApplicationJobs = async () => {
       setLoading(true);

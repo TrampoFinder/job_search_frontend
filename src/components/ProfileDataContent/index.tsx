@@ -9,7 +9,7 @@ export const ProfileDataContent = () => {
   const { applicationJobs, applicationHistory } =
     useContext(JobManagementContext);
   const { user, token } = useContext(IdentityContext);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const [candidateReport, setCandidateReport] =
     useState<ReportCandidateViewProps | null>(null);
   const fullName = user?.firstName + " " + user?.lastName;
@@ -103,7 +103,7 @@ export const ProfileDataContent = () => {
                       {/* <p className="text-[#8a8aff] mt-1">{job.title}</p> */}
                     </div>
                     <span className="text-brand-1 text-sm">
-                      {new Date(job.createdAt).toLocaleDateString("pt-BR")}
+                      {new Date(job.createdAt!).toLocaleDateString("pt-BR")}
                     </span>
                   </div>
                   <div className="mt-4 flex items-center justify-between">

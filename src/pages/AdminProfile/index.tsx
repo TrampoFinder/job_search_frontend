@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 import { BlackHeader } from "../../components/Header/BlackHeader";
 import { BlackFooter } from "../../components/Footer";
 import chevronDrown from "../../assets/chevron-down.svg";
@@ -36,7 +36,7 @@ export const AdminProfile = () => {
       : selectValues.filter((value) => value !== filter);
     setSelectValues(newValues);
   };
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   // const validLength = () => {
   //   if (!reportViewCandidates || reportViewCandidates.data.length === 0) {
   //     return "Sem candidatos cadastrados no sistema";

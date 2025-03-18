@@ -115,18 +115,18 @@ export interface ApplicationJobsContextProps {
   title: string;
   url: string;
   userId: string;
-  company: string;
+  company?: string;
   jobId: string;
   status: string;
   note: string | null;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
-interface FavoriteJobProps {
-  id: string;
-  userId: string;
-  jobId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: Date | null;
-}
+// interface FavoriteJobProps {
+//   id: string;
+//   userId: string;
+//   jobId: string;
+//   createdAt: Date;
+//   updatedAt: Date;
+//   deletedAt: Date | null;
+// }

@@ -25,7 +25,7 @@ export const CardJob = ({
     deleteFavoriteJob,
     retrieveJobs,
   } = useContext(JobManagementContext);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(true);
   const { user } = useContext(IdentityContext);
   const navigate = useNavigate();
