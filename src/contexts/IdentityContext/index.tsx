@@ -47,10 +47,6 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
       } catch (error) {
         localStorage.clear();
         setUser(null);
-        toast.error("Sessão expirada, faça login novamente.", {
-          theme: "dark",
-          autoClose: 5000,
-        });
       } finally {
         setGlobalLoading(false);
       }
@@ -68,6 +64,12 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
         pending: {
           render() {
             return "Carregando...";
+          },
+          theme: "dark",
+        },
+        success: {
+          render() {
+            return `Seja bem-vinde a nossa dashboard`;
           },
           theme: "dark",
         },
@@ -100,14 +102,6 @@ const IdentityProvider = ({ children }: IdentityProviderProps) => {
         pending: {
           render() {
             return "Carregando...";
-          },
-          theme: "dark",
-        },
-        success: {
-          render({ data }) {
-            const fullName =
-              data.data.data.firstName + " " + data.data.data.lastName;
-            return `Olá, ${fullName}!`;
           },
           theme: "dark",
         },

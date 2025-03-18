@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import data from "../../../motivating.json";
 import './style.css'
 import { useQuoteRefresher } from "../../hooks/useQuoteRefresher";
