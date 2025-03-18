@@ -1,3 +1,4 @@
+ 
 /* eslint-disable react-hooks/exhaustive-deps */
 import graySearchIcon from "../../assets/gray-search.svg";
 import { BlackHeader } from "../../components/Header/BlackHeader";
@@ -23,7 +24,7 @@ export const UserProfile = () => {
     retrieveFavoriteJobs,
     retrieveJobs,
   } = useContext(JobManagementContext);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const locations = getJobsPagination?.data.map((job) => job.location);
   const uniqueLocations = [...new Set(locations)];
 
@@ -85,62 +86,65 @@ export const UserProfile = () => {
   return (
     <>
       {isModalOpen && <ModalWrapper />}
-      <div className="flex flex-col">
-        <BgContentTop height="profileUser">
+      <div className="flex flex-col items-center">
+        <BgContentTop>
           <BlackHeader />
-          <section className="flex justify-between pt-7 gap-6 container-apply pb-7">
+          <section className="flex justify-center items-center sm:justify-between sm:items-start pt-7 gap-6 container-apply pb-7 flex-col-reverse sm:flex-row">
             <ProfileDataContent />
             <MotivatingCard />
           </section>
         </BgContentTop>
-        <div className="bg-white h-auto">
+        <div className="bg-white h-auto w-screen">
           <main
-            id="work_area"
-            className="container-apply flex gap-[18px] pt-9 pb-10 relative"
+            // id="work_area"
+            className="container-apply gap-[18px] pt-9 pb-10 relative flex flex-col md:flex-row"
           >
             <aside
-              id="search"
-              className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]"
+              // id="search"
+              className="md:max-w-[316px] bg-brand-1/20 h-[425px] w-full md:h-[656px] rounded-[20px] flex flex-col items-start p-5 gap-2 md:gap-[24px]"
             >
-              <div className="flex flex-col gap-5 w-full">
-                <span className="text-[20px] font-semibold text-black">
-                  Procure por empresa
+              <div className="flex flex-col gap-2 md:gap-5 w-full">
+                <span className="text-3 md:text-2 lg:text-[20px] font-semibold text-black">
+                  Filtro por empresa
                 </span>
                 <label htmlFor="search_enterprise">
                   <div
-                    id="find_company"
-                    className="flex w-full max-w-[276px] h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3"
+                    // id="find_company"
+                    className="flex w-full md:max-w-[276px] h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3"
                   >
                     <img
                       src={graySearchIcon}
                       alt="Search"
-                      className="w-[20px] h-[20px]"
+                      className="w-3 h-3 md:w-[20px] md:h-[20px]"
                     />
                     <input
                       type="text"
                       id="search_enterprise3"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="outline-none text-gray-500 leading-1"
+                      className="outline-none text-gray-500 leading-1 text-[12px] md:text-2"
                       placeholder="Nome de uma empresa..."
                     />
                   </div>
                 </label>
               </div>
-              <div id="find_local" className="flex flex-col gap-5 w-full">
-                <span className="text-[20px] font-semibold text-black">
+              <div
+                // id="find_local"
+                className="flex flex-col gap-2 md:gap-5 w-full"
+              >
+                <span className="text-3 md:text-2 lg:text-[20px] font-semibold text-black">
                   Localidade
                 </span>
-                <div className="flex w-full max-w-[276px] h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3 relative">
+                <div className="flex w-full h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3 relative">
                   <img
                     src={mapPin}
                     alt="location"
-                    className="w-[20px] h-[20px]"
+                    className="h-3 w-3 md:w-[20px] md:h-[20px]"
                   />
                   <select
                     id="search_enterprise2"
                     onChange={(e) => setSelectedLocation(e.target.value)}
-                    className="outline-none appearance-none text-gray-500 bg-transparent w-full"
+                    className="outline-none appearance-none text-gray-500 bg-transparent w-full text-[12px]"
                   >
                     <option value="todos_os_locais">Todos os locais</option>
                     {uniqueLocations.map((location) => (
@@ -156,14 +160,14 @@ export const UserProfile = () => {
                   />
                 </div>
               </div>
-              <div className="flex flex-col gap-5 max-w-[203px] w-full">
-                <span className="text-[20px] font-semibold text-black">
+              <div className="flex flex-col gap-2 md:gap-5 md:max-w-[203px] w-full">
+                <span className="text-3 md:text-2 lg:text-[20px] font-semibold text-black">
                   Data de postagem
                 </span>
                 <SearchByDateForm />
               </div>
-              <div>
-                <span className="text-[20px] font-semibold text-black">
+              <div className="flex flex-col gap-2 md:gap-5 md:max-w-[203px] w-full">
+                <span className="text-3 md:text-2 lg:text-[20px] font-semibold text-black">
                   Favoritos
                 </span>
                 <CheckboxCustom
@@ -175,7 +179,9 @@ export const UserProfile = () => {
                 />
               </div>
             </aside>
-            <div id="results" className="flex flex-col w-full gap-10">
+            <div 
+            // id="results" 
+            className="flex flex-col w-full gap-5 sm:gap-8 md:gap-10">
               <div className="w-full h-10 flex justify-between items-center">
                 <span className="text-gray-500">
                   {getJobsPagination &&

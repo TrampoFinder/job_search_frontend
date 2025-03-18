@@ -25,10 +25,10 @@ export const CheckboxCustom = ({
             type="checkbox"
             value={value}
             checked={checked}
-            className="peer w-5 h-5 appearance-none border rounded-[4px] border-gray-600 cursor-pointer checked:bg-no-repeat checked:bg-center checked:border-brand-2 checked:bg-brand-1/20"
+            className="peer w-4 h-4 md:w-5 md:h-5 appearance-none border rounded-[4px] border-gray-600 cursor-pointer checked:bg-no-repeat checked:bg-center checked:border-brand-2 checked:bg-brand-1/20"
             onChange={(e) => onChange(value, e.target.checked)}
           />
-          <span className="absolute text-brand-1 opacity-0 peer-checked:opacity-100 top-2.5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+          <span className="absolute text-brand-1 opacity-0 peer-checked:opacity-100 top-2 left-2 md:top-2.5 md:left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-3.5 w-3.5"
@@ -45,10 +45,10 @@ export const CheckboxCustom = ({
             </svg>
           </span>
         </label>
-        <span className="text-gray-600">{text}</span>
+        <span className="text-gray-600 text-[12px] md:text-2">{text}</span>
       </div>
-      <div className="flex items-center justify-center gap-2 bg-white w-[34px] h-[20px] rounded-[12px]">
-        <span className="text-gray-600">{quantity}</span>
+      <div className="flex items-center justify-center gap-2 bg-white w-[28px] h-[14px] md:w-[34px] md:h-[20px] rounded-[12px]">
+        <span className="text-gray-600 text-[12px] md:text-2">{quantity}</span>
       </div>
     </div>
   );

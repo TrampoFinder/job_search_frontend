@@ -10,7 +10,6 @@ export const DoughnutChart = ({
   rejected,
   closed,
   notProcessing,
-  size = 100,
 }: {
   applied: string;
   inProgress: string;
@@ -18,7 +17,6 @@ export const DoughnutChart = ({
   rejected: string;
   closed: string;
   notProcessing: string;
-  size?: number;
 }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
@@ -91,12 +89,11 @@ export const DoughnutChart = ({
   return (
     <div
       style={{
-        width: `${size}px`,
-        height: `${size}px`,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
+      className="lg:w-[85px] lg:h-[85px] md:w-[75px] md:h-[75px] sm:w-[60px] sm:h-[60px]"
     >
       <canvas ref={chartRef}></canvas>
     </div>

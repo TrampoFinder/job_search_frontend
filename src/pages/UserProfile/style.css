@@ -5,13 +5,13 @@
         font-size: 0.7rem;
         text-align: start;
     }
-    #search{
+    /* #search{
         width: 25vw;
         height: 100vh;
     }
     #search span{
         font-size: 1rem;
-    }
+    } */
     #find_company img{
         width: 2vh;
     }
@@ -35,9 +35,9 @@
     #results select{
         font-size: 0.9rem;
     }
-    #work_area{
+    /* #work_area{
         width: 100%;
-    }
+    } */
     #order{
         width: 50%;
     }

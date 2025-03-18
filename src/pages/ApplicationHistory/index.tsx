@@ -21,7 +21,7 @@ export const ApplicationHistory = () => {
     <>
       {isModalOpen && <ModalWrapper />}
       <div className="flex flex-col">
-        <BgContentTop height="profileUser">
+        <BgContentTop>
           <BlackHeader />
           <section className="container-apply flex justify-center pt-7 gap-6">
             <ProfileDataContent />

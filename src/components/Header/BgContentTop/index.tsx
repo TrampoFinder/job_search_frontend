@@ -1,17 +1,12 @@
 import bgDash from "../../../assets/backgrounddash.png";
 interface BgContentTopProps {
   children: React.ReactNode;
-  height: keyof typeof maxHeightStyle;
 }
-const maxHeightStyle = {
-  home: "max-h-[738px]",
-  profile: "max-h-[350px]",
-  profileUser: "max-h-[525px]",
-};
-export const BgContentTop = ({ children, height }: BgContentTopProps) => {
+
+export const BgContentTop = ({ children }: BgContentTopProps) => {
   return (
     <div
-      className={`bg-cover w-full flex flex-col h-dvw ${maxHeightStyle[height]}`}
+      className={`bg-cover flex flex-col h-[500px] sm:h-96 md:h-[525px] lg:h-[525px] w-screen`}
       style={{
         backgroundImage: `url(${bgDash})`,
         backgroundSize: "cover",
@@ -19,7 +14,7 @@ export const BgContentTop = ({ children, height }: BgContentTopProps) => {
         overflow: "hidden",
       }}
     >
-      <div className="flex flex-col justify-start h-dvw w-screen bg-black-75 backdrop-blur-md">
+      <div className="flex flex-col justify-start sm:h-96 h-screen md:h-screen w-screen bg-black-75 backdrop-blur-md">
         {children}
       </div>
     </div>
