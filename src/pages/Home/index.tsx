@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { BlackHeader } from "../../components/Header/BlackHeader";
 import briefcase from "../../assets/briefcase.svg";
 import enterprise from "../../assets/enterprise.svg";
@@ -9,15 +10,19 @@ import { useContext, useEffect, useState } from "react";
 import { JobManagementContext } from "../../contexts/JobContext";
 import { SearchByCompany } from "../../components/Form/SearchByCompany";
 import { useNavigate } from "react-router-dom";
-import './style.css';
+import "./style.css";
 
 export const Home = () => {
   const navigate = useNavigate();
 
-  const { retrieveJobs, retrieveJobsCount, jobsCompanyCount, getJobsPagination } =
-    useContext(JobManagementContext);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [loading, setLoading] = useState(false);
+  const {
+    retrieveJobs,
+    retrieveJobsCount,
+    jobsCompanyCount,
+    getJobsPagination,
+  } = useContext(JobManagementContext);
+   
+  const [, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       await retrieveJobs(1, setLoading);
@@ -25,17 +30,25 @@ export const Home = () => {
     };
 
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, []);
-  
+
   const [currentPerson, setCurrentPerson] = useState(0);
 
-  const linkLinkedIns = ["https://www.linkedin.com/in/andrewairamdasilva/", 
-    "https://www.linkedin.com/in/larissa-fabiana-ferreira/", 
+  const linkLinkedIns = [
+    "https://www.linkedin.com/in/andrewairamdasilva/",
+    "https://www.linkedin.com/in/larissa-fabiana-ferreira/",
     "https://www.linkedin.com/in/nicole-xavier-sp/",
-    "https://www.linkedin.com/in/rodolfogueiros/", 
-    "https://www.linkedin.com/in/wesley-bueno/"];
-  const nomes = ["Andrew da Silva", "Larissa Silva", "Nicole Xavier", "Rodolfo Gueiros", "Wesley Bueno"];
+    "https://www.linkedin.com/in/rodolfogueiros/",
+    "https://www.linkedin.com/in/wesley-bueno/",
+  ];
+  const nomes = [
+    "Andrew da Silva",
+    "Larissa Silva",
+    "Nicole Xavier",
+    "Rodolfo Gueiros",
+    "Wesley Bueno",
+  ];
 
   const handleNext = () => {
     setCurrentPerson((prev) => (prev + 1) % nomes.length);
@@ -46,10 +59,9 @@ export const Home = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-
   return (
     <div className="flex flex-col">
-      <BgContentTop height="home">
+      <BgContentTop>
         <BlackHeader />
         <main className="container-apply flex flex-col justify-center items-center h-[503px] gap-20 mt-20">
           <div
@@ -100,12 +112,15 @@ export const Home = () => {
           </div>
         </main>
       </BgContentTop>
-      
+
       <div className="bg-black w-full h-[100px] flex justify-center">
-          <a href={linkLinkedIns[currentPerson]} className="flex items-center gap-5">
-            <img src={linkedin} alt="LinkedIn" className="h-[50px] w-[50px]" />
-            <h1 className="text-[70px] text-white">{nomes[currentPerson]}</h1>
-          </a>
+        <a
+          href={linkLinkedIns[currentPerson]}
+          className="flex items-center gap-5"
+        >
+          <img src={linkedin} alt="LinkedIn" className="h-[50px] w-[50px]" />
+          <h1 className="text-[70px] text-white">{nomes[currentPerson]}</h1>
+        </a>
       </div>
 
       <div className="bg-white">
@@ -114,10 +129,15 @@ export const Home = () => {
             <div className="flex flex-col gap-[20px]">
               <h2 className="font-bold text-5xl">Vagas recomendadas</h2>
               <span>
-              Explore as oportunidades mais recentes e encontre a vaga ideal para você.
+                Explore as oportunidades mais recentes e encontre a vaga ideal
+                para você.
               </span>
               <div className="flex flex-col justify-end">
-                <a href="" onClick={() => navigate("/sign-in")} className="text-brand-1 underline">
+                <a
+                  href=""
+                  onClick={() => navigate("/sign-in")}
+                  className="text-brand-1 underline"
+                >
                   Ver todas
                 </a>
               </div>

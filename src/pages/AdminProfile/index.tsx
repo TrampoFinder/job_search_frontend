@@ -1,3 +1,4 @@
+ 
 import { BlackHeader } from "../../components/Header/BlackHeader";
 import { BlackFooter } from "../../components/Footer";
 import chevronDrown from "../../assets/chevron-down.svg";
@@ -25,7 +26,6 @@ export const AdminProfile = () => {
     reportCandidatesDownload,
     view,
     setView,
-    getReportCandidatesResume,
     getReportCandidatesView,
   } = useContext(ReportManagementContext);
   const fullName = user?.firstName + " " + user?.lastName;
@@ -36,7 +36,7 @@ export const AdminProfile = () => {
       : selectValues.filter((value) => value !== filter);
     setSelectValues(newValues);
   };
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   // const validLength = () => {
   //   if (!reportViewCandidates || reportViewCandidates.data.length === 0) {
   //     return "Sem candidatos cadastrados no sistema";
@@ -64,7 +64,7 @@ export const AdminProfile = () => {
     <>
       {isModalOpen && <ModalWrapper />}
       <div className="flex flex-col">
-        <BgContentTop height="profile">
+        <BgContentTop>
           <BlackHeader />
           <section className="container flex justify-center items-center pt-7 gap-6 container-apply">
             <div className="w-full max-w-[512px] bg-transparente h-[200px] custom-shadow-40 flex flex-col pl-5 pt-2 gap-2">

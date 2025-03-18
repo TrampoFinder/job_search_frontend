@@ -3,9 +3,9 @@
 }
 
 @media (max-width: 720px)  {
-    #logo{
+    /* #logo{
         width: 100px;
-    }
+    } */
     #entrar {
         font: 10px;
         text-align: center;

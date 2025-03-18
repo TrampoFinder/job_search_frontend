@@ -19,7 +19,7 @@ export const BlackHeader = () => {
   };
   return (
     <header>
-      <div className="w-full flex justify-center h-[81px] bg-black-20">
+      <div className="w-full flex justify-center h-[60px] md:h-[70px] lg:h-[81px] bg-black-20">
         <div className="flex items-center justify-between container-apply">
           <img id="logo"
             src={logo}

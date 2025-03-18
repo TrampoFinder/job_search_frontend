@@ -214,7 +214,9 @@ const JobManagementProvider = ({ children }: JobManagementProviderProps) => {
         },
       });
       if (response.status === 200) {
-        const jobsArray = response.data.data.map((item: any) => item.job);
+        const { data } = response.data.favoriteJobs;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const jobsArray = data.map((item: any) => item.job);
         setFilteredJobs(jobsArray);
       }
     } catch (error) {
