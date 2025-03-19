@@ -14,7 +14,7 @@ export const PaginationFooter = ({
   nextPage,
   fetch,
 }: PaginationFooterProps) => {
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const currentPage = previousPage == null ? 1 : previousPage + 1;
   const goToPreviousPage = () => {
     if (previousPage != null) {
@@ -38,39 +38,37 @@ export const PaginationFooter = ({
   };
   return (
     <>
-      {loading && (
-        <div
-          // id="navegation"
-          className="flex justify-between items-center"
-        >
-          <DefaultButton
-            type="button"
-            text="<"
-            variant="outlinebrand1"
-            size="small"
-            className="border-gray-400 text-gray-500 hover:border-brand-1 max-w-[50px] font-semibold"
-            onClick={goToPreviousPage}
-            disabled={previousPage == null}
-          />
-          <DefaultButton
-            type="button"
-            text={currentPage.toString()}
-            variant="brand1"
-            size="small"
-            disabled={true}
-            className="border-gray-400 text-gray-500 hover:border-brand-1 w-[40px] h-[40px] font-semibold"
-          />
-          <DefaultButton
-            type="button"
-            text=">"
-            variant="outlinebrand1"
-            size="small"
-            className="border-gray-400 text-gray-500 hover:border-brand-1 max-w-[50px] font-semibold"
-            onClick={goToNextPage}
-            disabled={nextPage == null}
-          />
-        </div>
-      )}
+      <div
+        // id="navegation"
+        className="flex justify-between items-center"
+      >
+        <DefaultButton
+          type="button"
+          text="<"
+          variant="outlinebrand1"
+          size="small"
+          className="border-gray-400 text-gray-500 hover:border-brand-1 max-w-[50px] font-semibold"
+          onClick={goToPreviousPage}
+          disabled={previousPage == null}
+        />
+        <DefaultButton
+          type="button"
+          text={currentPage.toString()}
+          variant="brand1"
+          size="small"
+          disabled={true}
+          className="border-gray-400 text-gray-500 hover:border-brand-1 w-[40px] h-[40px] font-semibold"
+        />
+        <DefaultButton
+          type="button"
+          text=">"
+          variant="outlinebrand1"
+          size="small"
+          className="border-gray-400 text-gray-500 hover:border-brand-1 max-w-[50px] font-semibold"
+          onClick={goToNextPage}
+          disabled={nextPage == null}
+        />
+      </div>
     </>
   );
 };

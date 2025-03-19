@@ -24,7 +24,7 @@ export const ListReportUsers = () => {
       <ul
         className={
           `h-full w-full flex gap-3 ` +
-          `${view === "grid" ? "flex-wrap gap-3" : "flex-col"}`
+          `${view === "grid" ? "overflow-x-auto sm:overflow-hidden sm:flex-wrap gap-3" : "flex-col"}`
         }
       >
         {!loading &&

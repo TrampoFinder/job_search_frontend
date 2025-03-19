@@ -1,9 +1,8 @@
- 
 import { BlackHeader } from "../../components/Header/BlackHeader";
 import { BlackFooter } from "../../components/Footer";
 import chevronDrown from "../../assets/chevron-down.svg";
 import { BgContentTop } from "../../components/Header/BgContentTop";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IdentityContext } from "../../contexts/IdentityContext";
 import { JobManagementContext } from "../../contexts/JobContext";
 import graySearchIcon from "../../assets/gray-search.svg";
@@ -17,9 +16,9 @@ import { ToggleViewButton } from "../../components/Buttons/ToggleViewButton";
 import "./style.css";
 import { ModalWrapper } from "../../components/Modal";
 import { PaginationFooter } from "../../components/Footer/PaginationFooter";
+import { AdminProfileDataContent } from "../../components/AdminProfilDataContent";
 
 export const AdminProfile = () => {
-  const { user } = useContext(IdentityContext);
   const { isModalOpen } = useContext(JobManagementContext);
   const {
     reportViewCandidates,
@@ -28,8 +27,8 @@ export const AdminProfile = () => {
     setView,
     getReportCandidatesView,
   } = useContext(ReportManagementContext);
-  const fullName = user?.firstName + " " + user?.lastName;
   const [selectValues, setSelectValues] = useState<string[]>([]);
+  const [textButton, setTextButton] = useState("Baixar Relatório");
   const handleFilterChange = (filter: string, isChecked: boolean) => {
     const newValues = isChecked
       ? [...selectValues, filter]
@@ -37,18 +36,6 @@ export const AdminProfile = () => {
     setSelectValues(newValues);
   };
   const [, setLoading] = useState(false);
-  // const validLength = () => {
-  //   if (!reportViewCandidates || reportViewCandidates.data.length === 0) {
-  //     return "Sem candidatos cadastrados no sistema";
-  //   }
-
-  //   const { data, total, previousPage } = reportViewCandidates;
-  //   const perPage = data.length;
-  //   const start = previousPage !== null ? previousPage * perPage + 1 : 1;
-  //   const end = Math.min(start + perPage - 1, total);
-
-  //   return `Mostrando ${start}-${end} de ${total} resultados`;
-  // };
   const perPage = view != "grid" ? 20 : 10;
   const currentPage =
     reportViewCandidates?.previousPage == null
@@ -60,54 +47,56 @@ export const AdminProfile = () => {
     reportViewCandidates?.total ?? 0
   );
 
+  useEffect(() => {
+    getReportCandidatesView(1, setLoading);
+  }, []);
+
+  const updateTextButton = () => {
+    const larguraTela = window.innerWidth;
+    if (larguraTela < 600) {
+      setTextButton("Relatório");
+    } else {
+      setTextButton("Baixar relatório");
+    }
+  };
+
+  useEffect(() => {
+    updateTextButton();
+    window.addEventListener("resize", updateTextButton);
+    return () => {
+      window.removeEventListener("resize", updateTextButton);
+    };
+  }, []);
+
   return (
     <>
       {isModalOpen && <ModalWrapper />}
       <div className="flex flex-col">
         <BgContentTop>
           <BlackHeader />
-          <section className="container flex justify-center items-center pt-7 gap-6 container-apply">
-            <div className="w-full max-w-[512px] bg-transparente h-[200px] custom-shadow-40 flex flex-col pl-5 pt-2 gap-2">
-              <h3 className="text-white text-[20px] font-semibold">
-                Bem-vinde <span className="text-brand-2">{fullName}</span>
-              </h3>
-              <span className="text-white">Últimas turmas:</span>
-              <ul className="flex flex-col gap-2 pl-2.5">
-                {/* {applicationJobs &&
-                  applicationJobs.slice(-3).map((job) => (
-                    <li className="flex items-center gap-3" key={job.id}>
-                      <div className="rounded-full w-[30px] h-[30px] custom-shadow-80 flex items-center justify-center">
-                        <img
-                          src={enterprise}
-                          alt="Enterprise"
-                          className="w-[20px] h-[20px]"
-                        />
-                      </div>
-                      <span className="text-white font-semibold text-2">
-                        {job.title}
-                      </span>
-                    </li>
-                  ))} */}
-              </ul>
-            </div>
+          <section className="flex justify-center items-center sm:justify-between sm:items-start pt-7 gap-6 container-apply pb-7 flex-col-reverse sm:flex-row">
+            <AdminProfileDataContent />
             <MotivatingCard />
           </section>
         </BgContentTop>
-        <div className="bg-white h-auto">
+        <div className="bg-white h-auto w-screen">
           <main
-            id="work_area"
-            className="container-apply flex gap-[18px] pt-9 pb-10 relative"
+            // id="work_area"
+            className="container-apply gap-[18px] pt-9 pb-10 relative flex flex-col md:flex-row"
           >
             <aside
-              id="search"
-              className="max-w-[316px] w-full bg-brand-1/20 h-[656px] rounded-[20px] flex flex-col items-start justify-start p-5 gap-[24px]"
+              // id="search"
+              className="md:max-w-[316px] bg-brand-1/20 h-[120px] w-full md:h-[656px] rounded-[20px] flex flex-col items-start p-5 gap-2 md:gap-[24px]"
             >
-              <div className="flex flex-col gap-5 w-full">
-                <span className="text-[20px] font-semibold text-black">
+              <div className="flex flex-col gap-2 md:gap-5 w-full">
+                <span className="text-3 md:text-2 lg:text-[20px] font-semibold text-black">
                   Procure por usuário
                 </span>
-                <label id="find_user" htmlFor="search_enterprise">
-                  <div className="flex w-full max-w-[276px] h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3">
+                <label
+                  // id="find_user"
+                  htmlFor="search_enterprise"
+                >
+                  <div className="flex w-full md:max-w-[276px] h-[40px] bg-white text-black items-center p-2.5 rounded-[12px] gap-3">
                     <img
                       src={graySearchIcon}
                       alt="Search"
@@ -122,7 +111,7 @@ export const AdminProfile = () => {
                   </div>
                 </label>
               </div>
-              <div id="find_turma" className="flex flex-col gap-5 w-full">
+              {/* <div id="find_turma" className="flex flex-col gap-5 w-full">
                 <span className="text-[20px] font-semibold text-black">
                   Turma
                 </span>
@@ -140,15 +129,15 @@ export const AdminProfile = () => {
                         {location}
                       </option>
                     ))} */}
-                  </select>
+              {/* </select>
                   <img
                     src={chevronDrown}
                     alt="Arrow Down"
                     className="absolute right-2 z-[5]"
                   />
                 </div>
-              </div>
-              <div className="flex flex-col gap-5 max-w-[203px] w-full">
+              </div> */}
+              {/* <div className="flex flex-col gap-5 max-w-[203px] w-full">
                 <span className="text-[20px] font-semibold text-black">
                   Período das turmas
                 </span>
@@ -182,30 +171,33 @@ export const AdminProfile = () => {
                     onChange={handleFilterChange}
                   />
                 </div>
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <span className="text-[20px] font-semibold text-black">
                   Tags
                 </span>
-              </div>
+              </div> */}
             </aside>
-            <div id="relatorio" className="flex flex-col w-full gap-10">
-              <div className="flex gap-5 w-full justify-between">
-                <span className="text-[20px] font-regular text-gray-600">
+            <div
+              // id="relatorio"
+              className="flex flex-col w-full gap-5 sm:gap-8 md:gap-10"
+            >
+              <div className="w-full h-10 flex md:flex-wrap justify-between items-center">
+                <span className="text-3 text-center sm:text-2 md:text-1 lg:text-[20px] font-regular text-gray-600">
                   {reportViewCandidates &&
                     `Mostrando ${startIndex}-${endIndex} de ${reportViewCandidates.total} resultados`}
                 </span>
                 <div
-                  id="buttom_relatorio"
-                  className="flex gap-5 max-w-[250px] w-full h-[40px]"
+                  // id="buttom_relatorio"
+                  className="flex gap-5 max-w-[200px] sm:max-w-[250px] w-full h-[40px]"
                 >
                   <ToggleViewButton view={view} onViewChange={setView} />
                   <DefaultButton
                     variant="brand1"
                     size="small"
                     type="button"
-                    text="Baixar relatório"
-                    className="w-full max-w-[154px]"
+                    text={textButton}
+                    className="w-full max-w-[100px] sm:max-w-[154px] "
                     onClick={() => reportCandidatesDownload(setLoading)}
                   />
                 </div>

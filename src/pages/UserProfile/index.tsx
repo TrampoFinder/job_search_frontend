@@ -184,8 +184,8 @@ export const UserProfile = () => {
             className="flex flex-col w-full gap-5 sm:gap-8 md:gap-10">
               <div className="w-full h-10 flex justify-between items-center">
                 <span className="text-gray-500">
-                  {getJobsPagination &&
-                    `Mostrando ${startIndex}-${endIndex} de ${getJobsPagination.total} resultados`}
+                  {getJobsPagination && getJobsPagination.data.length > 0 ?
+                    `Mostrando ${startIndex}-${endIndex} de ${getJobsPagination.total} resultados` : "Sem registros de vagas no momento"}
                 </span>
               </div>
               <ListJobs />
