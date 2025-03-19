@@ -61,14 +61,14 @@ export const Home = () => {
 
   return (
     <div className="flex flex-col">
-      <BgContentTop>
+      <BgContentTop size={700}>
         <BlackHeader />
         <main className="container-apply flex flex-col justify-center items-center h-[503px] gap-20 mt-20">
           <div
-            id="banner_head"
+            // id="banner_head"
             className="flex flex-col justify-center items-center max-w-[813px] w-full gap-3"
           >
-            <h2 className="text-[70px] text-white h-[169px] text-center font-bold ">
+            <h2 className="text-[60px] text-white h-[169px] text-center font-bold ">
               Encontre seu emprego dos{" "}
               <span className="text-brand-1 animate-pulse">sonhos</span>!
             </h2>
@@ -113,17 +113,17 @@ export const Home = () => {
         </main>
       </BgContentTop>
 
-      <div className="bg-black w-full h-[100px] flex justify-center">
+      <div className="bg-black w-full h-[75px] flex justify-center">
         <a
           href={linkLinkedIns[currentPerson]}
           className="flex items-center gap-5"
         >
-          <img src={linkedin} alt="LinkedIn" className="h-[50px] w-[50px]" />
-          <h1 className="text-[70px] text-white">{nomes[currentPerson]}</h1>
+          <img src={linkedin} alt="LinkedIn" className="h-[30px] w-[30px]" />
+          <h1 className="text-[30px] text-white">{nomes[currentPerson]}</h1>
         </a>
       </div>
 
-      <div className="bg-white">
+      <div className="bg-white w-screen">
         <section className="container-apply">
           <div className="pt-[60px] flex justify-between">
             <div className="flex flex-col gap-[20px]">
