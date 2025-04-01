@@ -60,7 +60,7 @@ export const SignInForm = () => {
             <span className="text-red-600">{errors.password.message}</span>
           )}
         </fieldset>
-        <span className="text-gray mt-2 text-end">Esqueci minha senha</span>
+        <span className="text-gray mt-2 text-end cursor-pointer" onClick={() => navigate("/recovery-password")}>Esqueci minha senha</span>
       </div>
       <div className="flex flex-col gap-6 w-full mt-5">
         <DefaultButton size="large" text="Entrar" type="submit" variant="brand1" />

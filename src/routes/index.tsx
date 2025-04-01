@@ -8,6 +8,8 @@ import { ProtectPrivateRoutes } from "./ProtectPrivateRoutes";
 import { ApplicationHistory } from "../pages/ApplicationHistory";
 import { AdminProfile } from "../pages/AdminProfile";
 import { NotFound } from "../pages/NotFound";
+import { ResetPassword } from "../pages/ResetPassword";
+import { RecoveryPassword } from "../pages/RecoveryPassword";
 
 export const RoutesComponent = () => {
   return (
@@ -15,6 +17,8 @@ export const RoutesComponent = () => {
       <Route path="" element={<Home />} />
       <Route path="sign-in" element={<SignIn />} />
       <Route path="register" element={<RegisterUser />} />
+      <Route path="/recovery-password" element={<RecoveryPassword />} />
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="profile" element={<ProtectPrivateRoutes />}>
         <Route path="users" element={<UserProfile />} />
         <Route path="users/:id" element={<ApplicationHistory />} />
